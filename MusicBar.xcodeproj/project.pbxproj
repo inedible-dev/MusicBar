@@ -8,18 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */; };
-		1DA6BC1729250E9300A19BD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1629250E9300A19BD0 /* ViewController.swift */; };
 		1DA6BC1929250E9400A19BD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		1DA6BC1C29250E9500A19BD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1A29250E9500A19BD0 /* Main.storyboard */; };
+		1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */; };
+		1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */; };
+		1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC2929252A3300A19BD0 /* StatusBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1DA6BC1129250E9300A19BD0 /* MusicBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1DA6BC1629250E9300A19BD0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1DA6BC1829250E9400A19BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DA6BC1B29250E9500A19BD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1DA6BC1D29250E9500A19BD0 /* MusicBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicBar.entitlements; sourceTree = "<group>"; };
+		1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNowPlaying.swift; sourceTree = "<group>"; };
+		1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendNSImage.swift; sourceTree = "<group>"; };
+		1DA6BC2929252A3300A19BD0 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,10 +57,12 @@
 			isa = PBXGroup;
 			children = (
 				1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */,
-				1DA6BC1629250E9300A19BD0 /* ViewController.swift */,
+				1DA6BC2929252A3300A19BD0 /* StatusBar.swift */,
 				1DA6BC1829250E9400A19BD0 /* Assets.xcassets */,
 				1DA6BC1A29250E9500A19BD0 /* Main.storyboard */,
 				1DA6BC1D29250E9500A19BD0 /* MusicBar.entitlements */,
+				1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */,
+				1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */,
 			);
 			path = MusicBar;
 			sourceTree = "<group>";
@@ -131,7 +137,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DA6BC1729250E9300A19BD0 /* ViewController.swift in Sources */,
+				1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */,
+				1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */,
+				1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */,
 				1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +283,7 @@
 				DEVELOPMENT_TEAM = SX5J72PCDG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -282,6 +291,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kentakoong.MusicBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -302,6 +312,7 @@
 				DEVELOPMENT_TEAM = SX5J72PCDG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -309,6 +320,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kentakoong.MusicBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
