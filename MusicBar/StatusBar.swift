@@ -43,10 +43,19 @@ class StatusBar: NSObject {
             })
         }
         
+        func checkAvailable() -> NSImage? {
+            if #available(macOS 11.0, *) {
+                return NSImage(systemSymbolName: "rays", accessibilityDescription: "rays")
+            }else {
+                var image = NSImage(named: NSImage.Name("rays"))
+                return image?.resizedCopy(w: 15, h: 15)
+            }
+        }
+        
         if let button = statusItem.button {
             button.frame = CGRectMake(0.0, 0.5, button.frame.width, button.frame.height)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : NSImage(systemSymbolName: "rays", accessibilityDescription: "rays")
+                let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
                 let songTitleCheck = songTitle ?? "Music Not Playing"
                 let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
                 let songArtistCheck = songArtist ?? ""
