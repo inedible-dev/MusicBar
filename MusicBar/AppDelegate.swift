@@ -6,13 +6,20 @@
 //
 
 import Cocoa
+import LaunchAtLogin
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusBar: StatusBar!
+    private var isLaunchedFirstTime = true
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        isLaunchedFirstTime = UserDefaults.standard.bool(forKey: "isLaunchedFirstTime")
+        if isLaunchedFirstTime {
+            LaunchAtLogin.isEnabled = true
+            UserDefaults.standard.set(false, forKey: "isLaunchedFirstTime")
+        }
         statusBar = StatusBar()
     }
 

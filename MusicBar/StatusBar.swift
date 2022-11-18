@@ -7,6 +7,7 @@
 
 import Foundation
 import AppKit
+import LaunchAtLogin
 
 class StatusBar: NSObject {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -58,8 +59,23 @@ class StatusBar: NSObject {
     
     private func setupMenu() {
         let menu = NSMenu()
+        menu.addItem(autoLaunchMenu())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         statusItem.menu = menu
+    }
+    
+    @objc func checkAction() {
+        LaunchAtLogin.isEnabled = !LaunchAtLogin.isEnabled
+        setupMenu()
+    }
+    
+    func autoLaunchMenu() -> NSMenuItem {
+        
+        let menuItem = NSMenuItem(title: "Launch At Login", action: #selector(checkAction), keyEquivalent: "")
+        menuItem.state = LaunchAtLogin.isEnabled ? .on : .off
+        menuItem.target = self
+        
+        return menuItem
     }
     
 }

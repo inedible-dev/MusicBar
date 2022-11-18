@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4B849629272B9000942874 /* LaunchAtLogin */; };
 		1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */; };
 		1DA6BC1929250E9400A19BD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		1DA6BC1C29250E9500A19BD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1A29250E9500A19BD0 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D4B849329272A2700942874 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		1DA6BC1129250E9300A19BD0 /* MusicBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DA6BC1829250E9400A19BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,17 +33,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D4B849229272A2700942874 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1D4B849329272A2700942874 /* ServiceManagement.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1DA6BC0829250E9300A19BD0 = {
 			isa = PBXGroup;
 			children = (
 				1DA6BC1329250E9300A19BD0 /* MusicBar */,
 				1DA6BC1229250E9300A19BD0 /* Products */,
+				1D4B849229272A2700942874 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,12 +89,16 @@
 				1DA6BC0D29250E9300A19BD0 /* Sources */,
 				1DA6BC0E29250E9300A19BD0 /* Frameworks */,
 				1DA6BC0F29250E9300A19BD0 /* Resources */,
+				1D4B849829272BD200942874 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MusicBar;
+			packageProductDependencies = (
+				1D4B849629272B9000942874 /* LaunchAtLogin */,
+			);
 			productName = MusicBar;
 			productReference = 1DA6BC1129250E9300A19BD0 /* MusicBar.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +127,9 @@
 				Base,
 			);
 			mainGroup = 1DA6BC0829250E9300A19BD0;
+			packageReferences = (
+				1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+			);
 			productRefGroup = 1DA6BC1229250E9300A19BD0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -131,6 +150,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D4B849829272BD200942874 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1DA6BC0D29250E9300A19BD0 /* Sources */ = {
@@ -292,7 +332,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kentakoong.MusicBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -321,7 +361,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kentakoong.MusicBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -351,6 +391,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1D4B849629272B9000942874 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1DA6BC0929250E9300A19BD0 /* Project object */;
 }
