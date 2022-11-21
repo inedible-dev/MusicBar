@@ -1,6 +1,6 @@
 # MusicBar
-
-### MusicBar is an easy, lightweight way to see currently playing music when you're working!
+ 
+MusicBar is an easy, lightweight way to see currently playing music when you're working!
 
 ![Image](https://user-images.githubusercontent.com/35761701/202656117-034ec1bd-2f42-499b-8171-8abb66b33a5a.jpg)
 
