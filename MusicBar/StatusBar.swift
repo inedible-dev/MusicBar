@@ -47,7 +47,7 @@ class StatusBar: NSObject {
         func checkAvailable() -> NSImage? {
             if #available(macOS 11.0, *) {
                 return NSImage(systemSymbolName: "rays", accessibilityDescription: "rays")
-            }else {
+            } else {
                 let image = NSImage(named: NSImage.Name("rays"))
                 return image?.resizedCopy(w: 15, h: 15)
             }
