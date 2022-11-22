@@ -83,7 +83,6 @@ class StatusBar: NSObject {
     func autoLaunchMenu() -> NSMenuItem {
         let enabled = LaunchAtLogin.isEnabled ? "􀆅 " : space
         let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
-        menuItem.state = LaunchAtLogin.isEnabled ? .on : .off
         menuItem.target = self
         
         return menuItem
