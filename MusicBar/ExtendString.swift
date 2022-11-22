@@ -13,7 +13,6 @@ extension String {
         for i in separator {
             joined = joined.components(separatedBy: i)[0]
         }
-        print(joined.trimmingCharacters(in: .whitespaces))
         self = joined.trimmingCharacters(in: .whitespaces)
     }
 }
