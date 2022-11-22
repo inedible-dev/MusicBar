@@ -56,14 +56,28 @@ class StatusBar: NSObject {
         if let button = statusItem.button {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
-                let songTitleCheck = songTitle ?? "Music Not Playing"
+                let songTitleCheck = self.getSongTitle(songTitle)
                 let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
-                let songArtistCheck = songArtist ?? ""
+                let songArtistCheck = self.getArtist(songArtist)
                 
-                button.title = songTitleCheck + dashCheck + songArtistCheck
+                button.title = " " + songTitleCheck + dashCheck + songArtistCheck
                 button.image = resized
             }
         }
+    }
+    
+    func getSongTitle(_ songTitle: String?) -> String {
+        var songT = songTitle
+        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with"]
+        songT?.cut(separator: cutPhrase)
+        return songT ?? "Music Not Playing"
+    }
+    
+    func getArtist(_ songArtist: String?) -> String {
+        var artistCut = songArtist
+        let cutPhrase = [",", "&", "×"]
+        artistCut?.cut(separator: cutPhrase)
+        return artistCut ?? ""
     }
     
     private func setupMenu() {
@@ -84,7 +98,12 @@ class StatusBar: NSObject {
         let enabled = LaunchAtLogin.isEnabled ? "􀆅 " : space
         let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
         menuItem.target = self
-        
+        return menuItem
+    }
+    
+    func openSettings() -> NSMenuItem {
+        let menuItem = NSMenuItem(title: "\(space)Settings", action: #selector(showSettings), keyEquivalent: ",")
+        menuItem.target = self
         return menuItem
     }
     
