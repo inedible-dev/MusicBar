@@ -47,7 +47,7 @@ class StatusBar: NSObject {
         func checkAvailable() -> NSImage? {
             if #available(macOS 11.0, *) {
                 return NSImage(systemSymbolName: "rays", accessibilityDescription: "rays")
-            }else {
+            } else {
                 let image = NSImage(named: NSImage.Name("rays"))
                 return image?.resizedCopy(w: 15, h: 15)
             }
@@ -83,7 +83,6 @@ class StatusBar: NSObject {
     func autoLaunchMenu() -> NSMenuItem {
         let enabled = LaunchAtLogin.isEnabled ? "􀆅 " : space
         let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
-        menuItem.state = LaunchAtLogin.isEnabled ? .on : .off
         menuItem.target = self
         
         return menuItem
