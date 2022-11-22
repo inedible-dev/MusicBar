@@ -12,6 +12,7 @@ import LaunchAtLogin
 class StatusBar: NSObject {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var nowPlaying = GetNowPlaying().getNowPlaying()
+    private let space = "     "
     
     override init() {
         super.init()
@@ -53,7 +54,6 @@ class StatusBar: NSObject {
         }
         
         if let button = statusItem.button {
-            button.frame = CGRectMake(0.0, 0.5, button.frame.width, button.frame.height)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
                 let songTitleCheck = songTitle ?? "Music Not Playing"
@@ -70,6 +70,8 @@ class StatusBar: NSObject {
         let menu = NSMenu()
         menu.addItem(autoLaunchMenu())
         menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        
         statusItem.menu = menu
     }
     
@@ -79,8 +81,8 @@ class StatusBar: NSObject {
     }
     
     func autoLaunchMenu() -> NSMenuItem {
-        
-        let menuItem = NSMenuItem(title: "Launch At Login", action: #selector(checkAction), keyEquivalent: "")
+        let enabled = LaunchAtLogin.isEnabled ? "􀆅 " : space
+        let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
         menuItem.state = LaunchAtLogin.isEnabled ? .on : .off
         menuItem.target = self
         
