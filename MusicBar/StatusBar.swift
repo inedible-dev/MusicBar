@@ -60,7 +60,17 @@ class StatusBar: NSObject {
                 let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
                 let songArtistCheck = self.getArtist(songArtist)
                 
-                button.title = " " + songTitleCheck + dashCheck + songArtistCheck
+                let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
+                
+                if #available(macOS 11.0, *) {
+                    button.title = titleCombined
+                }
+                else {
+                    let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                    let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                    button.attributedTitle = attributedText
+                }
+                
                 button.image = resized
                 button.imagePosition = .imageLeft
             }
