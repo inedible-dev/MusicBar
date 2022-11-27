@@ -62,6 +62,7 @@ class StatusBar: NSObject {
                 
                 button.title = " " + songTitleCheck + dashCheck + songArtistCheck
                 button.image = resized
+                button.imagePosition = .imageLeft
             }
         }
     }
