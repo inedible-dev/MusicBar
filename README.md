@@ -34,4 +34,4 @@ Lastly, drag the Application to the /Applications folder and open your Launchpad
   ```
   Thank you [@mintyleaf](https://github.com/mintyleaf) for the workaround!
 
-  Please check [#6](https://github.com/Kentakoong/MusicBar/discussions/6) for those that can't open the Application(.app)
+  Please check [#6](https://github.com/Kentakoong/MusicBar/discussions/6) for further details!
