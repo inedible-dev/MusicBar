@@ -91,7 +91,6 @@ class StatusBar: NSObject {
     private func setupMenu() {
         let menu = NSMenu()
         menu.addItem(autoLaunchMenu())
-//        menu.addItem(openSettings())
         menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         statusItem.menu = menu
@@ -108,11 +107,4 @@ class StatusBar: NSObject {
         menuItem.target = self
         return menuItem
     }
-    
-//    func openSettings() -> NSMenuItem {
-//        let menuItem = NSMenuItem(title: "\(space)Settings", action: #selector(showSettings), keyEquivalent: ",")
-//        menuItem.target = self
-//        return menuItem
-//    }
-    
 }
