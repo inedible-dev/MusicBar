@@ -4,7 +4,7 @@
 MusicBar is an easy, lightweight way to see currently playing music when you're working!
 
 * Visualize Now Playing Songs
-* Supports every Application that uses the **Now Playing API**
+* Supports every Application
 * Launch At Login Capability
 
 ## Installation
