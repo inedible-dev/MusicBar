@@ -29,17 +29,14 @@ class StatusBar: NSObject {
         if let getNowPlaying = nowPlaying {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
-                let title = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String
-                let artist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String
-                let imageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data
-                if let songT = title {
-                    songTitle = songT
+                if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
+                    songTitle = infoTitle
                 }
-                if let songA = artist {
-                    songArtist = songA
+                if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
+                    songArtist = infoArtist
                 }
-                if let imageData = imageData {
-                    image = NSImage(data: imageData)
+                if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
+                    image = NSImage(data: infoImageData)
                 }
             })
         }
@@ -94,6 +91,7 @@ class StatusBar: NSObject {
     private func setupMenu() {
         let menu = NSMenu()
         menu.addItem(autoLaunchMenu())
+//        menu.addItem(openSettings())
         menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         statusItem.menu = menu
