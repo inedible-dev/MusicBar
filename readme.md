@@ -17,6 +17,10 @@ Then, if needed, extract the zip file.
 Lastly, drag the Application to the /Applications folder and open your Launchpad to run it!
 <img width="512" alt="Screenshot 2022-11-18 at 3 31 01 PM" src="https://user-images.githubusercontent.com/35761701/202657110-3d0f44c2-77df-4526-b3ee-6816978d2e2a.png">
 
+## Building the Application
+
+  Check out [BUILD.md](https://github.com/Kentakoong/MusicBar/blob/main/BUILD.md) to build the Application yourself!
+
 ## Can't open the Application?
 
-Please check [#6](https://github.com/Kentakoong/MusicBar/discussions/6) for those that can't open the Application(.app)
+  Please check [#6](https://github.com/Kentakoong/MusicBar/discussions/6) for those that can't open the Application(.app)
