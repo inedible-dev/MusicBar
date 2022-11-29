@@ -56,7 +56,7 @@ class StatusBar: NSObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
                 let songTitleCheck = self.getSongTitle(songTitle)
-                let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
+                let dashCheck = (songTitle != nil && songArtist != "") ? " - " : ""
                 let songArtistCheck = self.getArtist(songArtist)
                 
                 let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
