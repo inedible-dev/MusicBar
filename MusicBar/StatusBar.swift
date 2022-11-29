@@ -29,6 +29,8 @@ class StatusBar: NSObject {
         if let getNowPlaying = nowPlaying {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
+                if(information.isEmpty) { return }
+                
                 if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
                     songTitle = infoTitle
                 }
