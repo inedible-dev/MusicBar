@@ -29,26 +29,23 @@ class StatusBar: NSObject {
         if let getNowPlaying = nowPlaying {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
-                let title = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String
-                let artist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String
-                let imageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data
-                if let songT = title {
-                    songTitle = songT
+                if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
+                    songTitle = infoTitle
                 }
-                if let songA = artist {
-                    songArtist = songA
+                if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
+                    songArtist = infoArtist
                 }
-                if let imageData = imageData {
-                    image = NSImage(data: imageData)
+                if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
+                    image = NSImage(data: infoImageData)
                 }
             })
         }
         
         func checkAvailable() -> NSImage? {
             if #available(macOS 11.0, *) {
-                return NSImage(systemSymbolName: "rays", accessibilityDescription: "rays")
+                return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
             } else {
-                let image = NSImage(named: NSImage.Name("rays"))
+                let image = NSImage(named: NSImage.Name("music.note"))
                 return image?.resizedCopy(w: 15, h: 15)
             }
         }
@@ -60,8 +57,19 @@ class StatusBar: NSObject {
                 let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
                 let songArtistCheck = self.getArtist(songArtist)
                 
-                button.title = " " + songTitleCheck + dashCheck + songArtistCheck
+                let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
+                
+                if #available(macOS 11.0, *) {
+                    button.title = titleCombined
+                }
+                else {
+                    let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                    let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                    button.attributedTitle = attributedText
+                }
+                
                 button.image = resized
+                button.imagePosition = .imageLeft
             }
         }
     }
@@ -99,5 +107,4 @@ class StatusBar: NSObject {
         menuItem.target = self
         return menuItem
     }
-    
 }
