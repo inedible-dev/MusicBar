@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    mutating func cut(separator: [String]) {
+    mutating func cutFeat(separator: [String]) {
         var joined = self
         for i in separator {
             joined = joined.components(separatedBy: i)[0]
