@@ -16,7 +16,7 @@ class StatusBar: NSObject {
     
     override init() {
         super.init()
-        Timer.scheduledTimer(timeInterval: 0.30, target: self, selector: #selector(setMedia), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(setMedia), userInfo: nil, repeats: true)
         setupMenu()
     }
     
@@ -25,6 +25,15 @@ class StatusBar: NSObject {
         var songTitle: String?
         var songArtist: String?
         var image: NSImage?
+        
+        func checkAvailable() -> NSImage? {
+            if #available(macOS 11.0, *) {
+                return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
+            } else {
+                let image = NSImage(named: NSImage.Name("music.note"))
+                return image?.resizedCopy(w: 15, h: 15)
+            }
+        }
         
         if let getNowPlaying = nowPlaying {
             getNowPlaying(DispatchQueue.main, {
@@ -40,36 +49,35 @@ class StatusBar: NSObject {
                 }
             })
         }
-        
-        func checkAvailable() -> NSImage? {
-            if #available(macOS 11.0, *) {
-                return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            if(songTitle != nil) {
+                self.statusItem.length = NSStatusItem.variableLength
+                if let button = self.statusItem.button {
+                    let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
+                    let songTitleCheck = self.getSongTitle(songTitle)
+                    let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
+                    let songArtistCheck = self.getArtist(songArtist)
+                    
+                    let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
+                    
+                    if #available(macOS 11.0, *) {
+                        button.title = titleCombined
+                    }
+                    else {
+                        let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                        let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                        button.attributedTitle = attributedText
+                    }
+                    
+                    button.image = resized
+                    button.imagePosition = .imageLeft
+                }
             } else {
-                let image = NSImage(named: NSImage.Name("music.note"))
-                return image?.resizedCopy(w: 15, h: 15)
-            }
-        }
-        
-        if let button = statusItem.button {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
-                let songTitleCheck = self.getSongTitle(songTitle)
-                let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
-                let songArtistCheck = self.getArtist(songArtist)
-                
-                let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
-                
-                if #available(macOS 11.0, *) {
-                    button.title = titleCombined
+                self.statusItem.length = 18
+                if let button = self.statusItem.button {
+                    button.image = checkAvailable()
                 }
-                else {
-                    let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
-                    let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
-                    button.attributedTitle = attributedText
-                }
-                
-                button.image = resized
-                button.imagePosition = .imageLeft
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
             }
         }
     }
@@ -77,14 +85,14 @@ class StatusBar: NSObject {
     func getSongTitle(_ songTitle: String?) -> String {
         var songT = songTitle
         let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with"]
-        songT?.cut(separator: cutPhrase)
+        songT?.cutFeat(separator: cutPhrase)
         return songT ?? "Music Not Playing"
     }
     
     func getArtist(_ songArtist: String?) -> String {
         var artistCut = songArtist
         let cutPhrase = [",", "&", "×"]
-        artistCut?.cut(separator: cutPhrase)
+        artistCut?.cutFeat(separator: cutPhrase)
         return artistCut ?? ""
     }
     
