@@ -55,7 +55,7 @@ class StatusBar: NSObject {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             if(songTitle != nil) {
-                if(songTitle != self.lastTitle && songArtist != self.lastArtist && image != self.lastImage) {
+                if(songTitle != self.lastTitle || songArtist != self.lastArtist || image != self.lastImage) {
                     self.statusItem.length = NSStatusItem.variableLength
                     if let button = self.statusItem.button {
                         let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
