@@ -14,6 +14,10 @@ class StatusBar: NSObject {
     var nowPlaying = GetNowPlaying().getNowPlaying()
     private let space = "     "
     
+    private var lastTitle = ""
+    private var lastArtist = ""
+    private var lastImage = NSImage()
+    
     override init() {
         super.init()
         Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(setMedia), userInfo: nil, repeats: true)
@@ -51,26 +55,28 @@ class StatusBar: NSObject {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             if(songTitle != nil) {
-                self.statusItem.length = NSStatusItem.variableLength
-                if let button = self.statusItem.button {
-                    let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
-                    let songTitleCheck = self.getSongTitle(songTitle)
-                    let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
-                    let songArtistCheck = self.getArtist(songArtist)
-                    
-                    let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
-                    
-                    if #available(macOS 11.0, *) {
-                        button.title = titleCombined
+                if(songTitle != self.lastTitle || songArtist != self.lastArtist || image != self.lastImage) {
+                    self.statusItem.length = NSStatusItem.variableLength
+                    if let button = self.statusItem.button {
+                        let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
+                        let songTitleCheck = self.getSongTitle(songTitle)
+                        let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
+                        let songArtistCheck = self.getArtist(songArtist)
+                        
+                        let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
+                        
+                        if #available(macOS 11.0, *) {
+                            button.title = titleCombined
+                        }
+                        else {
+                            let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                            let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                            button.attributedTitle = attributedText
+                        }
+                        
+                        button.image = resized
+                        button.imagePosition = .imageLeft
                     }
-                    else {
-                        let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
-                        let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
-                        button.attributedTitle = attributedText
-                    }
-                    
-                    button.image = resized
-                    button.imagePosition = .imageLeft
                 }
             } else {
                 self.statusItem.length = 18
