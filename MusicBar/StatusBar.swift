@@ -110,15 +110,44 @@ class StatusBar: NSObject {
         statusItem.menu = menu
     }
     
+    func getCheck() -> String {
+        if #available(macOS 11.0, *) {
+            return "􀆅 "
+        } else {
+            return "√  "
+        }
+    }
+    
     @objc func checkAction() {
         LaunchAtLogin.isEnabled = !LaunchAtLogin.isEnabled
-        setupMenu()
+        
+        setupMenu() //resets symbol
     }
     
     func autoLaunchMenu() -> NSMenuItem {
-        let enabled = LaunchAtLogin.isEnabled ? "􀆅 " : space
+        
+        let enabled = LaunchAtLogin.isEnabled ? getCheck() : space
         let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
         menuItem.target = self
+        return menuItem
+    }
+    
+    func getsongTitleOnlyKey() -> Bool {
+        return UserDefaults.standard.bool(forKey: "songTitleOnly")
+    }
+    
+    @objc func showOnlySongTitleToggle() {
+        UserDefaults.standard.set(!getsongTitleOnlyKey(), forKey: "songTitleOnly")
+        
+        setupMenu() //resets symbol
+    }
+    
+    func showOnlySongTitle() -> NSMenuItem {
+        let key = getsongTitleOnlyKey()
+        let enabled = key ? getCheck() : space
+        let menuItem =  NSMenuItem(title: "\(enabled)Song Title Only", action: #selector(showOnlySongTitleToggle), keyEquivalent: "")
+        menuItem.target = self
+        
         return menuItem
     }
 }
