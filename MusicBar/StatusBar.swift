@@ -39,6 +39,25 @@ class StatusBar: NSObject {
             }
         }
         
+        func getCheck(_ t: String,_ a: String) -> String {
+            let t = t.trimmingCharacters(in: .whitespaces)
+            let a = a.trimmingCharacters(in: .whitespaces)
+            
+            if(getsongTitleOnlyKey()) {
+                return t
+            } else if (t != "") {
+                if(a != "") {
+                    return "\(t) - \(a)"
+                } else {
+                    return t
+                }
+            } else if(a != "") {
+                return "Song by \(a)"
+            } else {
+                return ""
+            }
+        }
+        
         if let getNowPlaying = nowPlaying {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
@@ -60,10 +79,10 @@ class StatusBar: NSObject {
                     if let button = self.statusItem.button {
                         let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
                         let songTitleCheck = self.getSongTitle(songTitle)
-                        let dashCheck = (songTitle != nil && songArtist != nil) ? " - " : ""
                         let songArtistCheck = self.getArtist(songArtist)
                         
-                        let titleCombined = " " + songTitleCheck + dashCheck + songArtistCheck
+                        
+                        let titleCombined = " " + getCheck(songTitleCheck, songArtistCheck)
                         
                         if #available(macOS 11.0, *) {
                             button.title = titleCombined
@@ -105,6 +124,7 @@ class StatusBar: NSObject {
     private func setupMenu() {
         let menu = NSMenu()
         menu.addItem(autoLaunchMenu())
+        menu.addItem(showOnlySongTitle())
         menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         statusItem.menu = menu
@@ -119,6 +139,25 @@ class StatusBar: NSObject {
         let enabled = LaunchAtLogin.isEnabled ? "􀆅 " : space
         let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
         menuItem.target = self
+        return menuItem
+    }
+    
+    func getsongTitleOnlyKey() -> Bool {
+        return UserDefaults.standard.bool(forKey: "songTitleOnly")
+    }
+    
+    @objc func showOnlySongTitleToggle() {
+        UserDefaults.standard.set(!getsongTitleOnlyKey(), forKey: "songTitleOnly")
+        
+        setupMenu()
+    }
+    
+    func showOnlySongTitle() -> NSMenuItem {
+        let key = getsongTitleOnlyKey()
+        let enabled = key ? "􀆅 " : space
+        let menuItem =  NSMenuItem(title: "\(enabled)Song Title Only", action: #selector(showOnlySongTitleToggle), keyEquivalent: "")
+        menuItem.target = self
+        
         return menuItem
     }
 }
