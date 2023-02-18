@@ -14,6 +14,7 @@ class StatusBar: NSObject {
     var nowPlaying = GetNowPlaying().getNowPlaying()
     private let space = "     "
     
+    private var firstLaunchInitiated = false
     private var lastTitle = ""
     private var lastArtist = ""
     private var lastImage = NSImage()
@@ -102,7 +103,11 @@ class StatusBar: NSObject {
                 if let button = self.statusItem.button {
                     button.image = checkAvailable()
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
+                if(self.firstLaunchInitiated) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
+                } else {
+                    self.firstLaunchInitiated = true
+                }
             }
         }
     }
