@@ -40,7 +40,7 @@ class StatusBar: NSObject {
             }
         }
         
-        func getCheck(_ t: String,_ a: String) -> String {
+        func getCheck(_ t: String,_ a: String) -> String? {
             let t = t.trimmingCharacters(in: .whitespaces)
             let a = a.trimmingCharacters(in: .whitespaces)
             
@@ -55,7 +55,7 @@ class StatusBar: NSObject {
             } else if(a != "") {
                 return "Song by \(a)"
             } else {
-                return ""
+                return nil
             }
         }
         
@@ -82,16 +82,19 @@ class StatusBar: NSObject {
                         let songTitleCheck = self.getSongTitle(songTitle)
                         let songArtistCheck = self.getArtist(songArtist)
                         
+                        let check = getCheck(songTitleCheck, songArtistCheck)
                         
-                        let titleCombined = " " + getCheck(songTitleCheck, songArtistCheck)
-                        
-                        if #available(macOS 11.0, *) {
-                            button.title = titleCombined
-                        }
-                        else {
-                            let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
-                            let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
-                            button.attributedTitle = attributedText
+                        if (check != nil) {
+                            let titleCombined = " " + (check ?? "")
+                            
+                            if #available(macOS 11.0, *) {
+                                button.title = titleCombined
+                            }
+                            else {
+                                let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                                let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                                button.attributedTitle = attributedText
+                            }
                         }
                         
                         button.image = resized
