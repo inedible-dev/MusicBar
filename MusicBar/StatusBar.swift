@@ -5,7 +5,6 @@
 //  Created by Wongkraiwich Chuenchomphu on 11/16/22.
 //
 
-import Foundation
 import AppKit
 import LaunchAtLogin
 
@@ -36,7 +35,7 @@ class StatusBar: NSObject {
                 return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
             } else {
                 let image = NSImage(named: NSImage.Name("music.note"))
-                return image?.resizedCopy(w: 15, h: 15)
+                return image?.scaledCopy(sizeOfLargerSide: 15)
             }
         }
         
@@ -78,11 +77,13 @@ class StatusBar: NSObject {
                 if(songTitle != self.lastTitle || songArtist != self.lastArtist || image != self.lastImage) {
                     self.statusItem.length = NSStatusItem.variableLength
                     if let button = self.statusItem.button {
-                        let resized = (image != nil) ? image?.resizedCopy(w: 19, h: 19) : checkAvailable()
+                        let resized = (image != nil) ? image?.scaledCopy(sizeOfLargerSide: 19) : checkAvailable()
                         let songTitleCheck = self.getSongTitle(songTitle)
                         let songArtistCheck = self.getArtist(songArtist)
                         
                         let check = getCheck(songTitleCheck, songArtistCheck)
+                        
+                        button.image = resized
                         
                         if (check != nil) {
                             let titleCombined = " " + (check ?? "")
@@ -95,10 +96,11 @@ class StatusBar: NSObject {
                                 let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
                                 button.attributedTitle = attributedText
                             }
+                            button.imagePosition = .imageLeft
+                        } else {
+                            button.imagePosition = .imageOnly
                         }
                         
-                        button.image = resized
-                        button.imagePosition = .imageLeft
                     }
                 }
             } else {
@@ -137,6 +139,8 @@ class StatusBar: NSObject {
         
         statusItem.menu = menu
     }
+    
+    
     
     func getCheck() -> String {
         if #available(macOS 11.0, *) {
