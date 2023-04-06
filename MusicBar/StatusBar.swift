@@ -39,20 +39,24 @@ class StatusBar: NSObject {
             }
         }
         
-        func getCheck(_ t: String,_ a: String) -> String? {
-            let t = t.trimmingCharacters(in: .whitespaces)
-            let a = a.trimmingCharacters(in: .whitespaces)
+        func getCheck(_ title: String, _ artist: String) -> String? {
+            let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
+            let trimmedArtist = artist.trimmingCharacters(in: .whitespaces)
             
-            if(getsongTitleOnlyKey()) {
-                return t
-            } else if (t != "") {
-                if(a != "") {
-                    return "\(t) - \(a)"
+            let combinedCount = title.count + artist.count
+            
+            if getSongTitleOnlyKey() {
+                return trimmedTitle
+            } else if !trimmedTitle.isEmpty {
+                if getLimitText() || (!trimmedArtist.isEmpty && (combinedCount < 32 || title.count < 16 && artist.count < 16)) {
+                    return "\(trimmedTitle) - \(trimmedArtist)"
+                } else if title.count < 32 {
+                    return trimmedTitle
                 } else {
-                    return t
+                    return String(trimmedTitle.prefix(32)) + "..."
                 }
-            } else if(a != "") {
-                return "Song by \(a)"
+            } else if !trimmedArtist.isEmpty {
+                return "Song by \(trimmedArtist)"
             } else {
                 return nil
             }
@@ -135,18 +139,27 @@ class StatusBar: NSObject {
         let menu = NSMenu()
         menu.addItem(autoLaunchMenu())
         menu.addItem(showOnlySongTitle())
+        menu.addItem(showLimitText())
         menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         statusItem.menu = menu
     }
     
-    
-    
-    func getCheck() -> String {
-        if #available(macOS 11.0, *) {
-            return "􀆅 "
+    func checkCheckMark(_ label: String, arg: Bool) -> NSMutableAttributedString {
+        if (arg) {
+            if #available(macOS 11.0, *) {
+                let imageAttachment = NSTextAttachment()
+                imageAttachment.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: "Checkmark")
+                
+                let fullString = NSMutableAttributedString(attachment: imageAttachment)
+                fullString.append(NSAttributedString(attachment: imageAttachment))
+                fullString.append(NSAttributedString(string: " " + label))
+                return fullString
+            } else {
+                return NSMutableAttributedString(string: "√  " + label)
+            }
         } else {
-            return "√  "
+            return NSMutableAttributedString(string: space + label)
         }
     }
     
@@ -157,27 +170,49 @@ class StatusBar: NSObject {
     }
     
     func autoLaunchMenu() -> NSMenuItem {
+        let menuItem =  NSMenuItem()
+        menuItem.attributedTitle = checkCheckMark("Launch At Login", arg: LaunchAtLogin.isEnabled)
+        menuItem.action = #selector(checkAction)
         
-        let enabled = LaunchAtLogin.isEnabled ? getCheck() : space
-        let menuItem =  NSMenuItem(title: "\(enabled)Launch At Login", action: #selector(checkAction), keyEquivalent: "")
         menuItem.target = self
         return menuItem
     }
     
-    func getsongTitleOnlyKey() -> Bool {
+    func getSongTitleOnlyKey() -> Bool {
         return UserDefaults.standard.bool(forKey: "songTitleOnly")
     }
     
     @objc func showOnlySongTitleToggle() {
-        UserDefaults.standard.set(!getsongTitleOnlyKey(), forKey: "songTitleOnly")
+        UserDefaults.standard.set(!getSongTitleOnlyKey(), forKey: "songTitleOnly")
         
         setupMenu() //resets symbol
     }
     
     func showOnlySongTitle() -> NSMenuItem {
-        let key = getsongTitleOnlyKey()
-        let enabled = key ? getCheck() : space
-        let menuItem =  NSMenuItem(title: "\(enabled)Song Title Only", action: #selector(showOnlySongTitleToggle), keyEquivalent: "")
+        let menuItem =  NSMenuItem()
+        menuItem.attributedTitle = checkCheckMark("Song Title Only", arg: getSongTitleOnlyKey())
+        menuItem.action = #selector(showOnlySongTitleToggle)
+        
+        menuItem.target = self
+        
+        return menuItem
+    }
+    
+    func getLimitText() -> Bool {
+        return UserDefaults.standard.bool(forKey: "limitText")
+    }
+    
+    @objc func limitTextToggle() {
+        UserDefaults.standard.set(!getLimitText(), forKey: "limitText")
+        
+        setupMenu() //resets symbol
+    }
+    
+    func showLimitText() -> NSMenuItem {
+        let menuItem =  NSMenuItem()
+        menuItem.attributedTitle = checkCheckMark("Let Text Overflow", arg: getLimitText())
+        menuItem.action = #selector(limitTextToggle)
+        
         menuItem.target = self
         
         return menuItem
