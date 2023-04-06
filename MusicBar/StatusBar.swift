@@ -46,17 +46,25 @@ class StatusBar: NSObject {
             let combinedCount = title.count + artist.count
             
             if getSongTitleOnlyKey() {
-                return trimmedTitle
+                if getLimitText() || title.count < 32 {
+                    return trimmedTitle
+                } else {
+                    return String(trimmedTitle.prefix(32)) + "..."
+                }
             } else if !trimmedTitle.isEmpty {
-                if getLimitText() || (!trimmedArtist.isEmpty && (combinedCount < 32 || title.count < 16 && artist.count < 16)) {
+                if getLimitText() || (!trimmedArtist.isEmpty && combinedCount < 32) {
                     return "\(trimmedTitle) - \(trimmedArtist)"
-                } else if title.count < 32 {
+                } else if getLimitText() || title.count < 32 {
                     return trimmedTitle
                 } else {
                     return String(trimmedTitle.prefix(32)) + "..."
                 }
             } else if !trimmedArtist.isEmpty {
-                return "Song by \(trimmedArtist)"
+                if getLimitText() || artist.count < 32 {
+                    return "Song by \(trimmedArtist)"
+                } else {
+                    return "Song by \(String(trimmedArtist.prefix(32)) + "...")"
+                }
             } else {
                 return nil
             }
