@@ -8,6 +8,13 @@ MusicBar is an easy, lightweight way to see currently playing music when working
 * Launch At Login Capability
 
 ## Installation
+
+### **Download it on the App Store today!**
+
+<a href="https://musicbar.inedible.dev">![Download it on the App Store today!](https://user-images.githubusercontent.com/35761701/230629585-83686d04-dc60-4e97-8de0-d1d4ebb7a023.svg)</a>
+
+or
+
 Download [MusicBar.app.zip](https://github.com/Kentakoong/MusicBar/releases/download/v0.1.1/MusicBar.app.zip) from the [Releases](https://github.com/Kentakoong/MusicBar/releases) page. 
 
 <img width="512" alt="Screenshot 2022-11-18 at 3 28 39 PM" src="https://user-images.githubusercontent.com/35761701/202656533-3b1be2f7-14ec-44c2-9d52-cf9cb0165653.png">
@@ -15,6 +22,7 @@ Download [MusicBar.app.zip](https://github.com/Kentakoong/MusicBar/releases/down
 Then, if needed, extract the zip file.
 
 Lastly, drag the Application to the /Applications folder and open your Launchpad to run it!
+
 <img width="512" alt="Screenshot 2022-11-18 at 3 31 01 PM" src="https://user-images.githubusercontent.com/35761701/202657110-3d0f44c2-77df-4526-b3ee-6816978d2e2a.png">
 
 ## Building the Application
