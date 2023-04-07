@@ -1,5 +1,5 @@
 # <img src="https://user-images.githubusercontent.com/35761701/204182243-6ad37686-e613-4280-ba83-7ec10bd25968.png" width="256" />
-<img align="right" src="https://user-images.githubusercontent.com/35761701/204183771-ee8c8094-3977-4aaa-9e4a-011624c6abd7.png" width="400" />
+<img align="right" height="200" alt="musicbar-readme" src="https://user-images.githubusercontent.com/35761701/230631038-e80f5cd6-cd85-4fb9-9b96-257fce49651f.png" />
 
 MusicBar is an easy, lightweight way to see currently playing music when working!
 
@@ -7,11 +7,12 @@ MusicBar is an easy, lightweight way to see currently playing music when working
 * Supports every Application
 * Launch At Login Capability
 
-## Installation
+<br /><br /><br />
+
+# Installation
 
 ### **Download it on the App Store today!**
-
-<a href="https://musicbar.inedible.dev">![Download it on the App Store today!](https://user-images.githubusercontent.com/35761701/230629585-83686d04-dc60-4e97-8de0-d1d4ebb7a023.svg)</a>
+<a href="https://musicbar.inedible.dev"><img src="https://user-images.githubusercontent.com/35761701/230629585-83686d04-dc60-4e97-8de0-d1d4ebb7a023.svg" width="250" /></a>
 
 or
 
