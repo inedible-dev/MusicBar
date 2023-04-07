@@ -32,7 +32,7 @@ Lastly, drag the Application to the /Applications folder and open your Launchpad
 
 ## Can't open the Application?
 
-  For now, code signing is still broken. To make it work, run these command
+  To make it work, run these command
   
   ```console
   $ xattr -d com.apple.quarantine <your_path_to_folder>/MusicBar.app
