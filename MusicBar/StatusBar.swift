@@ -63,7 +63,7 @@ class StatusBar: NSObject {
                 if getLimitText() || artist.count <= 32 {
                     return "Song by \(trimmedArtist)"
                 } else {
-                    return "Song by \(String(trimmedArtist.prefix(32)) + "...")"
+                    return "Song by \(String(trimmedArtist.prefix(32)))..."
                 }
             } else {
                 return nil
@@ -155,17 +155,21 @@ class StatusBar: NSObject {
     
     func checkCheckMark(_ label: String, arg: Bool) -> NSMutableAttributedString {
         if (arg) {
+            let imageAttachment = NSTextAttachment()
             if #available(macOS 11.0, *) {
-                let imageAttachment = NSTextAttachment()
                 imageAttachment.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: "Checkmark")
-                
-                let fullString = NSMutableAttributedString(attachment: imageAttachment)
-                fullString.append(NSAttributedString(attachment: imageAttachment))
-                fullString.append(NSAttributedString(string: " " + label))
-                return fullString
             } else {
-                return NSMutableAttributedString(string: "√  " + label)
+                var image = NSImage(imageLiteralResourceName: "checkmark")
+                image.size.width = 11
+                image.size.height = 11
+                imageAttachment.image = image
+                
             }
+            
+            let fullString = NSMutableAttributedString(attachment: imageAttachment)
+            fullString.append(NSAttributedString(attachment: imageAttachment))
+            fullString.append(NSAttributedString(string: " " + label))
+            return fullString
         } else {
             return NSMutableAttributedString(string: space + label)
         }
