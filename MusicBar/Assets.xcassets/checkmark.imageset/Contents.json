@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "music.note@2x.png",
+      "filename" : "checkmark@2x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "music.note@4x.png",
+      "filename" : "checkmark@4x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "music.note@6x.png",
+      "filename" : "checkmark@6x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
