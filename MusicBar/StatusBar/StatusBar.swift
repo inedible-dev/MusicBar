@@ -11,7 +11,7 @@ import LaunchAtLogin
 class StatusBar: NSObject {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var nowPlaying = GetNowPlaying().getNowPlaying()
-    private let space = "     "
+    private let space = "      "
     
     private var firstLaunchInitiated = false
     private var lastTitle = ""
@@ -57,7 +57,7 @@ class StatusBar: NSObject {
                 } else if getLimitText() || title.count <= 32 {
                     return trimmedTitle
                 } else {
-                    return String(trimmedTitle.prefix(32)) + "..."
+                    return "\(String(trimmedTitle.prefix(32)))..."
                 }
             } else if !trimmedArtist.isEmpty {
                 if getLimitText() || artist.count <= 32 {
@@ -108,7 +108,6 @@ class StatusBar: NSObject {
                                 let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
                                 button.attributedTitle = attributedText
                             }
-                            button.imagePosition = .imageLeft
                         } else {
                             button.imagePosition = .imageOnly
                         }
@@ -155,20 +154,21 @@ class StatusBar: NSObject {
     
     func checkCheckMark(_ label: String, arg: Bool) -> NSMutableAttributedString {
         if (arg) {
+            
             let imageAttachment = NSTextAttachment()
-            if #available(macOS 11.0, *) {
-                imageAttachment.image = NSImage(systemSymbolName: "checkmark", accessibilityDescription: "Checkmark")
-            } else {
-                var image = NSImage(imageLiteralResourceName: "checkmark")
-                image.size.width = 11
-                image.size.height = 11
-                imageAttachment.image = image
-                
-            }
+            
+            let image = NSImage(imageLiteralResourceName: "checkmark")
+            
+            image.size.width = 10
+            image.size.height = 10
+            
+            imageAttachment.image = image
             
             let fullString = NSMutableAttributedString(attachment: imageAttachment)
+            
             fullString.append(NSAttributedString(attachment: imageAttachment))
-            fullString.append(NSAttributedString(string: " " + label))
+            fullString.append(NSAttributedString(string: "   " + label))
+            
             return fullString
         } else {
             return NSMutableAttributedString(string: space + label)

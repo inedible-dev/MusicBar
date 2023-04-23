@@ -8,25 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4B849629272B9000942874 /* LaunchAtLogin */; };
-		1D628550292B5B4E00C38D81 /* ExtendString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62854F292B5B4E00C38D81 /* ExtendString.swift */; };
+		1D628550292B5B4E00C38D81 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62854F292B5B4E00C38D81 /* String+Extension.swift */; };
 		1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */; };
 		1DA6BC1929250E9400A19BD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		1DA6BC1C29250E9500A19BD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1A29250E9500A19BD0 /* Main.storyboard */; };
 		1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */; };
-		1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */; };
+		1DA6BC282925217000A19BD0 /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC272925217000A19BD0 /* NSImage+Extension.swift */; };
 		1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC2929252A3300A19BD0 /* StatusBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D4B849329272A2700942874 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
-		1D62854F292B5B4E00C38D81 /* ExtendString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendString.swift; sourceTree = "<group>"; };
+		1D62854F292B5B4E00C38D81 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		1DA6BC1129250E9300A19BD0 /* MusicBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DA6BC1829250E9400A19BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DA6BC1B29250E9500A19BD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1DA6BC1D29250E9500A19BD0 /* MusicBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicBar.entitlements; sourceTree = "<group>"; };
 		1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNowPlaying.swift; sourceTree = "<group>"; };
-		1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendNSImage.swift; sourceTree = "<group>"; };
+		1DA6BC272925217000A19BD0 /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		1DA6BC2929252A3300A19BD0 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -43,6 +43,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D19C5D829F1C343003E3D0C /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */,
+				1DA6BC2929252A3300A19BD0 /* StatusBar.swift */,
+			);
+			path = StatusBar;
+			sourceTree = "<group>";
+		};
+		1D19C5D929F1C34D003E3D0C /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		1D19C5DA29F1C355003E3D0C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1DA6BC272925217000A19BD0 /* NSImage+Extension.swift */,
+				1D62854F292B5B4E00C38D81 /* String+Extension.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		1D4B849229272A2700942874 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,15 +96,14 @@
 		1DA6BC1329250E9300A19BD0 /* MusicBar */ = {
 			isa = PBXGroup;
 			children = (
+				1D19C5DA29F1C355003E3D0C /* Utilities */,
+				1D19C5D929F1C34D003E3D0C /* SettingsView */,
+				1D19C5D829F1C343003E3D0C /* StatusBar */,
 				1DBA0D1929DD7C2F00A7B946 /* Info.plist */,
 				1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */,
-				1DA6BC2929252A3300A19BD0 /* StatusBar.swift */,
 				1DA6BC1829250E9400A19BD0 /* Assets.xcassets */,
 				1DA6BC1A29250E9500A19BD0 /* Main.storyboard */,
 				1DA6BC1D29250E9500A19BD0 /* MusicBar.entitlements */,
-				1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */,
-				1D62854F292B5B4E00C38D81 /* ExtendString.swift */,
-				1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */,
 			);
 			path = MusicBar;
 			sourceTree = "<group>";
@@ -182,10 +206,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D628550292B5B4E00C38D81 /* ExtendString.swift in Sources */,
+				1D628550292B5B4E00C38D81 /* String+Extension.swift in Sources */,
 				1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */,
 				1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */,
-				1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */,
+				1DA6BC282925217000A19BD0 /* NSImage+Extension.swift in Sources */,
 				1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
