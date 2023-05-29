@@ -7,127 +7,157 @@
 
 import AppKit
 import LaunchAtLogin
+import SwiftUI
 
-class StatusBar: NSObject {
+class StatusBar {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    var nowPlaying = GetNowPlaying().getNowPlaying()
     private let space = "     "
+    var nowPlaying = GetNowPlaying()
     
     private var firstLaunchInitiated = false
     private var lastTitle = ""
     private var lastArtist = ""
     private var lastImage = NSImage()
     
-    override init() {
-        super.init()
-        Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(setMedia), userInfo: nil, repeats: true)
+    var timer: Timer?
+    
+    init() {
+        let thread = Thread {
+            let customRunLoop = RunLoop.current
+            
+            CFRunLoopAddObserver(CFRunLoopGetCurrent(), ThreadRunner.customObserver, CFRunLoopMode.commonModes)
+            
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.75, repeats: true) { (timer) in
+                self.setMedia()
+            }
+            customRunLoop.add(timer, forMode: .default)
+            
+            customRunLoop.run()
+            
+        }
+        
+        thread.start()
+        
         setupMenu()
+        statusItem.button?.image = checkAvailable()
     }
     
-    @objc private func setMedia() {
-        
-        var songTitle: String?
-        var songArtist: String?
-        var image: NSImage?
-        
-        func checkAvailable() -> NSImage? {
-            if #available(macOS 11.0, *) {
-                return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
-            } else {
-                let image = NSImage(named: NSImage.Name("music.note"))
-                return image?.scaledCopy(sizeOfLargerSide: 15)
-            }
-        }
-        
-        func getCheck(_ title: String, _ artist: String) -> String? {
-            let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
-            let trimmedArtist = artist.trimmingCharacters(in: .whitespaces)
+    func startTimer(interval: Double = 0.75) {
+        let thread = Thread {
+            let customRunLoop = RunLoop.current
             
-            let combinedCount = title.count + artist.count
+            CFRunLoopAddObserver(CFRunLoopGetCurrent(), ThreadRunner.customObserver, CFRunLoopMode.commonModes)
             
-            if getSongTitleOnlyKey() {
-                if getLimitText() || title.count < 32 {
-                    return trimmedTitle
-                } else {
-                    return String(trimmedTitle.prefix(32)) + "..."
-                }
-            } else if !trimmedTitle.isEmpty {
-                if getLimitText() || (!trimmedArtist.isEmpty && combinedCount < 32) {
-                    return "\(trimmedTitle) - \(trimmedArtist)"
-                } else if getLimitText() || title.count < 32 {
-                    return trimmedTitle
-                } else {
-                    return String(trimmedTitle.prefix(32)) + "..."
-                }
-            } else if !trimmedArtist.isEmpty {
-                if getLimitText() || artist.count < 32 {
-                    return "Song by \(trimmedArtist)"
-                } else {
-                    return "Song by \(String(trimmedArtist.prefix(32)) + "...")"
-                }
-            } else {
-                return nil
+            let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { (timer) in
+                self.setMedia()
             }
+            customRunLoop.add(timer, forMode: .default)
+            
+            customRunLoop.run()
+            
         }
         
-        if let getNowPlaying = nowPlaying {
-            getNowPlaying(DispatchQueue.main, {
-                (information) in
-                if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
-                    songTitle = infoTitle
-                }
-                if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
-                    songArtist = infoArtist
-                }
-                if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
-                    image = NSImage(data: infoImageData)
-                }
-            })
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            if(songTitle != nil) {
-                if(songTitle != self.lastTitle || songArtist != self.lastArtist || image != self.lastImage) {
-                    self.statusItem.length = NSStatusItem.variableLength
-                    if let button = self.statusItem.button {
-                        let resized = (image != nil) ? image?.scaledCopy(sizeOfLargerSide: 19) : checkAvailable()
-                        let songTitleCheck = self.getSongTitle(songTitle)
-                        let songArtistCheck = self.getArtist(songArtist)
-                        
-                        let check = getCheck(songTitleCheck, songArtistCheck)
-                        
-                        button.image = resized
-                        
-                        if (check != nil) {
-                            let titleCombined = " " + (check ?? "")
-                            
-                            if #available(macOS 11.0, *) {
-                                button.title = titleCombined
-                            }
-                            else {
-                                let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
-                                let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
-                                button.attributedTitle = attributedText
-                            }
-                            button.imagePosition = .imageLeft
-                        } else {
-                            button.imagePosition = .imageOnly
-                        }
-                        
-                    }
-                }
-            } else {
-                self.statusItem.length = 18
-                if let button = self.statusItem.button {
-                    button.image = checkAvailable()
-                }
-                if(self.firstLaunchInitiated) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
-                } else {
-                    self.firstLaunchInitiated = true
-                }
-            }
+        thread.start()
+    }
+    
+    func checkAvailable() -> NSImage? {
+        if #available(macOS 11.0, *) {
+            return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
+        } else {
+            let image = NSImage(named: NSImage.Name("music.note"))
+            return image?.scaledCopy(sizeOfLargerSide: 15)
         }
     }
+    
+    func getCheck(_ title: String, _ artist: String) -> String? {
+        let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
+        let trimmedArtist = artist.trimmingCharacters(in: .whitespaces)
+        
+        let combinedCount = title.count + artist.count
+        
+        if getSongTitleOnlyKey() {
+            if getLimitText() || title.count < 32 {
+                return trimmedTitle
+            } else {
+                return trimmedTitle.truncate(32)
+            }
+        } else if !trimmedTitle.isEmpty {
+            if getLimitText() || (!trimmedArtist.isEmpty && combinedCount < 32) {
+                return "\(trimmedTitle) - \(trimmedArtist)"
+            } else if getLimitText() || title.count < 32 {
+                return trimmedTitle
+            } else {
+                return trimmedTitle.truncate(32)
+            }
+        } else if !trimmedArtist.isEmpty {
+            if getLimitText() || artist.count < 32 {
+                return "Song by \(trimmedArtist)"
+            } else {
+                return "Song by \(trimmedArtist.truncate(32)))"
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    private func setMedia() {
+        updateNowPlaying()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            guard let songTitle = self.nowPlaying.mediaInfo.songTitle else {
+                self.handleNoSongTitle()
+                return
+            }
+            self.updateStatusItemIfNeeded(songTitle: songTitle, artist: self.nowPlaying.mediaInfo.songArtist, artwork: self.nowPlaying.mediaInfo.albumArtwork)
+        }
+    }
+    
+    private func updateNowPlaying() {
+        nowPlaying.fetchNowPlaying()
+    }
+    
+    private func handleNoSongTitle() {
+        statusItem.button?.image = checkAvailable()
+        if firstLaunchInitiated {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
+        } else {
+            firstLaunchInitiated = true
+        }
+    }
+    
+    private func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
+        guard songTitle != lastTitle || artist != lastArtist || artwork != lastImage else { return }
+        
+        statusItem.length = NSStatusItem.variableLength
+        if let button = statusItem.button {
+            print("!!!!!!!!! IMAGE")
+            let resizedImage = artwork?.scaledCopy(sizeOfLargerSide: 19) ?? checkAvailable()
+            let songTitleCheck = getSongTitle(songTitle)
+            let songArtistCheck = getArtist(artist)
+            
+            let check = getCheck(songTitleCheck, songArtistCheck)
+            
+            button.image = resizedImage
+            configureButtonTitle(button: button, check: check)
+        }
+    }
+    
+    private func configureButtonTitle(button: NSStatusBarButton, check: String?) {
+        if let checkValue = check {
+            let titleCombined = " " + checkValue
+            
+            if #available(macOS 11.0, *) {
+                button.title = titleCombined
+            } else {
+                let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                button.attributedTitle = attributedText
+            }
+            button.imagePosition = .imageLeft
+        } else {
+            button.imagePosition = .imageOnly
+        }
+    }
+    
     
     func getSongTitle(_ songTitle: String?) -> String {
         var songT = songTitle
@@ -139,16 +169,30 @@ class StatusBar: NSObject {
     func getArtist(_ songArtist: String?) -> String {
         var artistCut = songArtist
         let cutPhrase = [",", "&", "×"]
+        
         artistCut?.cutFeat(separator: cutPhrase)
         return artistCut ?? ""
     }
     
     private func setupMenu() {
+        
         let menu = NSMenu()
-        menu.addItem(autoLaunchMenu())
-        menu.addItem(showOnlySongTitle())
-        menu.addItem(showLimitText())
-        menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        
+        if #available(macOS 11.0, *) {
+            
+            let menuView = NSMenuItem()
+            let swiftUIView = NSHostingView(rootView: MenuView(info: nowPlaying))
+            swiftUIView.frame = NSRect(x: 0, y: 0, width: 300, height: 500)
+            
+            menuView.view = swiftUIView
+            
+            menu.addItem(menuView)
+        } else {
+            menu.addItem(autoLaunchMenu())
+            menu.addItem(showOnlySongTitle())
+            menu.addItem(showLimitText())
+            menu.addItem(NSMenuItem(title: "\(space)Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        }
         
         statusItem.menu = menu
     }
