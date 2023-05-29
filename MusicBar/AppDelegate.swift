@@ -10,7 +10,6 @@ import LaunchAtLogin
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
-    private var statusBar: StatusBar!
     private var isLaunchedFirstTime = true
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -20,7 +19,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             LaunchAtLogin.isEnabled = true
             UserDefaults.standard.set(false, forKey: "isLaunchedFirstTime")
         }
-        statusBar = StatusBar()
+        
+        
+        
+        let _ = StatusBar()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
