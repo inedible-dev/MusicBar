@@ -16,10 +16,10 @@
 		1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */; };
 		1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */; };
 		1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC2929252A3300A19BD0 /* StatusBar.swift */; };
-		1DB7D7E82A24ED6700D771CB /* CustomMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB7D7E72A24ED6700D771CB /* CustomMenuView.m */; };
 		1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */; };
 		1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E42A1C91D900136BA2 /* View+Extension.swift */; };
 		1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E72A1C9A9C00136BA2 /* Thread.swift */; };
+		CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFC2C4B2A24F51700254869 /* CustomMenuView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,13 +34,13 @@
 		1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNowPlaying.swift; sourceTree = "<group>"; };
 		1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendNSImage.swift; sourceTree = "<group>"; };
 		1DA6BC2929252A3300A19BD0 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
-		1DB7D7E72A24ED6700D771CB /* CustomMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomMenuView.m; sourceTree = "<group>"; };
-		1DB7D7E92A24ED7000D771CB /* CustomMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMenuView.h; sourceTree = "<group>"; };
 		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1DEEECFB2A24838200F91CC9 /* MusicBar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicBar-Bridging-Header.h"; sourceTree = "<group>"; };
 		1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeTextView.swift; sourceTree = "<group>"; };
 		1DF215E42A1C91D900136BA2 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		1DF215E72A1C9A9C00136BA2 /* Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
+		CEFC2C4A2A24F51700254869 /* CustomMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMenuView.h; sourceTree = "<group>"; };
+		CEFC2C4B2A24F51700254869 /* CustomMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMenuView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,18 +58,11 @@
 		1D02CC2529F59848007B299B /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				CEFC2C4A2A24F51700254869 /* CustomMenuView.h */,
+				CEFC2C4B2A24F51700254869 /* CustomMenuView.m */,
 				1D02CC2629F59855007B299B /* MenuView.swift */,
-				1DB7D7E72A24ED6700D771CB /* CustomMenuView.m */,
-				1DB7D7E92A24ED7000D771CB /* CustomMenuView.h */,
 			);
 			path = Menu;
-			sourceTree = "<group>";
-		};
-		1D02CC2829F5998D007B299B /* MediaRemote */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MediaRemote;
 			sourceTree = "<group>";
 		};
 		1D4B849229272A2700942874 /* Frameworks */ = {
@@ -110,7 +103,6 @@
 				1DA6BC2929252A3300A19BD0 /* StatusBar.swift */,
 				1DA6BC1829250E9400A19BD0 /* Assets.xcassets */,
 				1DA6BC1A29250E9500A19BD0 /* Main.storyboard */,
-				1D02CC2829F5998D007B299B /* MediaRemote */,
 				1D02CC2529F59848007B299B /* Menu */,
 				1DF215DE2A1C915600136BA2 /* Utilities */,
 			);
@@ -261,8 +253,8 @@
 				1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */,
 				1D628550292B5B4E00C38D81 /* ExtendString.swift in Sources */,
 				1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */,
-				1DB7D7E82A24ED6700D771CB /* CustomMenuView.m in Sources */,
 				1D02CC2729F59855007B299B /* MenuView.swift in Sources */,
+				CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */,
 				1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */,
 				1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */,
 				1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */,

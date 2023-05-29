@@ -177,6 +177,9 @@ class StatusBar {
     private func setupMenu() {
         
         let menu = NSMenu()
+        menu._setHasPadding(false, onEdge: 1)
+        menu._setHasPadding(false, onEdge: 3)
+
         
         if #available(macOS 11.0, *) {
             
