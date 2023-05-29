@@ -88,5 +88,9 @@ extension String {
         
         return self.substring(from: start, to: to)
     }
+    
+    func truncate(_ maxLength: Int) -> String {
+        return String(self.prefix(maxLength)) + "..."
+    }
 }
 
