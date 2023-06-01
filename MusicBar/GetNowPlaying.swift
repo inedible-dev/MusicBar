@@ -15,11 +15,13 @@ struct MediaInfo: Equatable {
     var songArtist: String?
     var albumArtwork: NSImage?
     var isPlaying: Bool?
+    var elapsedTime: Double?
+    var duration: TimeInterval?
 }
 
 class GetNowPlaying: ObservableObject {
     
-    @Published var mediaInfo: MediaInfo = MediaInfo(songTitle: "", songArtist: "", albumArtwork: NSImage(), isPlaying: false)
+    @Published var mediaInfo = MediaInfo()
     var firstLaunchInitiated = false
     
     typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
@@ -41,24 +43,43 @@ class GetNowPlaying: ObservableObject {
         if let getNowPlaying = getNowPlaying() {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
-                if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
-                    self.mediaInfo.songTitle = infoTitle
-                    print(infoTitle)
+                if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
+                   let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date {
+                    if self.mediaInfo.isPlaying == true {
+                        self.mediaInfo.elapsedTime = Date().timeIntervalSince(timestamp) + elapsedTime
+                    }
                 }
-                if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
-                    self.mediaInfo.songArtist = infoArtist
-                }
-                if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
-                    self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
-                }
+                
                 if let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double {
-                    print(playbackRate)
                     if playbackRate == 0 {
                         self.mediaInfo.isPlaying = false
+                        if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double {
+                            self.mediaInfo.elapsedTime = elapsedTime
+                        }
                     } else {
                         self.mediaInfo.isPlaying = true
                     }
                 }
+                
+                if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
+                    if infoTitle != self.mediaInfo.songTitle {
+                        self.mediaInfo.elapsedTime = 0
+                    }
+                    self.mediaInfo.songTitle = infoTitle
+                }
+                
+                if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
+                    self.mediaInfo.songArtist = infoArtist
+                }
+                
+                if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
+                    self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
+                }
+                
+                if let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
+                    self.mediaInfo.duration = duration
+                }
+                
             })
         }
     }
