@@ -26,8 +26,8 @@ struct MenuView: View {
             Spacer()
             VStack {
                 VStack {
-                    if info.mediaInfo.albumArtwork != nil || info.mediaInfo.albumArtwork?.size.width != 0 {
-                        Image(nsImage: info.mediaInfo.albumArtwork!)
+                    if let albumArtwork = info.mediaInfo.albumArtwork, albumArtwork.size.width != 0 {
+                        Image(nsImage: albumArtwork)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .cornerRadius(8)
@@ -70,7 +70,7 @@ struct MenuView: View {
                                     leftFade: 16,
                                     rightFade: 16,
                                     startDelay: 1
-                                ).opacity(0.5)
+                                ).opacity(0.7)
                             }
                         }
                         Spacer()
@@ -83,8 +83,8 @@ struct MenuView: View {
                                 Text(timeString(time: elapsedTime))
                                 Spacer()
                                 Text(timeString(time: duration))
-                            }.opacity(0.4)
-                                .font(.system(size: 10))
+                            }.opacity(0.5)
+                                .font(.system(size: 12))
                         }.padding(.vertical, 6)
                     }
                 }.padding(.horizontal, 2)
@@ -102,10 +102,10 @@ struct ArtworkBackgroundExtension: ViewModifier {
     var artwork: NSImage?
     
     func body(content: Content) -> some View {
-        if #available(macOS 12.0, *), artwork?.size.width != 0 {
+        if #available(macOS 12.0, *), let artwork = artwork {
             content.background {
                 ZStack {
-                    Image(nsImage: artwork!)
+                    Image(nsImage: artwork)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .blur(radius: 60)

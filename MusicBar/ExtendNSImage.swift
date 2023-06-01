@@ -9,7 +9,7 @@ import Foundation
 import AppKit
 
 extension NSImage {
-    func scaledCopy( sizeOfLargerSide: CGFloat) ->  NSImage {
+    func scaledCopy(sizeOfLargerSide: CGFloat) -> NSImage {
         var newW: CGFloat
         var newH: CGFloat
         var scaleFactor: CGFloat

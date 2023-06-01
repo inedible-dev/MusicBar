@@ -129,7 +129,15 @@ class StatusBar {
         
         statusItem.length = NSStatusItem.variableLength
         if let button = statusItem.button {
-            let resizedImage = artwork?.size.width != 0 ? artwork?.scaledCopy(sizeOfLargerSide: 19) : checkAvailable()
+            
+            var resizedImage: NSImage?
+            
+            if let artwork = artwork, artwork.size.width != 0 {
+                resizedImage = artwork.scaledCopy(sizeOfLargerSide: 19)
+            } else {
+                resizedImage = checkAvailable()
+            }
+            
             let songTitleCheck = getSongTitle(songTitle)
             let songArtistCheck = getArtist(artist)
             
@@ -178,7 +186,6 @@ class StatusBar {
         let menu = NSMenu()
         menu._setHasPadding(false, onEdge: 1)
         menu._setHasPadding(false, onEdge: 3)
-
         
         if #available(macOS 11.0, *) {
             
