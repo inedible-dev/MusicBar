@@ -17,6 +17,7 @@
 		1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */; };
 		1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */; };
 		1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC2929252A3300A19BD0 /* StatusBar.swift */; };
+		1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */; };
 		1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */; };
 		1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E42A1C91D900136BA2 /* View+Extension.swift */; };
 		1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E72A1C9A9C00136BA2 /* Thread.swift */; };
@@ -36,6 +37,7 @@
 		1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNowPlaying.swift; sourceTree = "<group>"; };
 		1DA6BC272925217000A19BD0 /* ExtendNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendNSImage.swift; sourceTree = "<group>"; };
 		1DA6BC2929252A3300A19BD0 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
+		1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1DEEECFB2A24838200F91CC9 /* MusicBar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicBar-Bridging-Header.h"; sourceTree = "<group>"; };
 		1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeTextView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF215E42A1C91D900136BA2 /* View+Extension.swift */,
+				1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			files = (
 				1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */,
 				1D628550292B5B4E00C38D81 /* ExtendString.swift in Sources */,
+				1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */,
 				1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */,
 				1D02CC2729F59855007B299B /* MenuView.swift in Sources */,
 				CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */,
