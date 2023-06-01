@@ -27,7 +27,7 @@ class StatusBar {
             
             CFRunLoopAddObserver(CFRunLoopGetCurrent(), ThreadRunner.customObserver, CFRunLoopMode.commonModes)
             
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.75, repeats: true) { (timer) in
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
                 self.setMedia()
             }
             customRunLoop.add(timer, forMode: .default)
@@ -129,8 +129,7 @@ class StatusBar {
         
         statusItem.length = NSStatusItem.variableLength
         if let button = statusItem.button {
-            print("!!!!!!!!! IMAGE")
-            let resizedImage = artwork?.scaledCopy(sizeOfLargerSide: 19) ?? checkAvailable()
+            let resizedImage = artwork?.size.width != 0 ? artwork?.scaledCopy(sizeOfLargerSide: 19) : checkAvailable()
             let songTitleCheck = getSongTitle(songTitle)
             let songArtistCheck = getArtist(artist)
             
