@@ -10,6 +10,7 @@
 		1D02CC2729F59855007B299B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02CC2629F59855007B299B /* MenuView.swift */; };
 		1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4B849629272B9000942874 /* LaunchAtLogin */; };
 		1D628550292B5B4E00C38D81 /* ExtendString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62854F292B5B4E00C38D81 /* ExtendString.swift */; };
+		1D704D022A2838FE00C54DFC /* DurationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D704D012A2838FE00C54DFC /* DurationBar.swift */; };
 		1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */; };
 		1DA6BC1929250E9400A19BD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		1DA6BC1C29250E9500A19BD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1A29250E9500A19BD0 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		1D02CC2629F59855007B299B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		1D4B849329272A2700942874 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		1D62854F292B5B4E00C38D81 /* ExtendString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendString.swift; sourceTree = "<group>"; };
+		1D704D012A2838FE00C54DFC /* DurationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationBar.swift; sourceTree = "<group>"; };
 		1DA6BC1129250E9300A19BD0 /* MusicBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DA6BC1829250E9400A19BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		1D02CC2529F59848007B299B /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				1D704D002A2838E800C54DFC /* DurationBar */,
 				CEFC2C4A2A24F51700254869 /* CustomMenuView.h */,
 				CEFC2C4B2A24F51700254869 /* CustomMenuView.m */,
 				1D02CC2629F59855007B299B /* MenuView.swift */,
@@ -71,6 +74,21 @@
 				1D4B849329272A2700942874 /* ServiceManagement.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1D704D002A2838E800C54DFC /* DurationBar */ = {
+			isa = PBXGroup;
+			children = (
+				1D704D012A2838FE00C54DFC /* DurationBar.swift */,
+			);
+			path = DurationBar;
+			sourceTree = "<group>";
+		};
+		1D8CF5AE2A25B5DF0044B146 /* MediaControls */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MediaControls;
 			sourceTree = "<group>";
 		};
 		1DA6BC0829250E9300A19BD0 = {
@@ -103,6 +121,7 @@
 				1DA6BC2929252A3300A19BD0 /* StatusBar.swift */,
 				1DA6BC1829250E9400A19BD0 /* Assets.xcassets */,
 				1DA6BC1A29250E9500A19BD0 /* Main.storyboard */,
+				1D8CF5AE2A25B5DF0044B146 /* MediaControls */,
 				1D02CC2529F59848007B299B /* Menu */,
 				1DF215DE2A1C915600136BA2 /* Utilities */,
 			);
@@ -257,6 +276,7 @@
 				CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */,
 				1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */,
 				1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */,
+				1D704D022A2838FE00C54DFC /* DurationBar.swift in Sources */,
 				1DA6BC282925217000A19BD0 /* ExtendNSImage.swift in Sources */,
 				1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */,
 				1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */,
