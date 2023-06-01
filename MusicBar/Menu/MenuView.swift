@@ -6,6 +6,14 @@
 //
 
 import SwiftUI
+import MediaPlayer
+
+func timeString(time: Double) -> String {
+    let minute = Int(time) / 60 % 60
+    let second = Int(time) % 60
+    
+    return String(format: "%02i:%02i", minute, second)
+}
 
 @available(macOS 11.0, *)
 struct MenuView: View {
@@ -17,49 +25,75 @@ struct MenuView: View {
         HStack {
             Spacer()
             VStack {
-                if info.mediaInfo.albumArtwork != nil {
-                    Image(nsImage: info.mediaInfo.albumArtwork!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .cornerRadius(8)
-                        .padding(.vertical, 10)
-                        .padding(mediaPlaying ? 0 : 40)
-                        .onChange(of: info.mediaInfo) { mediaInfo in
-                            if let isPlaying = mediaInfo.isPlaying {
-                                withAnimation(.easeInOut(duration: 0.5)) {
-                                    mediaPlaying = isPlaying
+                VStack {
+                    if info.mediaInfo.albumArtwork != nil || info.mediaInfo.albumArtwork?.size.width != 0 {
+                        Image(nsImage: info.mediaInfo.albumArtwork!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .cornerRadius(8)
+                            .padding(mediaPlaying ? 0 : 40)
+                            .onChange(of: info.mediaInfo) { mediaInfo in
+                                if let isPlaying = mediaInfo.isPlaying {
+                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                        mediaPlaying = isPlaying
+                                    }
                                 }
                             }
-                        }
-                }
-                HStack {
-                    VStack(spacing: 2) {
-                        if info.mediaInfo.songTitle != nil {
-                            MarqueeText(
-                                text: info.mediaInfo.songTitle!,
-                                font: NSFont.systemFont(ofSize: 18, weight: .medium),
-                                leftFade: 16,
-                                rightFade: 16,
-                                startDelay: 1
-                            )
-                        }
-                        if info.mediaInfo.songArtist != nil {
-                            MarqueeText(
-                                text: info.mediaInfo.songArtist!,
-                                font: NSFont.systemFont(ofSize: 16, weight: .regular),
-                                leftFade: 16,
-                                rightFade: 16,
-                                startDelay: 1
-                            ).opacity(0.5)
-                        }
+                    } else {
+                        VStack {
+                            Image("double.note")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .opacity(0.5)
+                                .padding(55)
+                        }.background(Color.init(white: 0.5))
+                            .cornerRadius(8)
                     }
-                    Spacer()
+                }.shadow(color: .black.opacity(0.3), radius: 8)
+                    .padding(.vertical, 10)
+                VStack {
+                    HStack {
+                        VStack(spacing: 2) {
+                            if info.mediaInfo.songTitle != nil {
+                                MarqueeText(
+                                    text: info.mediaInfo.songTitle!,
+                                    font: NSFont.systemFont(ofSize: 16, weight: .medium),
+                                    leftFade: 16,
+                                    rightFade: 16,
+                                    startDelay: 1
+                                )
+                            }
+                            if info.mediaInfo.songArtist != nil {
+                                MarqueeText(
+                                    text: info.mediaInfo.songArtist!,
+                                    font: NSFont.systemFont(ofSize: 16, weight: .regular),
+                                    leftFade: 16,
+                                    rightFade: 16,
+                                    startDelay: 1
+                                ).opacity(0.5)
+                            }
+                        }
+                        Spacer()
+                    }
+                    if let elapsedTime = info.mediaInfo.elapsedTime, let duration = info.mediaInfo.duration {
+                        VStack {
+                            DurationBar(value: Double(elapsedTime) / duration)
+                                .frame(height: 8)
+                            HStack {
+                                Text(timeString(time: elapsedTime))
+                                Spacer()
+                                Text(timeString(time: duration))
+                            }.opacity(0.4)
+                                .font(.system(size: 10))
+                        }.padding(.vertical, 6)
+                    }
                 }.padding(.horizontal, 2)
                 Spacer()
             }
             Spacer()
-        }.padding(8)
+        }.padding(12)
             .artworkBackground(nsImage: info.mediaInfo.albumArtwork)
+            .frame(width: 300, height: 500)
     }
 }
 
@@ -68,18 +102,19 @@ struct ArtworkBackgroundExtension: ViewModifier {
     var artwork: NSImage?
     
     func body(content: Content) -> some View {
-        if #available(macOS 12.0, *) {
+        if #available(macOS 12.0, *), artwork?.size.width != 0 {
             content.background {
                 ZStack {
-                    if artwork != nil {
-                        Image(nsImage: artwork!)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .blur(radius: 60)
-                            .opacity(0.7)
-                    }
-                }.edgesIgnoringSafeArea(.all)
+                    Image(nsImage: artwork!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .blur(radius: 60)
+                        .opacity(0.8)
+                        .background(Color.init(white: 0.4).opacity(0.5))
+                }
             }
+        } else {
+            content.background(Color.init(white: 0.4).blur(radius: 60))
         }
     }
 }
