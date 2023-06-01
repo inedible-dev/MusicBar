@@ -74,6 +74,8 @@ class GetNowPlaying: ObservableObject {
                 
                 if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
                     self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
+                } else {
+                    self.mediaInfo.albumArtwork = nil
                 }
                 
                 if let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {

@@ -54,16 +54,16 @@ struct MenuView: View {
                 VStack {
                     HStack {
                         VStack(spacing: 2) {
-                            if info.mediaInfo.songTitle != nil {
+                            if let songTitle = info.mediaInfo.songTitle, songTitle.isNotEmpty() {
                                 MarqueeText(
-                                    text: info.mediaInfo.songTitle!,
+                                    text: songTitle,
                                     font: NSFont.systemFont(ofSize: 16, weight: .medium),
                                     leftFade: 16,
                                     rightFade: 16,
                                     startDelay: 1
                                 )
                             }
-                            if info.mediaInfo.songArtist != nil {
+                            if let artist = info.mediaInfo.songArtist, artist.isNotEmpty() {
                                 MarqueeText(
                                     text: info.mediaInfo.songArtist!,
                                     font: NSFont.systemFont(ofSize: 16, weight: .regular),
@@ -84,8 +84,8 @@ struct MenuView: View {
                                 Spacer()
                                 Text(timeString(time: duration))
                             }.opacity(0.5)
-                                .font(.system(size: 12))
-                        }.padding(.vertical, 6)
+                                .font(.system(size: 11))
+                        }.padding(.vertical, 8)
                     }
                 }.padding(.horizontal, 2)
                 Spacer()
@@ -109,7 +109,7 @@ struct ArtworkBackgroundExtension: ViewModifier {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .blur(radius: 60)
-                        .opacity(0.8)
+                        .opacity(0.5)
                         .background(Color.init(white: 0.4).opacity(0.5))
                 }
             }
