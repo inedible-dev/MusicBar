@@ -66,9 +66,8 @@
 		1D02CC2529F59848007B299B /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				1DDF6ADD2A2F8605000E863E /* CustomMenuView */,
 				1D704D002A2838E800C54DFC /* DurationBar */,
-				CEFC2C4A2A24F51700254869 /* CustomMenuView.h */,
-				CEFC2C4B2A24F51700254869 /* CustomMenuView.m */,
 				1D02CC2629F59855007B299B /* MenuView.swift */,
 			);
 			path = Menu;
@@ -159,10 +158,18 @@
 			path = MusicBar;
 			sourceTree = "<group>";
 		};
+		1DDF6ADD2A2F8605000E863E /* CustomMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				CEFC2C4A2A24F51700254869 /* CustomMenuView.h */,
+				CEFC2C4B2A24F51700254869 /* CustomMenuView.m */,
+			);
+			path = CustomMenuView;
+			sourceTree = "<group>";
+		};
 		1DF215DE2A1C915600136BA2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				1DF215E92A1CA3E700136BA2 /* Menu */,
 				1DF215E62A1C9A9000136BA2 /* Thread */,
 				1DF215E32A1C91A600136BA2 /* Extensions */,
 				1DF215DF2A1C916000136BA2 /* Text */,
@@ -194,13 +201,6 @@
 				1DF215E72A1C9A9C00136BA2 /* Thread.swift */,
 			);
 			path = Thread;
-			sourceTree = "<group>";
-		};
-		1DF215E92A1CA3E700136BA2 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
