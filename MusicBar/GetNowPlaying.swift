@@ -23,10 +23,13 @@ struct MediaInfo: Equatable {
 class GetNowPlaying: ObservableObject {
     
     @Published var mediaInfo = MediaInfo()
+    
     var firstLaunchInitiated = false
     
     typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
     typealias MRNowPlayingClientGetBundleIdentifierFunction = @convention(c) (AnyObject?) -> String
+    
+    // MARK: - Get Now Playing from Local MediaRemote Framework
     
     func getNowPlaying() -> MRMediaRemoteGetNowPlayingInfoFunction? {
         let bundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
@@ -40,12 +43,27 @@ class GetNowPlaying: ObservableObject {
         return MRMediaRemoteGetNowPlayingInfo
     }
     
+    // MARK: - Analyze Now Playing Algorithm
+    
     @objc func fetchNowPlaying() {
         if let getNowPlaying = getNowPlaying() {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
-                
-                func getMedia() {
+                if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
+                   let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date,
+                   let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
+                    
+                    self.mediaInfo.duration = duration
+                    
+                    let interval = Date().timeIntervalSince(timestamp) + elapsedTime
+                    
+                    if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600) {
+                        self.mediaInfo.isLive = false
+                        self.mediaInfo.elapsedTime = interval
+                    } else {
+                        self.mediaInfo.isLive = true
+                    }
+                    
                     if let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double {
                         if playbackRate == 0 {
                             self.mediaInfo.isPlaying = false
@@ -73,32 +91,10 @@ class GetNowPlaying: ObservableObject {
                     } else {
                         self.mediaInfo.albumArtwork = nil
                     }
-                }
-                
-                if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
-                   let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date,
-                   let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
-                    
-                    self.mediaInfo.duration = duration
-                    
-                    let interval = Date().timeIntervalSince(timestamp) + elapsedTime
-                    
-                    if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600)
-//                        (self.mediaInfo.isPlaying == true && elapsedTime != 0)
-                    {
-                        self.mediaInfo.isLive = false
-                        self.mediaInfo.elapsedTime = interval
-                        getMedia()
-                    } else {
-                        self.mediaInfo.isLive = true
-                        getMedia()
-                    }
                 } else {
-                    //                    self.mediaInfo = MediaInfo()
                     self.mediaInfo.elapsedTime = nil
                 }
             })
         }
     }
-    
 }
