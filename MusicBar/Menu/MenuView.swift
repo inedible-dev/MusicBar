@@ -8,11 +8,22 @@
 import SwiftUI
 import MediaPlayer
 
+let colorStops: [Gradient.Stop] = [
+    .init(color: .white, location: 0),
+    .init(color: .white, location: 0.5),
+    .init(color: .clear, location: 1)
+]
+
 func timeString(time: Double) -> String {
+    let hour =  Int(time) / 3600
     let minute = Int(time) / 60 % 60
     let second = Int(time) % 60
     
-    return String(format: "%02i:%02i", minute, second)
+    if hour > 0 {
+        return String(format: "%02i:%02i:%02i", hour, minute, second)
+    } else {
+        return String(format: "%02i:%02i", minute, second)
+    }
 }
 
 @available(macOS 11.0, *)
@@ -54,18 +65,26 @@ struct MenuView: View {
                 VStack {
                     HStack {
                         VStack(spacing: 2) {
-                            if let songTitle = info.mediaInfo.songTitle, songTitle.isNotEmpty() {
-                                MarqueeText(
-                                    text: songTitle,
-                                    font: NSFont.systemFont(ofSize: 16, weight: .medium),
-                                    leftFade: 16,
-                                    rightFade: 16,
-                                    startDelay: 1
-                                )
+                            if let songTitle = info.mediaInfo.songTitle {
+                                if songTitle.isNotEmpty() {
+                                    MarqueeText(
+                                        text: songTitle,
+                                        font: NSFont.systemFont(ofSize: 18, weight: .medium),
+                                        leftFade: 16,
+                                        rightFade: 16,
+                                        startDelay: 1
+                                    )
+                                } else {
+                                    Text("No Song Title Specified")
+                                        .font(.system(size: 16, weight: .medium))
+                                }
+                            } else {
+                                Text("Not Playing")
+                                    .font(.system(size: 16, weight: .medium))
                             }
                             if let artist = info.mediaInfo.songArtist, artist.isNotEmpty() {
                                 MarqueeText(
-                                    text: info.mediaInfo.songArtist!,
+                                    text: info.mediaInfo.songArtist ?? "",
                                     font: NSFont.systemFont(ofSize: 16, weight: .regular),
                                     leftFade: 16,
                                     rightFade: 16,
@@ -75,17 +94,36 @@ struct MenuView: View {
                         }
                         Spacer()
                     }
-                    if let elapsedTime = info.mediaInfo.elapsedTime, let duration = info.mediaInfo.duration {
-                        VStack {
-                            DurationBar(value: Double(elapsedTime) / duration)
+                    VStack {
+                        if info.mediaInfo.isLive == true {
+                            HStack(spacing: 2) {
+                                Rectangle()
+                                    .fill(LinearGradient(gradient: Gradient(stops: colorStops), startPoint: .leading, endPoint: .trailing))
+                                    .roundedCorners(radius: 4, corners: [.topLeft, .bottomLeft])
+                                    .opacity(0.6)
+                                Text("LIVE")
+                                    .fontWeight(.light)
+                                Rectangle()
+                                    .fill(LinearGradient(gradient: Gradient(stops: colorStops), startPoint: .trailing, endPoint: .leading))
+                                    .roundedCorners(radius: 4, corners: [.topRight, .bottomRight])
+                                    .opacity(0.6)
+                            }.frame(height: 8).padding(.vertical, 12)
+                        } else if let elapsedTime = info.mediaInfo.elapsedTime, let duration = info.mediaInfo.duration {
+                            VStack {
+                                DurationBar(value: Double(elapsedTime) / duration)
+                                    .frame(height: 8)
+                                HStack {
+                                    Text(timeString(time: elapsedTime))
+                                    Spacer()
+                                    Text(timeString(time: duration))
+                                }.opacity(0.5)
+                                    .font(.system(size: 11))
+                            }.padding(.vertical, 8)
+                        } else {
+                            DurationBar(value: 0)
                                 .frame(height: 8)
-                            HStack {
-                                Text(timeString(time: elapsedTime))
-                                Spacer()
-                                Text(timeString(time: duration))
-                            }.opacity(0.5)
-                                .font(.system(size: 11))
-                        }.padding(.vertical, 8)
+                                .padding(.vertical, 12)
+                        }
                     }
                 }.padding(.horizontal, 2)
                 Spacer()
@@ -110,7 +148,7 @@ struct ArtworkBackgroundExtension: ViewModifier {
                         .aspectRatio(contentMode: .fill)
                         .blur(radius: 60)
                         .opacity(0.5)
-                        .background(Color.init(white: 0.4).opacity(0.5))
+                        .background(Color.init(white: 0.2).opacity(0.5))
                 }
             }
         } else {
