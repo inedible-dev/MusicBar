@@ -16,7 +16,6 @@ struct DurationBar: View {
                 Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
                     .opacity(0.3)
                     .foregroundColor(.white)
-                
                 Rectangle().frame(width: min(CGFloat(self.value)*geometry.size.width, geometry.size.width), height: geometry.size.height)
                     .foregroundColor(.white)
                     .animation(.linear(duration: 0.2))
