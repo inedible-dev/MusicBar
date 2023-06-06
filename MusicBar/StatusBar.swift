@@ -15,9 +15,6 @@ class StatusBar {
     var nowPlaying = GetNowPlaying()
     
     private var firstLaunchInitiated = false
-    private var lastTitle = ""
-    private var lastArtist = ""
-    private var lastImage = NSImage()
     
     var timer: Timer?
     
@@ -69,6 +66,8 @@ class StatusBar {
         }
     }
     
+    let maxLetters = 16
+    
     func getCheck(_ title: String, _ artist: String) -> String? {
         let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
         let trimmedArtist = artist.trimmingCharacters(in: .whitespaces)
@@ -76,24 +75,24 @@ class StatusBar {
         let combinedCount = title.count + artist.count
         
         if getSongTitleOnlyKey() {
-            if getLimitText() || title.count < 32 {
+            if getLimitText() || title.count < maxLetters {
                 return trimmedTitle
             } else {
-                return trimmedTitle.truncate(32)
+                return trimmedTitle.truncate(maxLetters)
             }
         } else if !trimmedTitle.isEmpty {
-            if getLimitText() || (!trimmedArtist.isEmpty && combinedCount < 32) {
+            if getLimitText() || (!trimmedArtist.isEmpty && combinedCount < maxLetters) {
                 return "\(trimmedTitle) - \(trimmedArtist)"
-            } else if getLimitText() || title.count < 32 {
+            } else if getLimitText() || title.count < maxLetters {
                 return trimmedTitle
             } else {
-                return trimmedTitle.truncate(32)
+                return trimmedTitle.truncate(maxLetters)
             }
         } else if !trimmedArtist.isEmpty {
-            if getLimitText() || artist.count < 32 {
+            if getLimitText() || artist.count < maxLetters {
                 return "Song by \(trimmedArtist)"
             } else {
-                return "Song by \(trimmedArtist.truncate(32)))"
+                return "Song by \(trimmedArtist.truncate(maxLetters))"
             }
         } else {
             return nil
@@ -125,7 +124,6 @@ class StatusBar {
     }
     
     private func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
-        guard songTitle != lastTitle || artist != lastArtist || artwork != lastImage else { return }
         
         statusItem.length = NSStatusItem.variableLength
         if let button = statusItem.button {
