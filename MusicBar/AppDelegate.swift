@@ -14,15 +14,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        
         isLaunchedFirstTime = UserDefaults.standard.bool(forKey: "isLaunchedFirstTime")
+        
         if isLaunchedFirstTime {
             LaunchAtLogin.isEnabled = true
             UserDefaults.standard.set(false, forKey: "isLaunchedFirstTime")
         }
         
+         let statusBar = StatusBar()
         
-        
-        let _ = StatusBar()
+        statusBar.startTimer()
+        statusBar.setupMenu()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
