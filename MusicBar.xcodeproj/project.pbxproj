@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1D02CC2729F59855007B299B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02CC2629F59855007B299B /* MenuView.swift */; };
+		1D2B92EA2A30EB6900549181 /* MenuView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92E92A30EB6900549181 /* MenuView+Extension.swift */; };
+		1D2B92ED2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92EC2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift */; };
+		1D2B92F02A30EBE900549181 /* ActionButton+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92EF2A30EBE900549181 /* ActionButton+ViewModifier.swift */; };
 		1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4B849629272B9000942874 /* LaunchAtLogin */; };
 		1D704D022A2838FE00C54DFC /* DurationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D704D012A2838FE00C54DFC /* DurationBar.swift */; };
 		1D824AE72A2F28D400A676C3 /* OldStatusBarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D824AE62A2F28D400A676C3 /* OldStatusBarSupport.swift */; };
@@ -16,10 +19,11 @@
 		1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */; };
 		1DA6BC1929250E9400A19BD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		1DA6BC1C29250E9500A19BD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1A29250E9500A19BD0 /* Main.storyboard */; };
-		1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */; };
+		1DA6BC242925164100A19BD0 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* MediaRemote.swift */; };
 		1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC2929252A3300A19BD0 /* StatusBar.swift */; };
 		1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */; };
 		1DB481942A2904F100354C9A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481932A2904F100354C9A /* String+Extension.swift */; };
+		1DD391682A2F8B7A00CF5486 /* PrivateMediaRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */; };
 		1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */; };
 		1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E42A1C91D900136BA2 /* View+Extension.swift */; };
 		1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E72A1C9A9C00136BA2 /* Thread.swift */; };
@@ -28,6 +32,9 @@
 
 /* Begin PBXFileReference section */
 		1D02CC2629F59855007B299B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		1D2B92E92A30EB6900549181 /* MenuView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MenuView+Extension.swift"; sourceTree = "<group>"; };
+		1D2B92EC2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtworkBackground+ViewModifier.swift"; sourceTree = "<group>"; };
+		1D2B92EF2A30EBE900549181 /* ActionButton+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionButton+ViewModifier.swift"; sourceTree = "<group>"; };
 		1D4B849329272A2700942874 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		1D704D012A2838FE00C54DFC /* DurationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationBar.swift; sourceTree = "<group>"; };
 		1D824AE62A2F28D400A676C3 /* OldStatusBarSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldStatusBarSupport.swift; sourceTree = "<group>"; };
@@ -38,11 +45,11 @@
 		1DA6BC1829250E9400A19BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DA6BC1B29250E9500A19BD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1DA6BC1D29250E9500A19BD0 /* MusicBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicBar.entitlements; sourceTree = "<group>"; };
-		1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNowPlaying.swift; sourceTree = "<group>"; };
+		1DA6BC232925164100A19BD0 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		1DA6BC2929252A3300A19BD0 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		1DB481932A2904F100354C9A /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DEEECFB2A24838200F91CC9 /* MusicBar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicBar-Bridging-Header.h"; sourceTree = "<group>"; };
 		1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeTextView.swift; sourceTree = "<group>"; };
 		1DF215E42A1C91D900136BA2 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -57,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */,
+				1DD391682A2F8B7A00CF5486 /* PrivateMediaRemote in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,11 +74,37 @@
 		1D02CC2529F59848007B299B /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				1DDF6ADD2A2F8605000E863E /* CustomMenuView */,
-				1D704D002A2838E800C54DFC /* DurationBar */,
+				1D2B92F12A30EC6500549181 /* Views */,
+				1D2B92E82A30EB5B00549181 /* Extensions */,
 				1D02CC2629F59855007B299B /* MenuView.swift */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		1D2B92E82A30EB5B00549181 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1D2B92EB2A30EB7600549181 /* ViewModifiers */,
+				1D2B92E92A30EB6900549181 /* MenuView+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1D2B92EB2A30EB7600549181 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				1D2B92EC2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift */,
+				1D2B92EF2A30EBE900549181 /* ActionButton+ViewModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		1D2B92F12A30EC6500549181 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D704D002A2838E800C54DFC /* DurationBar */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		1D4B849229272A2700942874 /* Frameworks */ = {
@@ -92,6 +126,7 @@
 		1D824AE52A2F28B900A676C3 /* StatusBar */ = {
 			isa = PBXGroup;
 			children = (
+				1DDF6ADD2A2F8605000E863E /* CustomMenuView */,
 				1DA6BC2929252A3300A19BD0 /* StatusBar.swift */,
 				1D824AE62A2F28D400A676C3 /* OldStatusBarSupport.swift */,
 			);
@@ -114,13 +149,6 @@
 			path = LocalStorage;
 			sourceTree = "<group>";
 		};
-		1D8CF5AE2A25B5DF0044B146 /* MediaControls */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MediaControls;
-			sourceTree = "<group>";
-		};
 		1DA6BC0829250E9300A19BD0 = {
 			isa = PBXGroup;
 			children = (
@@ -141,21 +169,60 @@
 		1DA6BC1329250E9300A19BD0 /* MusicBar */ = {
 			isa = PBXGroup;
 			children = (
-				1D824AEB2A2F2AC600A676C3 /* LocalStorage */,
-				1D824AE82A2F28F900A676C3 /* Settings */,
-				1D824AE52A2F28B900A676C3 /* StatusBar */,
+				1DD1C3172A30EF42002A2F8D /* Controllers */,
+				1DD1C3192A30EF8F002A2F8D /* Models */,
+				1DD1C3162A30EE71002A2F8D /* Resources */,
+				1DF215DE2A1C915600136BA2 /* Utilities */,
+				1DD1C3182A30EF5A002A2F8D /* Views */,
+			);
+			path = MusicBar;
+			sourceTree = "<group>";
+		};
+		1DBD626B2A2F86F3007758A6 /* MediaRemoteUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				1DA6BC232925164100A19BD0 /* MediaRemote.swift */,
+			);
+			path = MediaRemoteUtilities;
+			sourceTree = "<group>";
+		};
+		1DD1C3162A30EE71002A2F8D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1DA6BC1829250E9400A19BD0 /* Assets.xcassets */,
 				1DA6BC1D29250E9500A19BD0 /* MusicBar.entitlements */,
 				1DEEECFB2A24838200F91CC9 /* MusicBar-Bridging-Header.h */,
 				1DBA0D1929DD7C2F00A7B946 /* Info.plist */,
-				1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */,
-				1DA6BC232925164100A19BD0 /* GetNowPlaying.swift */,
-				1DA6BC1829250E9400A19BD0 /* Assets.xcassets */,
-				1DA6BC1A29250E9500A19BD0 /* Main.storyboard */,
-				1D8CF5AE2A25B5DF0044B146 /* MediaControls */,
-				1D02CC2529F59848007B299B /* Menu */,
-				1DF215DE2A1C915600136BA2 /* Utilities */,
 			);
-			path = MusicBar;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1DD1C3172A30EF42002A2F8D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1DD1C3182A30EF5A002A2F8D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D02CC2529F59848007B299B /* Menu */,
+				1D824AE52A2F28B900A676C3 /* StatusBar */,
+				1DA6BC1A29250E9500A19BD0 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1DD1C3192A30EF8F002A2F8D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1D824AEB2A2F2AC600A676C3 /* LocalStorage */,
+				1DBD626B2A2F86F3007758A6 /* MediaRemoteUtilities */,
+				1D824AE82A2F28F900A676C3 /* Settings */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		1DDF6ADD2A2F8605000E863E /* CustomMenuView */ = {
@@ -222,6 +289,7 @@
 			name = MusicBar;
 			packageProductDependencies = (
 				1D4B849629272B9000942874 /* LaunchAtLogin */,
+				1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */,
 			);
 			productName = MusicBar;
 			productReference = 1DA6BC1129250E9300A19BD0 /* MusicBar.app */;
@@ -254,6 +322,7 @@
 			mainGroup = 1DA6BC0829250E9300A19BD0;
 			packageReferences = (
 				1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				1DD391642A2F8B7A00CF5486 /* XCRemoteSwiftPackageReference "MediaRemote" */,
 			);
 			productRefGroup = 1DA6BC1229250E9300A19BD0 /* Products */;
 			projectDirPath = "";
@@ -309,10 +378,13 @@
 				1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */,
 				1D02CC2729F59855007B299B /* MenuView.swift in Sources */,
 				CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */,
+				1D2B92F02A30EBE900549181 /* ActionButton+ViewModifier.swift in Sources */,
+				1D2B92EA2A30EB6900549181 /* MenuView+Extension.swift in Sources */,
 				1DB481942A2904F100354C9A /* String+Extension.swift in Sources */,
 				1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */,
-				1DA6BC242925164100A19BD0 /* GetNowPlaying.swift in Sources */,
+				1DA6BC242925164100A19BD0 /* MediaRemote.swift in Sources */,
 				1D704D022A2838FE00C54DFC /* DurationBar.swift in Sources */,
+				1D2B92ED2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift in Sources */,
 				1D824AED2A2F2AD000A676C3 /* LocalStorage.swift in Sources */,
 				1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */,
 				1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */,
@@ -454,7 +526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = MusicBar/MusicBar.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MusicBar/Resources/MusicBar.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -464,7 +536,7 @@
 				DEVELOPMENT_TEAM = SX5J72PCDG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MusicBar/Info.plist;
+				INFOPLIST_FILE = MusicBar/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -479,7 +551,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "MusicBar/MusicBar-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "MusicBar/Resources/MusicBar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -491,7 +563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = MusicBar/MusicBar.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MusicBar/Resources/MusicBar.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -501,7 +573,7 @@
 				DEVELOPMENT_TEAM = SX5J72PCDG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MusicBar/Info.plist;
+				INFOPLIST_FILE = MusicBar/Resources/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -516,7 +588,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "MusicBar/MusicBar-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "MusicBar/Resources/MusicBar-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -553,6 +625,14 @@
 				kind = branch;
 			};
 		};
+		1DD391642A2F8B7A00CF5486 /* XCRemoteSwiftPackageReference "MediaRemote" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PrivateFrameworks/MediaRemote";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -560,6 +640,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
 			productName = LaunchAtLogin;
+		};
+		1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DD391642A2F8B7A00CF5486 /* XCRemoteSwiftPackageReference "MediaRemote" */;
+			productName = PrivateMediaRemote;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
