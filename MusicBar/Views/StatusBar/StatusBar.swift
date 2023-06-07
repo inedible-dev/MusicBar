@@ -11,7 +11,7 @@ import SwiftUI
 class StatusBar {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
-    let nowPlaying = GetNowPlaying()
+    let nowPlaying = MediaRemote()
     let localStorage = LocalStorage()
     
     private var firstLaunchInitiated = false

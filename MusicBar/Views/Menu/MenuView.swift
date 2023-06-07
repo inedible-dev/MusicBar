@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MediaPlayer
 
 let colorStops: [Gradient.Stop] = [
     .init(color: .white, location: 0),
@@ -26,11 +25,18 @@ func timeString(time: Double) -> String {
     }
 }
 
+struct ButtonHovered {
+    var play = false
+    var prev = false
+    var next = false
+}
+
 @available(macOS 11.0, *)
 struct MenuView: View {
-    @ObservedObject var info: GetNowPlaying
+    @ObservedObject var info: MediaRemote
     
     @State var mediaPlaying = false
+    @State var buttonsHovered = ButtonHovered()
     
     var body: some View {
         HStack {
@@ -127,38 +133,24 @@ struct MenuView: View {
                     }
                 }.padding(.horizontal, 2)
                 Spacer()
+                HStack {
+                    if let isPlaying = info.mediaInfo.isPlaying {
+                        Button(action: {
+                            MediaRemote().togglePlayPause()
+                        }) {
+                            if isPlaying {
+                                Image(systemName: "pause.fill")
+                            } else {
+                                Image(systemName: "play.fill")
+                            }
+                        }.actionsButton(toggled: $buttonsHovered.play)
+                    }
+                }
+                Spacer()
             }
             Spacer()
         }.padding(12)
             .artworkBackground(nsImage: info.mediaInfo.albumArtwork)
             .frame(width: 300, height: 500)
-    }
-}
-
-struct ArtworkBackgroundExtension: ViewModifier {
-    
-    var artwork: NSImage?
-    
-    func body(content: Content) -> some View {
-        if #available(macOS 12.0, *), let artwork = artwork {
-            content.background {
-                ZStack {
-                    Image(nsImage: artwork)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .blur(radius: 60)
-                        .opacity(0.5)
-                        .background(Color.init(white: 0.2).opacity(0.5))
-                }
-            }
-        } else {
-            content.background(Color.init(white: 0.4).blur(radius: 60))
-        }
-    }
-}
-
-extension View {
-    func artworkBackground(nsImage: NSImage?) -> some View {
-        modifier(ArtworkBackgroundExtension(artwork: nsImage))
     }
 }
