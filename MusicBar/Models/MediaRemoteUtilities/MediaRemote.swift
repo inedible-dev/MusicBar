@@ -7,10 +7,9 @@
 
 import Foundation
 import AppKit
-import MediaPlayer
 
 
-struct MediaInfo: Equatable {
+struct MediaRemoteInfo: Equatable {
     var songTitle: String?
     var songArtist: String?
     var albumArtwork: NSImage?
@@ -20,25 +19,27 @@ struct MediaInfo: Equatable {
     var isLive: Bool?
 }
 
-class GetNowPlaying: ObservableObject {
+class MediaRemote: ObservableObject {
     
-    @Published var mediaInfo = MediaInfo()
+    @Published var mediaInfo = MediaRemoteInfo()
     
     var firstLaunchInitiated = false
     
+    private static let bundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
+        
+    
     typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
     typealias MRNowPlayingClientGetBundleIdentifierFunction = @convention(c) (AnyObject?) -> String
+    typealias funcType = @convention(c) (Int, NSDictionary?) -> Void
     
     // MARK: - Get Now Playing from Local MediaRemote Framework
     
     func getNowPlaying() -> MRMediaRemoteGetNowPlayingInfoFunction? {
-        let bundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
-        
-        guard let MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(bundle, "MRMediaRemoteGetNowPlayingInfo" as CFString) else { return nil }
+        guard let MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(MediaRemote.bundle, "MRMediaRemoteGetNowPlayingInfo" as CFString) else { return nil }
         let MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self)
         
         // Get a Swift function for MRNowPlayingClientGetBundleIdentifier
-        guard CFBundleGetFunctionPointerForName(bundle, "MRNowPlayingClientGetBundleIdentifier" as CFString) != nil else { return nil }
+        guard CFBundleGetFunctionPointerForName(MediaRemote.bundle, "MRNowPlayingClientGetBundleIdentifier" as CFString) != nil else { return nil }
         
         return MRMediaRemoteGetNowPlayingInfo
     }
@@ -61,7 +62,9 @@ class GetNowPlaying: ObservableObject {
                         self.mediaInfo.isLive = false
                         self.mediaInfo.elapsedTime = interval
                     } else {
-                        self.mediaInfo.isLive = true
+                        if information["kMRMediaRemoteNowPlayingIsMusicApp"] as? Bool != true {
+                            self.mediaInfo.isLive = true
+                        }
                     }
                     
                     if let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double {
@@ -95,6 +98,26 @@ class GetNowPlaying: ObservableObject {
                     self.mediaInfo.elapsedTime = nil
                 }
             })
+        }
+    }
+    
+    // MARK: - Send MediaRemote Commands
+    
+    private func sendCommand(_ command: Int) {
+        guard let ptr = CFBundleGetFunctionPointerForName(MediaRemote.bundle, "MRMediaRemoteSendCommand" as CFString) else { return }
+        let MRMediaRemoteSendCommand = unsafeBitCast(ptr, to: funcType.self)
+        MRMediaRemoteSendCommand(command, nil)
+    }
+
+    // MARK: MediaRemote Commands
+    
+    // TODO: Change to specific playpause
+    
+    func togglePlayPause() {
+        let oldCommand = mediaInfo.isPlaying
+        sendCommand(2)
+        if let oldCommand = oldCommand {
+            self.mediaInfo.isPlaying = !oldCommand
         }
     }
 }
