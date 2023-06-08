@@ -50,21 +50,28 @@ class MediaRemote: ObservableObject {
         if let getNowPlaying = getNowPlaying() {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
-                if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
-                   let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date,
-                   let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
+                
+                if let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date {
                     
-                    self.mediaInfo.duration = duration
-                    
-                    let interval = Date().timeIntervalSince(timestamp) + elapsedTime
-                    
-                    if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600) {
-                        self.mediaInfo.isLive = false
-                        self.mediaInfo.elapsedTime = interval
-                    } else {
-                        if information["kMRMediaRemoteNowPlayingIsMusicApp"] as? Bool != true {
-                            self.mediaInfo.isLive = true
+                    if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
+                       let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
+                        
+                        self.mediaInfo.duration = duration
+                        
+                        let interval = Date().timeIntervalSince(timestamp) + elapsedTime
+                        
+                        if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600) {
+                            self.mediaInfo.isLive = false
+                            self.mediaInfo.elapsedTime = interval
+                        } else {
+                            if !(information["kMRMediaRemoteNowPlayingIsMusicApp"] as? Bool == true)  {
+                                self.mediaInfo.isLive = true
+                            }
                         }
+                        
+                    } else {
+                        self.mediaInfo.isLive = false
+                        self.mediaInfo.elapsedTime = Date().timeIntervalSince(timestamp)
                     }
                     
                     if let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double {
