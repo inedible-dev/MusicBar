@@ -12,11 +12,11 @@ struct ActionButtonViewModifier: ViewModifier {
     @Binding var toggled: Bool
     
     func body(content: Content) -> some View {
-        content.buttonStyle(PlainButtonStyle())
-            .font(.system(size: 36))
+        content
             .padding()
-            .background(toggled ? Color.init(white: 0.1).opacity(0.3) : Color.clear)
+            .background(toggled ? Color.init(white: 0.9).opacity(0.1) : Color.clear)
             .clipShape(Circle())
+            .scaleEffect(toggled ? 0.9 : 1)
             .onHover(perform: {
                 over in
                 withAnimation(.easeInOut(duration: 0.2)) {
