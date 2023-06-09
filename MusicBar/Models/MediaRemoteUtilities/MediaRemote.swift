@@ -24,8 +24,6 @@ class MediaRemote: ObservableObject {
     
     @Published var mediaInfo = MediaRemoteInfo()
     
-    //TODO: PAST CHECK
-    
     var firstLaunchInitiated = false
     
     private static let bundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
@@ -52,6 +50,9 @@ class MediaRemote: ObservableObject {
         if let getNowPlaying = getNowPlaying() {
             getNowPlaying(DispatchQueue.main, {
                 (information) in
+                
+                let pastTitle = self.mediaInfo.songTitle
+                let pastArtist = self.mediaInfo.songArtist
                 
                 if let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date {
                     
@@ -104,7 +105,11 @@ class MediaRemote: ObservableObject {
                     if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
                         self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
                     } else {
-                        self.mediaInfo.albumArtwork = nil
+                        if let title = self.mediaInfo.songTitle,
+                           let artist = self.mediaInfo.songArtist,
+                           pastTitle != title || pastArtist != artist {
+                            self.mediaInfo.albumArtwork = nil
+                        }
                     }
                 } else {
                     self.mediaInfo.elapsedTime = nil
