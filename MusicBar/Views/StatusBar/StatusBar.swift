@@ -187,7 +187,7 @@ class StatusBar {
             let menuView = NSMenuItem()
             let swiftUIView = NSHostingView(rootView: MenuView(info: nowPlaying))
             
-            swiftUIView.frame = NSRect(x: 0, y: 0, width: 300, height: 500)
+            swiftUIView.frame = NSRect(x: 0, y: 0, width: 300, height: 550)
             
             menuView.view = swiftUIView
             
