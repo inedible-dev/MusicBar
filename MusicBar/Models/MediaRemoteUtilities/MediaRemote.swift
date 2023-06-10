@@ -68,10 +68,12 @@ class MediaRemote: ObservableObject {
                         let interval = Date().timeIntervalSince(timestamp) + elapsedTime
                         
                         if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600) {
-                            self.mediaInfo.isLive = false
+                            if self.mediaInfo.isPlaying == true {
+                                self.mediaInfo.isLive = false
+                            }
                             self.mediaInfo.elapsedTime = interval
                         } else {
-                            if !(isMusicApp == true)  {
+                            if isMusicApp != true && self.mediaInfo.isPlaying == true  {
                                 self.mediaInfo.isLive = true
                             }
                         }
