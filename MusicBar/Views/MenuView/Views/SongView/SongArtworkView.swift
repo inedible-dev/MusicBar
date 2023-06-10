@@ -32,9 +32,10 @@ struct SongArtworkView: View {
                                 }
                             }
                         }
-                }.aspectRatio(1, contentMode: .fill)
+                }.frame(maxWidth: 270, maxHeight: 270)
+                    .aspectRatio(1, contentMode: .fill)
                     .cornerRadius(8)
-                    .padding(mediaPlaying ? 0 : 40)
+                    .scaleEffect(mediaPlaying ? 1 : 0.7)
             } else {
                 VStack {
                     Image("double.note")

@@ -17,6 +17,7 @@ struct ButtonHovered {
     var play = false
     var prev = false
     var next = false
+    var settings = false
 }
 
 @available(macOS 11.0, *)
@@ -30,10 +31,12 @@ struct MenuView: View {
             VStack {
                 SongArtworkView(mediaInfo: $info.mediaInfo)
                 VStack {
-                    VStack(spacing: 2) {
-                        SongTitleView(songTitle: info.mediaInfo.songTitle)
-                        SongArtistView(songArtist: info.mediaInfo.songArtist)
-                    }
+                    HStack {
+                        VStack(spacing: 2) {
+                            SongTitleView(songTitle: info.mediaInfo.songTitle)
+                            SongArtistView(songArtist: info.mediaInfo.songArtist)
+                        }
+                    }.padding(.vertical, 4)
                     VStack {
                         if info.mediaInfo.isLive == true {
                             LiveBar()
@@ -42,13 +45,12 @@ struct MenuView: View {
                                 DurationBar(value: Double(elapsedTime) / duration)
                                     .frame(height: 8)
                                 SongDurationView(elapsedTime: elapsedTime, duration: duration)
-                            }.padding(.vertical, 8)
+                            }
                         } else {
                             DurationBar(value: 0)
                                 .frame(height: 8)
-                                .padding(.vertical, 12)
                         }
-                    }
+                    }.padding(.vertical, 10)
                 }.padding(.horizontal, 2)
                 HStack {
                     if info.mediaInfo.isLive != true {
@@ -65,8 +67,28 @@ struct MenuView: View {
                 }
             }
             Spacer()
+            VStack {
+                Button(action: {
+                    print("aaa")
+                }) {
+                    HStack {
+                        Text("Settings")
+                        Spacer()
+                        Text("⌘P")
+                    }.padding(6)
+                        .opacity(0.5)
+                        .background(buttonsHovered.settings ? Color.init(white: 0.9).opacity(0.1) : Color.clear)
+                        .cornerRadius(6)
+                        .onHover(perform: {
+                            over in
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                buttonsHovered.settings = over
+                            }
+                        })
+                }.buttonStyle(PlainButtonStyle())
+            }
         }.padding(12)
             .artworkBackground(nsImage: info.mediaInfo.albumArtwork)
-            .frame(width: 300, height: 500)
+            .frame(width: 300, height: 550)
     }
 }
