@@ -54,36 +54,40 @@ class MediaRemote: ObservableObject {
                 let pastTitle = self.mediaInfo.songTitle
                 let pastArtist = self.mediaInfo.songArtist
                 
-                if let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date {
-                    
-                    let isMusicApp = information["kMRMediaRemoteNowPlayingIsMusicApp"] as? Bool
-                    
-                    self.mediaInfo.isMusicApp = isMusicApp
-                    
-                    if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
-                       let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
+                if information["kMRMediaRemoteNowPlayingInfoTitle"] as? String == nil &&
+                    information["kMRMediaRemoteNowPlayingInfoArtist"] as? String == nil {
+                    self.mediaInfo = MediaRemoteInfo()
+                } else {
+                    if let timestamp = information["kMRMediaRemoteNowPlayingInfoTimestamp"] as? Date {
                         
-                        self.mediaInfo.duration = duration
+                        let isMusicApp = information["kMRMediaRemoteNowPlayingIsMusicApp"] as? Bool
                         
-                        let interval = Date().timeIntervalSince(timestamp) + elapsedTime
+                        self.mediaInfo.isMusicApp = isMusicApp
                         
-                        if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600) {
-                            if self.mediaInfo.isPlaying == true {
-                                self.mediaInfo.isLive = false
+                        if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double,
+                           let duration = information["kMRMediaRemoteNowPlayingInfoDuration"] as? Double {
+                            
+                            self.mediaInfo.duration = duration
+                            
+                            let interval = Date().timeIntervalSince(timestamp) + elapsedTime
+                            
+                            if interval.truncatingRemainder(dividingBy: 3600) < duration.truncatingRemainder(dividingBy: 3600) {
+                                if self.mediaInfo.isPlaying == true {
+                                    self.mediaInfo.isLive = false
+                                }
+                                self.mediaInfo.elapsedTime = interval
+                            } else {
+                                if isMusicApp != true && self.mediaInfo.isPlaying == true  {
+                                    self.mediaInfo.isLive = true
+                                }
                             }
-                            self.mediaInfo.elapsedTime = interval
                         } else {
-                            if isMusicApp != true && self.mediaInfo.isPlaying == true  {
-                                self.mediaInfo.isLive = true
-                            }
+                            self.mediaInfo.isLive = false
+                            self.mediaInfo.elapsedTime = Date().timeIntervalSince(timestamp)
                         }
-                    } else {
-                        self.mediaInfo.isLive = false
-                        self.mediaInfo.elapsedTime = Date().timeIntervalSince(timestamp)
-                    }
-                    
-                    let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double
-                    
+                        
+                        let playbackRate = information["kMRMediaRemoteNowPlayingInfoPlaybackRate"] as? Double
+                        
                         if playbackRate == 0 || playbackRate == nil {
                             self.mediaInfo.isPlaying = false
                             if let elapsedTime = information["kMRMediaRemoteNowPlayingInfoElapsedTime"] as? Double {
@@ -92,29 +96,30 @@ class MediaRemote: ObservableObject {
                         } else {
                             self.mediaInfo.isPlaying = true
                         }
-                    
-                    if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
-                        if infoTitle != self.mediaInfo.songTitle {
-                            self.mediaInfo.elapsedTime = 0
+                        
+                        if let infoTitle = information["kMRMediaRemoteNowPlayingInfoTitle"] as? String {
+                            if infoTitle != self.mediaInfo.songTitle {
+                                self.mediaInfo.elapsedTime = 0
+                            }
+                            self.mediaInfo.songTitle = infoTitle
                         }
-                        self.mediaInfo.songTitle = infoTitle
-                    }
-                    
-                    if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
-                        self.mediaInfo.songArtist = infoArtist
-                    }
-                    
-                    if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
-                        self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
+                        
+                        if let infoArtist = information["kMRMediaRemoteNowPlayingInfoArtist"] as? String {
+                            self.mediaInfo.songArtist = infoArtist
+                        }
+                        
+                        if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
+                            self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
+                        } else {
+                            if let title = self.mediaInfo.songTitle,
+                               let artist = self.mediaInfo.songArtist,
+                               pastTitle != title || pastArtist != artist {
+                                self.mediaInfo.albumArtwork = nil
+                            }
+                        }
                     } else {
-                        if let title = self.mediaInfo.songTitle,
-                           let artist = self.mediaInfo.songArtist,
-                           pastTitle != title || pastArtist != artist {
-                            self.mediaInfo.albumArtwork = nil
-                        }
+                        self.mediaInfo.elapsedTime = nil
                     }
-                } else {
-                    self.mediaInfo.elapsedTime = nil
                 }
             })
         }
