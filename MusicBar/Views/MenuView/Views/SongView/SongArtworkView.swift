@@ -12,15 +12,14 @@ struct SongArtworkView: View {
     
     @Binding var mediaInfo: MediaRemoteInfo
     @State var mediaPlaying = false
-    
+
     var body: some View {
         VStack {
             if let albumArtwork = mediaInfo.albumArtwork, albumArtwork.size.width != 0 {
                 ZStack {
                     if albumArtwork.size.width != albumArtwork.size.height {
                         Rectangle()
-                            .background(Color.init(white: 0.15))
-                            .opacity(0.3)
+                            .background(albumArtwork.averageColor ?? Color(white: 0.15))
                     }
                     Image(nsImage: albumArtwork)
                         .resizable()

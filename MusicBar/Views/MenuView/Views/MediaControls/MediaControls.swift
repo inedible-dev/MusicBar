@@ -8,8 +8,7 @@
 import SwiftUI
 
 enum MediaControlsButtons: String {
-    case play = "play.fill"
-    case pause = "pause.fill"
+    case playPause = "play.fill"
     case forward = "forward.fill"
     case rewind = "backward.fill"
 }
@@ -19,10 +18,11 @@ struct MediaControls: View {
     
     @Binding var buttonsHovered: ButtonHovered
     var command: MediaControlsButtons
+    var isPlaying: Bool?
     
     func getToggle() -> Binding<Bool> {
         switch command {
-        case .play, .pause:
+        case .playPause:
             return $buttonsHovered.play
         case .forward:
             return $buttonsHovered.next
@@ -33,7 +33,7 @@ struct MediaControls: View {
     
     func getAction() -> MediaRemote.MediaRemoteCommands {
         switch command {
-        case .play, .pause:
+        case .playPause:
             return .togglePlayPause
         case .forward:
             return .forward
@@ -42,13 +42,26 @@ struct MediaControls: View {
         }
     }
     
+    func getImage() -> String {
+        switch command {
+        case .playPause:
+            if isPlaying == true {
+                return "pause.fill"
+            } else {
+                return command.rawValue
+            }
+        case .forward, .rewind:
+            return command.rawValue
+        }
+    }
+    
     var body: some View {
         Button(action: {
             MediaRemote().controlMedia(command: getAction())
         }) {
             HStack {
-                Image(systemName: command.rawValue)
-                    .font(.system(size: (command == .pause || command == .play) ? 36 : 24))
+                Image(systemName: getImage())
+                    .font(.system(size: (command == .playPause) ? 36 : 24))
             }.actionsButton(toggled: getToggle())
         }.buttonStyle(PlainButtonStyle())
     }

@@ -56,20 +56,17 @@ struct MenuView: View {
                     if info.mediaInfo.isLive != true {
                         MediaControls(buttonsHovered: $buttonsHovered, command: .rewind)
                     }
-                    if info.mediaInfo.isPlaying == true {
-                        MediaControls(buttonsHovered: $buttonsHovered, command: .pause)
-                    } else {
-                        MediaControls(buttonsHovered: $buttonsHovered, command: .play)
-                    }
+                    MediaControls(buttonsHovered: $buttonsHovered, command: .playPause, isPlaying: info.mediaInfo.isPlaying)
                     if info.mediaInfo.isLive != true {
                         MediaControls(buttonsHovered: $buttonsHovered, command: .forward)
                     }
                 }
-            }
+            }.padding(.top, 5)
+                .padding(.horizontal, 5)
             Spacer()
             VStack {
                 Button(action: {
-                    print("aaa")
+                    NSApp.setActivationPolicy(.regular)
                 }) {
                     HStack {
                         Text("Settings")
@@ -87,7 +84,7 @@ struct MenuView: View {
                         })
                 }.buttonStyle(PlainButtonStyle())
             }
-        }.padding(12)
+        }.padding(10)
             .artworkBackground(nsImage: info.mediaInfo.albumArtwork)
             .frame(width: 300, height: 550)
     }
