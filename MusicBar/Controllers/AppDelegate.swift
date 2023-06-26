@@ -12,6 +12,8 @@ import LaunchAtLogin
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var isLaunchedFirstTime = true
     
+    private var preferencesController: NSWindowController?
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         
@@ -36,6 +38,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
     
-    
 }
-
