@@ -54,7 +54,7 @@ class StatusBar {
     
     // MARK: - Get Status Bar Text
     
-    let maxLetters = 16
+    let maxLetters = 40
     
     func statusBarText(_ title: String, _ artist: String) -> String? {
         let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
@@ -75,10 +75,10 @@ class StatusBar {
     
     private func handleSongTitleOnlyKey(trimmedTitle: String) -> String {
         return localStorage.getLimitText() || trimmedTitle.count < maxLetters
-            ? trimmedTitle
-            : trimmedTitle.truncate(maxLetters)
+        ? trimmedTitle
+        : trimmedTitle.truncate(maxLetters)
     }
-
+    
     private func handleNonEmptyTitle(trimmedTitle: String, trimmedArtist: String, combinedCount: Int) -> String {
         if localStorage.getLimitText() || (!trimmedArtist.isEmpty && combinedCount < maxLetters) {
             return "\(trimmedTitle) - \(trimmedArtist)"
@@ -88,11 +88,11 @@ class StatusBar {
         }
         return trimmedTitle.truncate(maxLetters)
     }
-
+    
     private func handleNonEmptyArtist(trimmedArtist: String) -> String {
         return localStorage.getLimitText() || trimmedArtist.count < maxLetters
-            ? "Song by \(trimmedArtist)"
-            : "Song by \(trimmedArtist.truncate(maxLetters))"
+        ? "Song by \(trimmedArtist)"
+        : "Song by \(trimmedArtist.truncate(maxLetters))"
     }
     
     // MARK: Cut Title / Artist
@@ -111,7 +111,7 @@ class StatusBar {
         artistCut?.cutFeat(separator: cutPhrase)
         return artistCut ?? ""
     }
-
+    
     // MARK: - Fetch & Update Now Playing
     
     private func setMedia() {
@@ -128,6 +128,7 @@ class StatusBar {
     
     private func handleNoSongTitle() {
         statusItem.button?.image = statusBarImage()
+        statusItem.button?.title = ""
         if firstLaunchInitiated {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
         } else {
@@ -152,22 +153,22 @@ class StatusBar {
             
             let check = statusBarText(songTitleCheck, songArtistCheck)
             
-            button.image = resizedImage
             configureButtonTitle(button: button, check: check)
+            
+            button.image = resizedImage
         }
     }
     
     private func configureButtonTitle(button: NSStatusBarButton, check: String?) {
-        if let checkValue = check {
-            let titleCombined = " " + checkValue
-            
+        if let check = check {
             if #available(macOS 11.0, *) {
-                button.title = titleCombined
+                button.title = check
             } else {
                 let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
-                let attributedText = NSAttributedString(string: titleCombined, attributes: attributes)
+                let attributedText = NSAttributedString(string: check, attributes: attributes)
                 button.attributedTitle = attributedText
             }
+            
             button.imagePosition = .imageLeft
         } else {
             button.imagePosition = .imageOnly
