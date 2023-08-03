@@ -26,9 +26,9 @@ struct SongDurationView: View {
     
     var body: some View {
         HStack {
-            Text(timeString(time: elapsedTime))
+            Text(Double(elapsedTime).isNaN ? "--:--" : timeString(time: elapsedTime))
             Spacer()
-            Text("-\(timeString(time: duration - elapsedTime))")
+            Text((Double(elapsedTime).isNaN) || (Double(duration).isNaN) ? "--:--" : "-\(timeString(time: duration - elapsedTime))")
         }.opacity(0.5)
             .font(.system(size: 11))
     }
