@@ -22,9 +22,8 @@ class StatusBar {
         self.statusItem.button?.image = self.statusBarImage()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.setMedia()
-            self.setupMenu()
         }
-        
+        self.setupMenu()
         NotificationCenter.default.addObserver(self, selector: #selector(updateView), name: Notification.Name("MediaUpdated"), object: nil)
     }
     
