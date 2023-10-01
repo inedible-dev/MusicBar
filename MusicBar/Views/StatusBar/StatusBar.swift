@@ -7,6 +7,7 @@
 
 import AppKit
 import SwiftUI
+import MusicKit
 
 class StatusBar {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -18,27 +19,19 @@ class StatusBar {
     var timer: Timer?
     
     init() {
-        statusItem.button?.image = statusBarImage()
-    }
-    
-    // MARK: - Thread Timer Loop
-    
-    func startTimer(interval: Double = 0.75) {
-        let thread = Thread {
-            let customRunLoop = RunLoop.current
-            
-            CFRunLoopAddObserver(CFRunLoopGetCurrent(), ThreadRunner.customObserver, CFRunLoopMode.commonModes)
-            
-            let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { (timer) in
-                self.setMedia()
-            }
-            customRunLoop.add(timer, forMode: .default)
-            
-            customRunLoop.run()
-            
+        self.statusItem.button?.image = self.statusBarImage()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.setMedia()
+            self.setupMenu()
         }
         
-        thread.start()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateView), name: Notification.Name("MediaUpdated"), object: nil)
+    }
+    
+    // MARK: - Update View
+    
+    @objc private func updateView() {
+        self.setMedia()
     }
     
     // MARK: - Get Status Bar Image
@@ -99,7 +92,7 @@ class StatusBar {
     
     private func cutSongTitle(_ songTitle: String?) -> String {
         var songT = songTitle
-        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with"]
+        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with", "(FEAT.", "FEAT."]
         songT?.cutFeat(separator: cutPhrase)
         return songT ?? "Music Not Playing"
     }
@@ -112,28 +105,22 @@ class StatusBar {
         return artistCut ?? ""
     }
     
-    // MARK: - Fetch & Update Now Playing
+    // MARK: - Update Now Playing
     
-    private func setMedia() {
-        nowPlaying.fetchNowPlaying()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            guard let songTitle = self.nowPlaying.mediaInfo.songTitle else {
-                self.handleNoSongTitle()
-                return
-            }
-            self.updateStatusItemIfNeeded(songTitle: songTitle, artist: self.nowPlaying.mediaInfo.songArtist, artwork: self.nowPlaying.mediaInfo.albumArtwork)
+    func setMedia() {
+        guard let songTitle = self.nowPlaying.mediaInfo.songTitle else {
+            self.handleNoSongTitle()
+            return
         }
+        self.updateStatusItemIfNeeded(songTitle: songTitle, artist: self.nowPlaying.mediaInfo.songArtist, artwork: self.nowPlaying.mediaInfo.albumArtwork)
     }
     
     private func handleNoSongTitle() {
-        statusItem.button?.image = statusBarImage()
-        statusItem.button?.title = ""
-        if firstLaunchInitiated {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {}
-        } else {
-            firstLaunchInitiated = true
+        if let button = statusItem.button {
+            button.image = statusBarImage()
+            button.title = ""
         }
+        firstLaunchInitiated = true
     }
     
     private func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
@@ -181,14 +168,14 @@ class StatusBar {
         
         let menu = NSMenu()
         
-        if #available(macOS 11.0, *) {
+        if #available(macOS 12.0, *) {
             menu._setHasPadding(false, onEdge: 1)
             menu._setHasPadding(false, onEdge: 3)
             
             let menuView = NSMenuItem()
             let swiftUIView = NSHostingView(rootView: MenuView(info: nowPlaying))
             
-            swiftUIView.frame = NSRect(x: 0, y: 0, width: 300, height: 550)
+            swiftUIView.setFrameSize(NSSize(width: 300, height: 550))
             
             menuView.view = swiftUIView
             

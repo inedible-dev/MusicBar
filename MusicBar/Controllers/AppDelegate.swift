@@ -12,7 +12,8 @@ import LaunchAtLogin
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var isLaunchedFirstTime = true
     
-    private var preferencesController: NSWindowController?
+    
+    private var statusBar: StatusBar!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -23,11 +24,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             LaunchAtLogin.isEnabled = true
             UserDefaults.standard.set(false, forKey: "isLaunchedFirstTime")
         }
-        
-        let statusBar = StatusBar()
-        
-        statusBar.startTimer()
-        statusBar.setupMenu()
+//        
+        statusBar = StatusBar()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
