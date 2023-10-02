@@ -48,7 +48,6 @@ struct MenuView: View {
     var body: some View {
         VStack {
             VStack {
-                TimelineView(.periodic(from: .now, by: 1.0)) { _ in
                     SongArtworkView(mediaInfo: $info.mediaInfo)
                     VStack {
                         HStack {
@@ -62,9 +61,11 @@ struct MenuView: View {
                                 LiveBar()
                             } else if let elapsedTime = getElapsedTime(), let duration = info.mediaInfo.duration {
                                 VStack {
-                                    DurationBar(value: Double(elapsedTime) / duration)
-                                        .frame(height: 8)
-                                    SongDurationView(elapsedTime: elapsedTime, elapsedTimeState: info.mediaInfo.elapsedTimeState, duration: duration)
+                                    TimelineView(.periodic(from: .now, by: 1.0)) { _ in
+                                        DurationBar(value: Double(elapsedTime) / duration)
+                                            .frame(height: 8)
+                                        SongDurationView(elapsedTime: elapsedTime, elapsedTimeState: info.mediaInfo.elapsedTimeState, duration: duration)
+                                    }
                                 }
                             } else {
                                 DurationBar(value: 0)
@@ -72,7 +73,6 @@ struct MenuView: View {
                             }
                         }.padding(.vertical, 10)
                     }.padding(.horizontal, 2)
-                }
                 HStack {
                     if info.mediaInfo.isLive != true {
                         MediaControls(buttonsHovered: $buttonsHovered, command: .rewind)
@@ -85,18 +85,20 @@ struct MenuView: View {
             }.padding(.top, 5)
                 .padding(.horizontal, 5)
             Spacer()
-            VStack {
+            HStack(spacing: 2) {
+                Spacer()
                 Button(action: {
                     NSApp.setActivationPolicy(.regular)
+                    if #available(macOS 13, *) {
+                        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+                    } else {
+                        NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
+                    }
                 }) {
-                    HStack {
-                        Text("Settings")
-                        Spacer()
-                        Text("⌘P")
-                    }.padding(6)
-                        .opacity(0.5)
-                        .background(buttonsHovered.settings ? Color.init(white: 0.9).opacity(0.1) : Color.clear)
-                        .cornerRadius(6)
+                    Image(systemName: "gear")
+                        .font(.title2)
+                        .padding(6)
+                        .opacity(buttonsHovered.settings ? 0.8 :0.5)
                         .onHover(perform: {
                             over in
                             withAnimation(.easeInOut(duration: 0.2)) {
@@ -104,7 +106,21 @@ struct MenuView: View {
                             }
                         })
                 }.buttonStyle(PlainButtonStyle())
-            }
+                Button(action: {
+                    NSApplication.shared.terminate(nil)
+                }) {
+                    Image(systemName: "power")
+                        .font(.title2)
+                        .padding(6)
+                        .opacity(buttonsHovered.settings ? 0.8 :0.5)
+                        .onHover(perform: {
+                            over in
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                buttonsHovered.settings = over
+                            }
+                        })
+                }.buttonStyle(PlainButtonStyle())
+            }.padding(.horizontal, 6)
         }.padding(10)
             .artworkBackground(nsImage: info.mediaInfo.albumArtwork)
             .frame(width: 300, height: 550)
