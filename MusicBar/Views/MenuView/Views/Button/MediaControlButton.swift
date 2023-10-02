@@ -14,22 +14,12 @@ enum MediaControlsButtons: String {
 }
 
 @available(macOS 11.0, *)
-struct MediaControls: View {
+struct MediaControlButton: View {
     
-    @Binding var buttonsHovered: ButtonHovered
     var command: MediaControlsButtons
     var isPlaying: Bool?
     
-    func getToggle() -> Binding<Bool> {
-        switch command {
-        case .playPause:
-            return $buttonsHovered.play
-        case .forward:
-            return $buttonsHovered.next
-        case .rewind:
-            return $buttonsHovered.prev
-        }
-    }
+    @State var isHovered = false
     
     func getAction() -> MediaRemote.MediaRemoteCommands {
         switch command {
@@ -62,7 +52,7 @@ struct MediaControls: View {
             HStack {
                 Image(systemName: getImage())
                     .font(.system(size: (command == .playPause) ? 36 : 24))
-            }.actionsButton(toggled: getToggle())
+            }.actionsButton(toggled: $isHovered)
         }.buttonStyle(PlainButtonStyle())
     }
 }

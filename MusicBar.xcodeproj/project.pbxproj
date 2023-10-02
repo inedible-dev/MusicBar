@@ -21,7 +21,7 @@
 		1D824AE72A2F28D400A676C3 /* OldStatusBarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D824AE62A2F28D400A676C3 /* OldStatusBarSupport.swift */; };
 		1D824AEA2A2F290900A676C3 /* SettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D824AE92A2F290900A676C3 /* SettingsData.swift */; };
 		1D824AED2A2F2AD000A676C3 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D824AEC2A2F2AD000A676C3 /* LocalStorage.swift */; };
-		1D8ECB3D2A32CD5300EDC3DA /* MediaControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8ECB3C2A32CD5300EDC3DA /* MediaControls.swift */; };
+		1D8ECB3D2A32CD5300EDC3DA /* MediaControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8ECB3C2A32CD5300EDC3DA /* MediaControlButton.swift */; };
 		1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */; };
 		1DA6BC1929250E9400A19BD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		1DA6BC1C29250E9500A19BD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1A29250E9500A19BD0 /* Main.storyboard */; };
@@ -30,6 +30,7 @@
 		1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */; };
 		1DB481942A2904F100354C9A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481932A2904F100354C9A /* String+Extension.swift */; };
 		1DD391682A2F8B7A00CF5486 /* PrivateMediaRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */; };
+		1DDE872D2ACAB3E4005937BE /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE872C2ACAB3E4005937BE /* TransparentButton.swift */; };
 		1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */; };
 		1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E42A1C91D900136BA2 /* View+Extension.swift */; };
 		1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E72A1C9A9C00136BA2 /* Thread.swift */; };
@@ -51,7 +52,7 @@
 		1D824AE62A2F28D400A676C3 /* OldStatusBarSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldStatusBarSupport.swift; sourceTree = "<group>"; };
 		1D824AE92A2F290900A676C3 /* SettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsData.swift; sourceTree = "<group>"; };
 		1D824AEC2A2F2AD000A676C3 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
-		1D8ECB3C2A32CD5300EDC3DA /* MediaControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControls.swift; sourceTree = "<group>"; };
+		1D8ECB3C2A32CD5300EDC3DA /* MediaControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaControlButton.swift; sourceTree = "<group>"; };
 		1DA6BC1129250E9300A19BD0 /* MusicBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DA6BC1429250E9300A19BD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DA6BC1829250E9400A19BD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,6 +63,7 @@
 		1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		1DB481932A2904F100354C9A /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DDE872C2ACAB3E4005937BE /* TransparentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentButton.swift; sourceTree = "<group>"; };
 		1DEEECFB2A24838200F91CC9 /* MusicBar-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicBar-Bridging-Header.h"; sourceTree = "<group>"; };
 		1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeTextView.swift; sourceTree = "<group>"; };
 		1DF215E42A1C91D900136BA2 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
@@ -114,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				1D2B92E82A30EB5B00549181 /* Extensions */,
-				1D8ECB3B2A32CD4900EDC3DA /* MediaControls */,
+				1D8ECB3B2A32CD4900EDC3DA /* Button */,
 				1D2DD69D2A317ECB00D62084 /* SongView */,
 				1D2DD6982A317D1B00D62084 /* LiveBar */,
 				1D704D002A2838E800C54DFC /* DurationBar */,
@@ -183,12 +185,13 @@
 			path = LocalStorage;
 			sourceTree = "<group>";
 		};
-		1D8ECB3B2A32CD4900EDC3DA /* MediaControls */ = {
+		1D8ECB3B2A32CD4900EDC3DA /* Button */ = {
 			isa = PBXGroup;
 			children = (
-				1D8ECB3C2A32CD5300EDC3DA /* MediaControls.swift */,
+				1D8ECB3C2A32CD5300EDC3DA /* MediaControlButton.swift */,
+				1DDE872C2ACAB3E4005937BE /* TransparentButton.swift */,
 			);
-			path = MediaControls;
+			path = Button;
 			sourceTree = "<group>";
 		};
 		1DA6BC0829250E9300A19BD0 = {
@@ -413,6 +416,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DDE872D2ACAB3E4005937BE /* TransparentButton.swift in Sources */,
 				1D2DD69F2A317ED500D62084 /* SongArtistView.swift in Sources */,
 				1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */,
 				1D824AE72A2F28D400A676C3 /* OldStatusBarSupport.swift in Sources */,
@@ -431,7 +435,7 @@
 				1D2B92ED2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift in Sources */,
 				1D2DD6A12A317F1C00D62084 /* SongArtworkView.swift in Sources */,
 				1D824AED2A2F2AD000A676C3 /* LocalStorage.swift in Sources */,
-				1D8ECB3D2A32CD5300EDC3DA /* MediaControls.swift in Sources */,
+				1D8ECB3D2A32CD5300EDC3DA /* MediaControlButton.swift in Sources */,
 				1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */,
 				1D2DD6A32A31827E00D62084 /* SongDurationView.swift in Sources */,
 				1D2DD69C2A317E7500D62084 /* SongTitleView.swift in Sources */,
