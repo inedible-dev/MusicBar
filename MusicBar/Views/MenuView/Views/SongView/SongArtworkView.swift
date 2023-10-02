@@ -11,7 +11,7 @@ import SwiftUI
 struct SongArtworkView: View {
     
     @Binding var mediaInfo: MediaRemoteInfo
-    @State var mediaPlaying = false
+    @State var mediaPlaying = true
 
     var body: some View {
         VStack {
@@ -34,7 +34,7 @@ struct SongArtworkView: View {
                 }.frame(maxWidth: 270, maxHeight: 270)
                     .aspectRatio(1, contentMode: .fill)
                     .cornerRadius(8)
-                    .scaleEffect(mediaPlaying ? 1 : 0.7)
+                    .scaleEffect(mediaPlaying ? 1 : 0.8 )
             } else {
                 VStack {
                     Image("double.note")
