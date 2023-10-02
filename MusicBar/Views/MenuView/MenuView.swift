@@ -46,31 +46,32 @@ struct MenuView: View {
     var body: some View {
         VStack {
             VStack {
-                SongArtworkView(mediaInfo: $info.mediaInfo)
-                VStack {
-                    HStack {
-                        VStack(spacing: 2) {
-                            SongTitleView(songTitle: info.mediaInfo.songTitle)
-                            SongArtistView(songArtist: info.mediaInfo.songArtist)
-                        }
-                    }.padding(.vertical, 4)
+                TimelineView(.periodic(from: .now, by: 1.0)) { _ in
+                    SongArtworkView(mediaInfo: $info.mediaInfo)
                     VStack {
-                        if info.mediaInfo.isLive == true {
-                            LiveBar()
-                        } else if let elapsedTime = getElapsedTime(), let duration = info.mediaInfo.duration {
-                            VStack {
-                                TimelineView(.periodic(from: .now, by: 1.0)) { _ in
+                        HStack {
+                            VStack(spacing: 2) {
+                                SongTitleView(songTitle: info.mediaInfo.songTitle)
+                                SongArtistView(songArtist: info.mediaInfo.songArtist)
+                            }
+                        }.padding(.vertical, 4)
+                        VStack {
+                            if info.mediaInfo.isLive == true {
+                                LiveBar()
+                            } else if let elapsedTime = getElapsedTime(), let duration = info.mediaInfo.duration {
+                                VStack {
                                     DurationBar(value: Double(elapsedTime) / duration)
                                         .frame(height: 8)
                                     SongDurationView(elapsedTime: elapsedTime, elapsedTimeState: info.mediaInfo.elapsedTimeState, duration: duration)
                                 }
+                                
+                            } else {
+                                DurationBar(value: 0)
+                                    .frame(height: 8)
                             }
-                        } else {
-                            DurationBar(value: 0)
-                                .frame(height: 8)
-                        }
-                    }.padding(.vertical, 10)
-                }.padding(.horizontal, 2)
+                        }.padding(.vertical, 10)
+                    }.padding(.horizontal, 2)
+                }
                 HStack {
                     if info.mediaInfo.isLive != true {
                         MediaControlButton(command: .rewind)
