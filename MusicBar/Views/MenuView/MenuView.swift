@@ -87,12 +87,7 @@ struct MenuView: View {
             HStack(spacing: 2) {
                 Spacer()
                 TransparentButton(systemName: "gear") {
-                    NSApp.setActivationPolicy(.regular)
-                    if #available(macOS 13, *) {
-                        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-                    } else {
-                        NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
-                    }
+                    NotificationCenter.default.post(name: Notification.Name("OpenSettings"), object: nil)
                 }
                 TransparentButton(systemName: "power") {
                     NSApplication.shared.terminate(nil)

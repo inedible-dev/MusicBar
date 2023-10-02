@@ -37,7 +37,7 @@ struct SongDurationView: View {
     }
     
     func showRemainingTime() -> String {
-        if !duration.isNaN && !elapsedTime.isNaN || duration > 0 || elapsedTime > 0 {
+        if (!duration.isNaN && !elapsedTime.isNaN) || (duration > 0 && elapsedTime > 0) {
             return "-\(timeString(time: duration - elapsedTime))"
         } else {
             return "--:--"
