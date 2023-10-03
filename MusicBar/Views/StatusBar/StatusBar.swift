@@ -19,8 +19,7 @@ class StatusBar {
     var timer: Timer?
     
     init() {
-        self.statusItem.button?.image = self.statusBarImage()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.setMedia()
         }
         self.setupMenu()
