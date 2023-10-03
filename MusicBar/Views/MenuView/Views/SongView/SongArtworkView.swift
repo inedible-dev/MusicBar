@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(macOS 11.0, *)
+@available(macOS 12.0, *)
 struct SongArtworkView: View {
     
     @Binding var mediaInfo: MediaRemoteInfo

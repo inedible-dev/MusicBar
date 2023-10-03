@@ -36,7 +36,7 @@ class StatusBar {
     // MARK: - Get Status Bar Image
     
     func statusBarImage() -> NSImage? {
-        if #available(macOS 11.0, *) {
+        if #available(macOS 12.0, *) {
             return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
         } else {
             let image = NSImage(named: NSImage.Name("music.note"))

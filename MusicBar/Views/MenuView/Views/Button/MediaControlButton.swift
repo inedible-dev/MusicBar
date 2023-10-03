@@ -13,7 +13,7 @@ enum MediaControlsButtons: String {
     case rewind = "backward.fill"
 }
 
-@available(macOS 11.0, *)
+@available(macOS 12.0, *)
 struct MediaControlButton: View {
     
     var command: MediaControlsButtons
