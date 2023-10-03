@@ -9,9 +9,12 @@
 import Cocoa
 import SwiftUI
 
+enum SelectedSettingsMenu: String {
+    case general = "General",
+         statusBar = "Status Bar"
+}
+
 class SettingsViewController: NSObject, NSWindowDelegate {
-    
-    let hostingController = NSHostingController(rootView: SettingsView())
     
     var window: NSWindow?
     
@@ -20,35 +23,52 @@ class SettingsViewController: NSObject, NSWindowDelegate {
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(handleExitSettings), name: Notification.Name("HandleExitSettings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setTitle), name: Notification.Name("ChangeSettingsTitle"), object: nil)
     }
     
     func setup() {
         
-        window = NSWindow(contentViewController: hostingController)
-        
-        let closeButton = window?.standardWindowButton(.closeButton)
-        
-        closeButton?.action = #selector(NSWindow.handleCustomClose(_:))
-        
-        
-        window?.setContentSize(NSSize(width: 380, height: 400))
-        
-        let controller = NSWindowController(window: window)
-        controller.showWindow(nil)
-        
-        NSApp.activate(ignoringOtherApps: true)
-        
-        window?.styleMask.formUnion(.fullSizeContentView)
-        
-        NSApp.windows[0].makeKeyAndOrderFront(self)
-        
-        window?.delegate = self
-        
-        isAlreadySetup = true
+        if #available(macOS 12.0, *) {
+            
+            let hostingController = NSHostingController(rootView: SettingsView())
+            
+            window = NSWindow(contentViewController: hostingController)
+            
+            let closeButton = window?.standardWindowButton(.closeButton)
+            
+            closeButton?.action = #selector(NSWindow.handleCustomClose(_:))
+            
+            window?.toolbarStyle = .preference
+            
+            window?.title = SelectedSettingsMenu.general.rawValue
+            
+            window?.setContentSize(NSSize(width: 380, height: 400))
+            
+            let controller = NSWindowController(window: window)
+            controller.showWindow(nil)
+            
+            NSApp.activate(ignoringOtherApps: true)
+            
+            window?.styleMask.formUnion(.fullSizeContentView)
+            
+            window?.makeKeyAndOrderFront(self)
+            
+            NSApp.windows[0].makeKeyAndOrderFront(self)
+            
+            window?.delegate = self
+            
+            isAlreadySetup = true
+        }
     }
     
     @objc func handleExitSettings() {
         isAlreadySetup = false
+    }
+    
+    @objc func setTitle(_ notification: Notification) {
+        if let title = notification.userInfo?["title"] as? String {
+            window?.title = title
+        }
     }
 }
 
