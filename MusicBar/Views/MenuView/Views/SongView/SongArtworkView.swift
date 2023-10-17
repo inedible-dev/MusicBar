@@ -17,7 +17,7 @@ struct SongArtworkView: View {
         VStack {
             if let albumArtwork = mediaInfo.albumArtwork, albumArtwork.size.width != 0 {
                 ZStack {
-                    if albumArtwork.size.width != albumArtwork.size.height {
+                    if albumArtwork.size.width / albumArtwork.size.height > 1.01 || albumArtwork.size.width / albumArtwork.size.height > 0.09 {
                         Rectangle()
                             .background(albumArtwork.averageColor ?? Color(white: 0.15))
                     }
