@@ -90,7 +90,7 @@ class StatusBar {
     
     private func cutSongTitle(_ songTitle: String?) -> String {
         var songT = songTitle
-        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with", "(FEAT.", "FEAT."]
+        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with", "(FEAT.", "FEAT.", "(prod", "prod."]
         songT?.cutFeat(separator: cutPhrase)
         return songT ?? "Music Not Playing"
     }
