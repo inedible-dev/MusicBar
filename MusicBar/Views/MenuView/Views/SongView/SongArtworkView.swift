@@ -12,7 +12,7 @@ struct SongArtworkView: View {
     
     @Binding var mediaInfo: MediaRemoteInfo
     @State var mediaPlaying = true
-
+    
     var body: some View {
         VStack {
             if let albumArtwork = mediaInfo.albumArtwork, albumArtwork.size.width != 0 {
@@ -31,8 +31,7 @@ struct SongArtworkView: View {
                                 }
                             }
                         }
-                }.frame(maxWidth: 270, maxHeight: 270)
-                    .aspectRatio(1, contentMode: .fill)
+                }.aspectRatio(1, contentMode: .fill)
                     .cornerRadius(8)
                     .scaleEffect(mediaPlaying ? 1 : 0.8 )
             } else {
@@ -45,7 +44,8 @@ struct SongArtworkView: View {
                 }.background(Color.init(white: 0.5))
                     .cornerRadius(8)
             }
-        }.shadow(color: .black.opacity(0.3), radius: 8)
+        }.frame(maxWidth: 270, maxHeight: 270)
+            .shadow(color: .black.opacity(0.3), radius: 8)
             .padding(.vertical, 10)
     }
 }
