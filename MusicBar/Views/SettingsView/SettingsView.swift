@@ -16,17 +16,22 @@ struct SettingsView: View {
         VStack {
             switch selectedMenu {
             case .general:
-                Text("General Tab")
+                GeneralSettingsView()
             case .statusBar:
-                Text("Status Bar Tab")
+                if #available(macOS 13.0, *) {
+                    StatusBarSettingsView()
+                }
+                VStack {}
             }
         }.toolbar {
             ToolbarItemGroup(placement: .principal) {
                 ToolbarButton(title: SelectedSettingsMenu.general, systemName: "gearshape", isFocused: isFocused, selectedMenu: $selectedMenu)
-                ToolbarButton(title: SelectedSettingsMenu.statusBar, systemName: "rectangle.2.swap", isFocused: isFocused, selectedMenu: $selectedMenu)
+                if #available(macOS 13.0, *) {
+                    ToolbarButton(title: SelectedSettingsMenu.statusBar, systemName: "rectangle.2.swap", isFocused: isFocused, selectedMenu: $selectedMenu)
+                }
             }
         }.frame(minWidth: 480, minHeight: 300)
-            .fixedSize() 
+            .fixedSize()
             .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification), perform: { _ in
                 isFocused = true
             })
@@ -35,9 +40,6 @@ struct SettingsView: View {
             })
             .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeMainNotification), perform: { _ in
                 isFocused = true
-            })
-            .onReceive(NotificationCenter.default.publisher(for: NSWindow.didResignMainNotification), perform: { _ in
-                isFocused = false
             })
     }
 }
