@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1D02CC2729F59855007B299B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02CC2629F59855007B299B /* MenuView.swift */; };
+		1D1D2E942B08C50400B3A85A /* ReorderableForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D2E932B08C50400B3A85A /* ReorderableForEach.swift */; };
+		1D1D2E972B08F12900B3A85A /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D2E962B08F12900B3A85A /* DropView.swift */; };
+		1D1D2E992B08F15000B3A85A /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D2E982B08F15000B3A85A /* Sequence+Extension.swift */; };
 		1D2B92EA2A30EB6900549181 /* MenuView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92E92A30EB6900549181 /* MenuView+Extension.swift */; };
 		1D2B92ED2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92EC2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift */; };
 		1D2B92F02A30EBE900549181 /* ActionButton+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92EF2A30EBE900549181 /* ActionButton+ViewModifier.swift */; };
@@ -28,6 +31,8 @@
 		1DA6BC242925164100A19BD0 /* MediaRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC232925164100A19BD0 /* MediaRemote.swift */; };
 		1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC2929252A3300A19BD0 /* StatusBar.swift */; };
 		1DA778CB2ACBD4A50068C528 /* ToolbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA778CA2ACBD4A50068C528 /* ToolbarButton.swift */; };
+		1DA778D22ACBFF1E0068C528 /* StatusBarSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA778D12ACBFF1E0068C528 /* StatusBarSettingsView.swift */; };
+		1DA778D42ACBFF910068C528 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA778D32ACBFF910068C528 /* GeneralSettingsView.swift */; };
 		1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */; };
 		1DB481942A2904F100354C9A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481932A2904F100354C9A /* String+Extension.swift */; };
 		1DD391682A2F8B7A00CF5486 /* PrivateMediaRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */; };
@@ -43,6 +48,9 @@
 
 /* Begin PBXFileReference section */
 		1D02CC2629F59855007B299B /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		1D1D2E932B08C50400B3A85A /* ReorderableForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEach.swift; sourceTree = "<group>"; };
+		1D1D2E962B08F12900B3A85A /* DropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
+		1D1D2E982B08F15000B3A85A /* Sequence+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+Extension.swift"; sourceTree = "<group>"; };
 		1D2B92E92A30EB6900549181 /* MenuView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MenuView+Extension.swift"; sourceTree = "<group>"; };
 		1D2B92EC2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArtworkBackground+ViewModifier.swift"; sourceTree = "<group>"; };
 		1D2B92EF2A30EBE900549181 /* ActionButton+ViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionButton+ViewModifier.swift"; sourceTree = "<group>"; };
@@ -65,6 +73,8 @@
 		1DA6BC232925164100A19BD0 /* MediaRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemote.swift; sourceTree = "<group>"; };
 		1DA6BC2929252A3300A19BD0 /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		1DA778CA2ACBD4A50068C528 /* ToolbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButton.swift; sourceTree = "<group>"; };
+		1DA778D12ACBFF1E0068C528 /* StatusBarSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarSettingsView.swift; sourceTree = "<group>"; };
+		1DA778D32ACBFF910068C528 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Extension.swift"; sourceTree = "<group>"; };
 		1DB481932A2904F100354C9A /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		1DBA0D1929DD7C2F00A7B946 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +111,22 @@
 				1D02CC2629F59855007B299B /* MenuView.swift */,
 			);
 			path = MenuView;
+			sourceTree = "<group>";
+		};
+		1D1D2E922B087B7700B3A85A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1D1D2E932B08C50400B3A85A /* ReorderableForEach.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		1D1D2E952B08F12000B3A85A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1D1D2E962B08F12900B3A85A /* DropView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		1D2B92E82A30EB5B00549181 /* Extensions */ = {
@@ -206,9 +232,9 @@
 		1DA6BC0829250E9300A19BD0 = {
 			isa = PBXGroup;
 			children = (
+				1D4B849229272A2700942874 /* Frameworks */,
 				1DA6BC1329250E9300A19BD0 /* MusicBar */,
 				1DA6BC1229250E9300A19BD0 /* Products */,
-				1D4B849229272A2700942874 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +264,33 @@
 				1DA778CA2ACBD4A50068C528 /* ToolbarButton.swift */,
 			);
 			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		1DA778CE2ACBFE520068C528 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				1DA778D02ACBFE5C0068C528 /* StatusBar */,
+				1DA778CF2ACBFE560068C528 /* General */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		1DA778CF2ACBFE560068C528 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				1DA778D32ACBFF910068C528 /* GeneralSettingsView.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		1DA778D02ACBFE5C0068C528 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				1D1D2E952B08F12000B3A85A /* Views */,
+				1D1D2E922B087B7700B3A85A /* Utilities */,
+				1DA778D12ACBFF1E0068C528 /* StatusBarSettingsView.swift */,
+			);
+			path = StatusBar;
 			sourceTree = "<group>";
 		};
 		1DBD626B2A2F86F3007758A6 /* MediaRemoteUtilities */ = {
@@ -291,6 +344,7 @@
 		1DDE87322ACB0DEF005937BE /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
+				1DA778CE2ACBFE520068C528 /* Tabs */,
 				1DA778C92ACBD48B0068C528 /* Toolbar */,
 				1DDE87332ACB0DFB005937BE /* SettingsViewController.swift */,
 				1DDE87352ACB10BA005937BE /* SettingsView.swift */,
@@ -331,6 +385,7 @@
 				1DF215E42A1C91D900136BA2 /* View+Extension.swift */,
 				1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */,
 				1DB481932A2904F100354C9A /* String+Extension.swift */,
+				1D1D2E982B08F15000B3A85A /* Sequence+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -452,23 +507,28 @@
 				1D824AEA2A2F290900A676C3 /* SettingsData.swift in Sources */,
 				1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */,
 				1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */,
+				1DA778D22ACBFF1E0068C528 /* StatusBarSettingsView.swift in Sources */,
 				1D02CC2729F59855007B299B /* MenuView.swift in Sources */,
 				CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */,
 				1D2B92F02A30EBE900549181 /* ActionButton+ViewModifier.swift in Sources */,
 				1D2B92EA2A30EB6900549181 /* MenuView+Extension.swift in Sources */,
 				1DB481942A2904F100354C9A /* String+Extension.swift in Sources */,
 				1DA6BC2A29252A3300A19BD0 /* StatusBar.swift in Sources */,
+				1DA778D42ACBFF910068C528 /* GeneralSettingsView.swift in Sources */,
 				1DA6BC242925164100A19BD0 /* MediaRemote.swift in Sources */,
 				1D704D022A2838FE00C54DFC /* DurationBar.swift in Sources */,
 				1DDE87342ACB0DFB005937BE /* SettingsViewController.swift in Sources */,
 				1D2DD69A2A317D2900D62084 /* LiveBar.swift in Sources */,
 				1D2B92ED2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift in Sources */,
+				1D1D2E992B08F15000B3A85A /* Sequence+Extension.swift in Sources */,
 				1D2DD6A12A317F1C00D62084 /* SongArtworkView.swift in Sources */,
 				1D824AED2A2F2AD000A676C3 /* LocalStorage.swift in Sources */,
 				1D8ECB3D2A32CD5300EDC3DA /* MediaControlButton.swift in Sources */,
+				1D1D2E972B08F12900B3A85A /* DropView.swift in Sources */,
 				1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */,
 				1D2DD6A32A31827E00D62084 /* SongDurationView.swift in Sources */,
 				1DA778CB2ACBD4A50068C528 /* ToolbarButton.swift in Sources */,
+				1D1D2E942B08C50400B3A85A /* ReorderableForEach.swift in Sources */,
 				1D2DD69C2A317E7500D62084 /* SongTitleView.swift in Sources */,
 				1DA6BC1529250E9300A19BD0 /* AppDelegate.swift in Sources */,
 				1DDE87362ACB10BA005937BE /* SettingsView.swift in Sources */,
@@ -611,11 +671,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MusicBar/Resources/MusicBar.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = SX5J72PCDG;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -634,6 +694,7 @@
 				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kentakoong.MusicBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MusicBar/Resources/MusicBar-Bridging-Header.h";
@@ -649,11 +710,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MusicBar/Resources/MusicBar.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = SX5J72PCDG;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -672,6 +733,7 @@
 				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kentakoong.MusicBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MusicBar/Resources/MusicBar-Bridging-Header.h";
