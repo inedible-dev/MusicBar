@@ -5,12 +5,24 @@
 //  Created by Wongkraiwich Chuenchomphu on 6/6/23.
 //
 
-class LocalStorage {
+struct LocalStorage {
     func getSongTitleOnlyKey() -> Bool {
         return UserDefaults.standard.bool(forKey: "songTitleOnly")
     }
     
     func getLimitText() -> Bool {
         return UserDefaults.standard.bool(forKey: "limitText")
+    }
+    
+    func toggleSongTitleOnly() {
+        UserDefaults.standard.set(!getSongTitleOnlyKey(), forKey: "songTitleOnly")
+    }
+    
+    func getMaxStatusBarCharacters() -> Int {
+        return UserDefaults.standard.integer(forKey: "maxStatusBarCharacters")
+    }
+    
+    func setMaxStatusBarCharacters(_ max: Int) {
+        UserDefaults.standard.set(max, forKey: "maxStatusBarCharacters")
     }
 }
