@@ -18,17 +18,17 @@ struct SettingsView: View {
             case .general:
                 GeneralSettingsView()
             case .statusBar:
-                if #available(macOS 13.0, *) {
-                    StatusBarSettingsView()
-                }
+//                if #available(macOS 13.0, *) {
+//                    StatusBarSettingsView()
+//                }
                 VStack {}
             }
         }.toolbar {
             ToolbarItemGroup(placement: .principal) {
                 ToolbarButton(title: SelectedSettingsMenu.general, systemName: "gearshape", isFocused: isFocused, selectedMenu: $selectedMenu)
-                if #available(macOS 13.0, *) {
-                    ToolbarButton(title: SelectedSettingsMenu.statusBar, systemName: "rectangle.2.swap", isFocused: isFocused, selectedMenu: $selectedMenu)
-                }
+//                if #available(macOS 13.0, *) {
+//                    ToolbarButton(title: SelectedSettingsMenu.statusBar, systemName: "rectangle.2.swap", isFocused: isFocused, selectedMenu: $selectedMenu)
+//                }
             }
         }.frame(minWidth: 480, minHeight: 300)
             .fixedSize()
