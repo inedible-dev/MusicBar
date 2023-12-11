@@ -73,7 +73,7 @@ class MediaRemote: ObservableObject {
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "kMRMediaRemoteNowPlayingInfoDidChangeNotification"), object: nil, queue: nil) { (notification) in
             MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { (information) in
                 self.fetchNowPlaying(information: information)
-                NotificationCenter.default.post(name: Notification.Name("MediaUpdated"), object: nil)
+                StatusBar.setMedia()
             })
         }
         MRMediaRemoteRegisterForNowPlayingNotifications(DispatchQueue.main);
