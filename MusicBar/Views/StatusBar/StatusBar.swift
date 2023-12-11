@@ -10,31 +10,37 @@ import SwiftUI
 import MusicKit
 
 class StatusBar {
-    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    static let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
-    let nowPlaying = MediaRemote()
-    let localStorage = LocalStorage()
+    static let nowPlaying = MediaRemote()
     
-    private var firstLaunchInitiated = false
+    static private var firstLaunchInitiated = false
     var timer: Timer?
+    
+    var menuDelegate: MenuDelegate?
     
     init() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.setMedia()
+            StatusBar.setMedia()
         }
         self.setupMenu()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateView), name: Notification.Name("MediaUpdated"), object: nil)
     }
     
     // MARK: - Update View
     
-    @objc private func updateView() {
-        self.setMedia()
+    static func menuOpenActions() {
+        if self.nowPlaying.mediaInfo.isPlaying != nil {
+            statusItem.length = 100
+        }
+    }
+    
+    static func menuCloseActions() {
+        statusItem.length = NSStatusItem.variableLength
     }
     
     // MARK: - Get Status Bar Image
     
-    func statusBarImage() -> NSImage? {
+    static func statusBarImage() -> NSImage? {
         if #available(macOS 12.0, *) {
             return NSImage(systemSymbolName: "music.note", accessibilityDescription: "loading")
         } else {
@@ -45,59 +51,57 @@ class StatusBar {
     
     // MARK: - Get Status Bar Text
     
-    let maxLetters = 40
-    
-    func statusBarText(_ title: String, _ artist: String) -> String? {
+    static func statusBarText(_ title: String, _ artist: String) -> String? {
         let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
         let trimmedArtist = artist.trimmingCharacters(in: .whitespaces)
         let combinedCount = title.count + artist.count
         
-        if localStorage.getSongTitleOnlyKey() {
-            return handleSongTitleOnlyKey(trimmedTitle: trimmedTitle)
+        if LocalStorage().getSongTitleOnlyKey() {
+            return handleSongTitleOnlyKey(trimmedTitle)
         }
         if !trimmedTitle.isEmpty {
-            return handleNonEmptyTitle(trimmedTitle: trimmedTitle, trimmedArtist: trimmedArtist, combinedCount: combinedCount)
+            return handleNonEmptyTitle(trimmedTitle, trimmedArtist, combinedCount)
         }
         if !trimmedArtist.isEmpty {
-            return handleNonEmptyArtist(trimmedArtist: trimmedArtist)
+            return handleNonEmptyArtist(trimmedArtist)
         }
         return nil
     }
     
-    private func handleSongTitleOnlyKey(trimmedTitle: String) -> String {
-        return localStorage.getLimitText() || trimmedTitle.count < maxLetters
+    private static func handleSongTitleOnlyKey(_ trimmedTitle: String) -> String {
+        return LocalStorage().getLimitText() || trimmedTitle.count < LocalStorage().getMaxStatusBarCharacters()
         ? trimmedTitle
-        : trimmedTitle.truncate(maxLetters)
+        : trimmedTitle.truncate(LocalStorage().getMaxStatusBarCharacters())
     }
     
-    private func handleNonEmptyTitle(trimmedTitle: String, trimmedArtist: String, combinedCount: Int) -> String {
-        if localStorage.getLimitText() || (!trimmedArtist.isEmpty && combinedCount < maxLetters) {
+    private static func handleNonEmptyTitle(_ trimmedTitle: String,_ trimmedArtist: String,_ combinedCount: Int) -> String {
+        if LocalStorage().getLimitText() || (!trimmedArtist.isEmpty && combinedCount < LocalStorage().getMaxStatusBarCharacters()) {
             return "\(trimmedTitle) - \(trimmedArtist)"
         }
-        if localStorage.getLimitText() || trimmedTitle.count < maxLetters {
+        if LocalStorage().getLimitText() || trimmedTitle.count < LocalStorage().getMaxStatusBarCharacters() {
             return trimmedTitle
         }
-        return trimmedTitle.truncate(maxLetters)
+        return trimmedTitle.truncate(LocalStorage().getMaxStatusBarCharacters())
     }
     
-    private func handleNonEmptyArtist(trimmedArtist: String) -> String {
-        return localStorage.getLimitText() || trimmedArtist.count < maxLetters
+    private static func handleNonEmptyArtist(_ trimmedArtist: String) -> String {
+        return LocalStorage().getLimitText() || trimmedArtist.count < LocalStorage().getMaxStatusBarCharacters()
         ? "Song by \(trimmedArtist)"
-        : "Song by \(trimmedArtist.truncate(maxLetters))"
+        : "Song by \(trimmedArtist.truncate(LocalStorage().getMaxStatusBarCharacters()))"
     }
     
     // MARK: Cut Title / Artist
     
-    private func cutSongTitle(_ songTitle: String?) -> String {
+    private static func cutSongTitle(_ songTitle: String?) -> String {
         var songT = songTitle
-        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with", "(FEAT.", "FEAT.", "(prod", "prod."]
+        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with", "(FEAT.", "FEAT.", "(prod", "prod.", "(Original Soundtrack"]
         songT?.cutFeat(separator: cutPhrase)
         return songT ?? "Music Not Playing"
     }
     
-    private func cutArtist(_ songArtist: String?) -> String {
+    private static func cutArtist(_ songArtist: String?) -> String {
         var artistCut = songArtist
-        let cutPhrase = [",", "&", "×"]
+        let cutPhrase = [",", "&", "×", "-"]
         
         artistCut?.cutFeat(separator: cutPhrase)
         return artistCut ?? ""
@@ -105,32 +109,31 @@ class StatusBar {
     
     // MARK: - Update Now Playing
     
-    func setMedia() {
-        guard let songTitle = self.nowPlaying.mediaInfo.songTitle else {
+    static func setMedia() {
+        guard let songTitle = StatusBar.nowPlaying.mediaInfo.songTitle else {
             self.handleNoSongTitle()
             return
         }
-        self.updateStatusItemIfNeeded(songTitle: songTitle, artist: self.nowPlaying.mediaInfo.songArtist, artwork: self.nowPlaying.mediaInfo.albumArtwork)
+        self.updateStatusItemIfNeeded(songTitle: songTitle, artist: StatusBar.nowPlaying.mediaInfo.songArtist, artwork: StatusBar.nowPlaying.mediaInfo.albumArtwork)
     }
     
-    private func handleNoSongTitle() {
-        if let button = statusItem.button {
+    private static func handleNoSongTitle() {
+        if let button = StatusBar.statusItem.button {
             button.image = statusBarImage()
             button.title = ""
         }
         firstLaunchInitiated = true
     }
     
-    private func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
-        statusItem.length = NSStatusItem.variableLength
+    private static func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
         
-        if let button = statusItem.button {
+        if let button = StatusBar.statusItem.button {
             var resizedImage: NSImage?
             
             if let artwork = artwork, artwork.size.width != 0 {
                 resizedImage = artwork.scaledCopy(sizeOfLargerSide: 19)
             } else {
-                resizedImage = statusBarImage()
+                resizedImage = StatusBar.statusBarImage()
             }
             
             let songTitleCheck = cutSongTitle(songTitle)
@@ -141,20 +144,29 @@ class StatusBar {
             configureButtonTitle(button: button, check: check)
             
             button.image = resizedImage
+            
+            button.imagePosition = .imageLeft
         }
     }
     
-    private func configureButtonTitle(button: NSStatusBarButton, check: String?) {
+    private static func configureButtonTitle(button: NSStatusBarButton, check: String?) {
         if let check = check {
-            if #available(macOS 11.0, *) {
-                button.title = check
-            } else {
-                let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
-                let attributedText = NSAttributedString(string: check, attributes: attributes)
-                button.attributedTitle = attributedText
+            
+            let addSpacing = " " + check
+            
+            if LocalStorage().getMaxStatusBarCharacters() > 0 {
+                if #available(macOS 11.0, *) {
+                    button.title = addSpacing
+                    button.lineBreakMode = NSLineBreakMode.byTruncatingTail
+                } else {
+                    let attributes = [NSAttributedString.Key.foregroundColor: NSColor.white]
+                    let attributedText = NSAttributedString(string: addSpacing, attributes: attributes)
+                    button.attributedTitle = attributedText
+                }
             }
             
             button.imagePosition = .imageLeft
+            
         } else {
             button.imagePosition = .imageOnly
         }
@@ -171,13 +183,17 @@ class StatusBar {
             menu._setHasPadding(false, onEdge: 3)
             
             let menuView = NSMenuItem()
-            let swiftUIView = NSHostingView(rootView: MenuView(info: nowPlaying))
+            let swiftUIView = NSHostingView(rootView: MenuView(info: StatusBar.nowPlaying))
             
             swiftUIView.setFrameSize(NSSize(width: 300, height: 550))
             
             menuView.view = swiftUIView
             
             menu.addItem(menuView)
+            
+            self.menuDelegate = MenuDelegate()
+            
+            menu.delegate = self.menuDelegate
         } else {
             let oldMenu = OldStatusBarSupport()
             
@@ -187,6 +203,6 @@ class StatusBar {
             menu.addItem(oldMenu.quitMenu())
         }
         
-        statusItem.menu = menu
+        StatusBar.statusItem.menu = menu
     }
 }
