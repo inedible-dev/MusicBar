@@ -22,6 +22,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         isLaunchedFirstTime = UserDefaults.standard.bool(forKey: "isLaunchedFirstTime")
         
+        UserDefaults.standard.register(defaults: [
+            "maxStatusBarCharacters": 40,
+            "limitText": false
+        ])
+        
         if isLaunchedFirstTime {
             LaunchAtLogin.isEnabled = true
             UserDefaults.standard.set(false, forKey: "isLaunchedFirstTime")
@@ -31,6 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(showSettingsWindow), name: Notification.Name("OpenSettings"), object: nil)
     }
+    
     @IBAction func showSettingsFromMenu(_ sender: Any) {
         showSettingsWindow()
     }
