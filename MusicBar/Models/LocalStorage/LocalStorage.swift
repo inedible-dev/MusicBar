@@ -14,10 +14,6 @@ struct LocalStorage {
         return UserDefaults.standard.bool(forKey: "limitText")
     }
     
-    func toggleSongTitleOnly() {
-        UserDefaults.standard.set(!getSongTitleOnlyKey(), forKey: "songTitleOnly")
-    }
-    
     func getMaxStatusBarCharacters() -> Int {
         return UserDefaults.standard.integer(forKey: "maxStatusBarCharacters")
     }
