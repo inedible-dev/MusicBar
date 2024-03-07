@@ -33,7 +33,7 @@ struct SongArtworkView: View {
                         }
                 }.aspectRatio(1, contentMode: .fill)
                     .cornerRadius(8)
-                    .scaleEffect(mediaPlaying ? 1 : 0.8 )
+                    .scaleEffect(mediaPlaying ? 1 : 0.8)
             } else {
                 VStack {
                     Image("double.note")
