@@ -13,7 +13,7 @@ import MusicKit
 struct MediaRemoteInfo: Equatable {
     var songTitle: String?
     var songArtist: String?
-    var albumArtwork: NSImage?
+    var albumArtwork: Data?
     var isPlaying: Bool?
     var elapsedTime: Double?
     var elapsedTimeState: ElapsedTimeState?
@@ -142,7 +142,7 @@ class MediaRemote: ObservableObject {
                 }
                 
                 if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
-                    self.mediaInfo.albumArtwork = NSImage(data: infoImageData)
+                    self.mediaInfo.albumArtwork = infoImageData
                 } else {
                     if let title = self.mediaInfo.songTitle,
                        let artist = self.mediaInfo.songArtist,

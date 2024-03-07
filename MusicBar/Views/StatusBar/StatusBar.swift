@@ -114,7 +114,7 @@ class StatusBar {
             self.handleNoSongTitle()
             return
         }
-        self.updateStatusItemIfNeeded(songTitle: songTitle, artist: StatusBar.nowPlaying.mediaInfo.songArtist, artwork: StatusBar.nowPlaying.mediaInfo.albumArtwork)
+        self.updateStatusItemIfNeeded(songTitle: songTitle, artist: StatusBar.nowPlaying.mediaInfo.songArtist, artwork: NSImage(data: StatusBar.nowPlaying.mediaInfo.albumArtwork ?? Data()))
     }
     
     private static func handleNoSongTitle() {

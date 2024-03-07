@@ -94,7 +94,7 @@ struct MenuView: View {
                 }
             }.padding(.horizontal, 6)
         }.padding(10)
-            .artworkBackground(nsImage: info.mediaInfo.albumArtwork)
+            .artworkBackground(nsImage: NSImage(data: info.mediaInfo.albumArtwork ?? Data()))
             .frame(maxWidth: 300, maxHeight: 550)
     }
 }

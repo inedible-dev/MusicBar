@@ -15,13 +15,13 @@ struct SongArtworkView: View {
     
     var body: some View {
         VStack {
-            if let albumArtwork = mediaInfo.albumArtwork, albumArtwork.size.width != 0 {
+            if let albumArtwork = mediaInfo.albumArtwork, let albumArtworkImage = NSImage(data: albumArtwork), albumArtworkImage.size.width != 0 {
                 ZStack {
-                    if albumArtwork.size.width / albumArtwork.size.height > 1.01 || albumArtwork.size.width / albumArtwork.size.height > 0.09 {
+                    if albumArtworkImage.size.width / albumArtworkImage.size.height > 1.01 || albumArtworkImage.size.width / albumArtworkImage.size.height > 0.09 {
                         Rectangle()
-                            .background(albumArtwork.averageColor ?? Color(white: 0.15))
+                            .background(albumArtworkImage.averageColor ?? Color(white: 0.15))
                     }
-                    Image(nsImage: albumArtwork)
+                    Image(nsImage: albumArtworkImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .onChange(of: mediaInfo) { mediaInfo in
