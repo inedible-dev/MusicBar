@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1D02CC2729F59855007B299B /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D02CC2629F59855007B299B /* MenuView.swift */; };
+		1D0D3A632B9968F400B747DF /* MediaRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 1D0D3A622B9968F400B747DF /* MediaRemote */; };
+		1D0D3A652B9968F400B747DF /* PrivateMediaRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 1D0D3A642B9968F400B747DF /* PrivateMediaRemote */; };
+		1D0D3A682B9969A100B747DF /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1D0D3A672B9969A100B747DF /* LaunchAtLogin */; };
 		1D1D2E942B08C50400B3A85A /* ReorderableForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D2E932B08C50400B3A85A /* ReorderableForEach.swift */; };
 		1D1D2E972B08F12900B3A85A /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D2E962B08F12900B3A85A /* DropView.swift */; };
 		1D1D2E992B08F15000B3A85A /* Sequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1D2E982B08F15000B3A85A /* Sequence+Extension.swift */; };
@@ -19,7 +22,6 @@
 		1D2DD69F2A317ED500D62084 /* SongArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DD69E2A317ED500D62084 /* SongArtistView.swift */; };
 		1D2DD6A12A317F1C00D62084 /* SongArtworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DD6A02A317F1C00D62084 /* SongArtworkView.swift */; };
 		1D2DD6A32A31827E00D62084 /* SongDurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DD6A22A31827E00D62084 /* SongDurationView.swift */; };
-		1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4B849629272B9000942874 /* LaunchAtLogin */; };
 		1D67823E2B2700A60030B677 /* Binding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67823D2B2700A60030B677 /* Binding+Extension.swift */; };
 		1D704D022A2838FE00C54DFC /* DurationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D704D012A2838FE00C54DFC /* DurationBar.swift */; };
 		1D824AE72A2F28D400A676C3 /* OldStatusBarSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D824AE62A2F28D400A676C3 /* OldStatusBarSupport.swift */; };
@@ -37,7 +39,6 @@
 		1DA778D42ACBFF910068C528 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA778D32ACBFF910068C528 /* GeneralSettingsView.swift */; };
 		1DB481922A28EF0D00354C9A /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */; };
 		1DB481942A2904F100354C9A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481932A2904F100354C9A /* String+Extension.swift */; };
-		1DD391682A2F8B7A00CF5486 /* PrivateMediaRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */; };
 		1DDE872D2ACAB3E4005937BE /* TransparentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE872C2ACAB3E4005937BE /* TransparentButton.swift */; };
 		1DDE87312ACB0DD0005937BE /* SettingsView in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE87302ACB0DD0005937BE /* SettingsView */; };
 		1DDE87342ACB0DFB005937BE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE87332ACB0DFB005937BE /* SettingsViewController.swift */; };
@@ -99,8 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D4B849729272B9000942874 /* LaunchAtLogin in Frameworks */,
-				1DD391682A2F8B7A00CF5486 /* PrivateMediaRemote in Frameworks */,
+				1D0D3A682B9969A100B747DF /* LaunchAtLogin in Frameworks */,
+				1D0D3A632B9968F400B747DF /* MediaRemote in Frameworks */,
+				1D0D3A652B9968F400B747DF /* PrivateMediaRemote in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,8 +424,9 @@
 			);
 			name = MusicBar;
 			packageProductDependencies = (
-				1D4B849629272B9000942874 /* LaunchAtLogin */,
-				1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */,
+				1D0D3A622B9968F400B747DF /* MediaRemote */,
+				1D0D3A642B9968F400B747DF /* PrivateMediaRemote */,
+				1D0D3A672B9969A100B747DF /* LaunchAtLogin */,
 			);
 			productName = MusicBar;
 			productReference = 1DA6BC1129250E9300A19BD0 /* MusicBar.app */;
@@ -455,8 +458,8 @@
 			);
 			mainGroup = 1DA6BC0829250E9300A19BD0;
 			packageReferences = (
-				1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
-				1DD391642A2F8B7A00CF5486 /* XCRemoteSwiftPackageReference "MediaRemote" */,
+				1D0D3A612B9968F400B747DF /* XCRemoteSwiftPackageReference "MediaRemote" */,
+				1D0D3A662B9969A100B747DF /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 1DA6BC1229250E9300A19BD0 /* Products */;
 			projectDirPath = "";
@@ -773,15 +776,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		1DD391642A2F8B7A00CF5486 /* XCRemoteSwiftPackageReference "MediaRemote" */ = {
+		1D0D3A612B9968F400B747DF /* XCRemoteSwiftPackageReference "MediaRemote" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/PrivateFrameworks/MediaRemote";
 			requirement = {
@@ -789,18 +784,31 @@
 				minimumVersion = 0.1.0;
 			};
 		};
+		1D0D3A662B9969A100B747DF /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D4B849629272B9000942874 /* LaunchAtLogin */ = {
+		1D0D3A622B9968F400B747DF /* MediaRemote */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1D4B849529272B9000942874 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
-			productName = LaunchAtLogin;
+			package = 1D0D3A612B9968F400B747DF /* XCRemoteSwiftPackageReference "MediaRemote" */;
+			productName = MediaRemote;
 		};
-		1DD391672A2F8B7A00CF5486 /* PrivateMediaRemote */ = {
+		1D0D3A642B9968F400B747DF /* PrivateMediaRemote */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1DD391642A2F8B7A00CF5486 /* XCRemoteSwiftPackageReference "MediaRemote" */;
+			package = 1D0D3A612B9968F400B747DF /* XCRemoteSwiftPackageReference "MediaRemote" */;
 			productName = PrivateMediaRemote;
+		};
+		1D0D3A672B9969A100B747DF /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1D0D3A662B9969A100B747DF /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
