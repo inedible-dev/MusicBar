@@ -16,7 +16,7 @@ MusicBar is an easy, lightweight way to see currently playing music when working
 
 or
 
-Download [MusicBar.app.zip](https://github.com/Kentakoong/MusicBar/releases/download/v0.1.1/MusicBar.app.zip) from the [Releases](https://github.com/Kentakoong/MusicBar/releases) page. 
+Download [MusicBar.app.zip](https://github.com/inedible-dev/musicbar/releases/latest/download/musicbar.app.zip) from the [Releases](https://github.com/Kentakoong/MusicBar/releases) page. 
 
 <img width="512" alt="Screenshot 2022-11-18 at 3 28 39 PM" src="https://user-images.githubusercontent.com/35761701/202656533-3b1be2f7-14ec-44c2-9d52-cf9cb0165653.png">
 
