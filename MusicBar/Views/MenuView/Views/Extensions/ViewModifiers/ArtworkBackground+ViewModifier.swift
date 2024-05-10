@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ArtworkBackgroundViewModifier: ViewModifier {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var artwork: NSImage?
     
     func body(content: Content) -> some View {
@@ -19,9 +21,12 @@ struct ArtworkBackgroundViewModifier: ViewModifier {
                         Image(nsImage: artwork)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .blur(radius: 60)
-                            .opacity(0.5)
-                            .background(Color.init(white: 0.2).opacity(0.5))
+                            .blur(radius: 40)
+                            .opacity(0.4)
+                            .background(
+                                Color.init(white: colorScheme == .dark ? 0.2 : 0.9)
+                                    .opacity(colorScheme == .dark ? 0.5 : 0.9)
+                            )
                     }
                 }
         } else {
