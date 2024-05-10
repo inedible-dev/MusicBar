@@ -5,6 +5,8 @@
 //  Created by Wongkraiwich Chuenchomphu on 6/12/23.
 //
 
+import AppKit
+
 class MenuDelegate: NSObject, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         StatusBar.menuOpenActions()

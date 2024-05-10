@@ -29,7 +29,7 @@ class StatusBar {
     // MARK: - Update View
     
     static func menuOpenActions() {
-        if self.nowPlaying.mediaInfo.isPlaying != nil {
+        if self.nowPlaying.mediaInfo.isPlaying != nil && LocalStorage().getMaxStatusBarCharacters() > 1 {
             statusItem.length = 100
         }
     }
@@ -94,7 +94,7 @@ class StatusBar {
     
     private static func cutSongTitle(_ songTitle: String?) -> String {
         var songT = songTitle
-        let cutPhrase = ["(feat.", "Feat.", "(produced by", "(with", "(FEAT.", "FEAT.", "(prod", "prod.", "(Original Soundtrack"]
+        let cutPhrase = ["(feat.", "feat.", "(produced by", "(with", "(prod", "prod.", "(Original Soundtrack"]
         songT?.cutFeat(separator: cutPhrase)
         return songT ?? "Music Not Playing"
     }

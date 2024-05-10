@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(macOS 11.0, *)
 extension View {
     func artworkBackground(nsImage: NSImage?) -> some View {
         modifier(ArtworkBackgroundViewModifier(artwork: nsImage))
