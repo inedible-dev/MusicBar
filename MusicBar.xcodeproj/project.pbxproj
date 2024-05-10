@@ -52,6 +52,17 @@
 		1DF215E12A1C917100136BA2 /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */; };
 		1DF215E52A1C91D900136BA2 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E42A1C91D900136BA2 /* View+Extension.swift */; };
 		1DF215E82A1C9A9C00136BA2 /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E72A1C9A9C00136BA2 /* Thread.swift */; };
+		79E9A59A2BA6A947008EEC2A /* SongArtworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DD6A02A317F1C00D62084 /* SongArtworkView.swift */; };
+		79E9A59B2BA6A9F9008EEC2A /* NSImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481912A28EF0D00354C9A /* NSImage+Extension.swift */; };
+		79E9A59C2BA6AADE008EEC2A /* SongTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DD69B2A317E7500D62084 /* SongTitleView.swift */; };
+		79E9A59D2BA6AAE5008EEC2A /* SongArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2DD69E2A317ED500D62084 /* SongArtistView.swift */; };
+		79E9A59E2BA6AB14008EEC2A /* MarqueeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E02A1C917100136BA2 /* MarqueeTextView.swift */; };
+		79E9A59F2BA6AB29008EEC2A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB481932A2904F100354C9A /* String+Extension.swift */; };
+		79E9A5A02BA6AB3F008EEC2A /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF215E42A1C91D900136BA2 /* View+Extension.swift */; };
+		79E9A5A12BA6AB84008EEC2A /* ArtworkBackground+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92EC2A30EBC800549181 /* ArtworkBackground+ViewModifier.swift */; };
+		79E9A5A22BA6AC49008EEC2A /* MenuView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92E92A30EB6900549181 /* MenuView+Extension.swift */; };
+		79E9A5A32BA6AC5B008EEC2A /* ActionButton+ViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B92EF2A30EBE900549181 /* ActionButton+ViewModifier.swift */; };
+		79E9A5A42BA6AD77008EEC2A /* Assets.xcassets in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6BC1829250E9400A19BD0 /* Assets.xcassets */; };
 		CEFC2C4C2A24F51700254869 /* CustomMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFC2C4B2A24F51700254869 /* CustomMenuView.m */; };
 /* End PBXBuildFile section */
 
@@ -603,6 +614,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79E9A5A42BA6AD77008EEC2A /* Assets.xcassets in Sources */,
+				79E9A5A32BA6AC5B008EEC2A /* ActionButton+ViewModifier.swift in Sources */,
+				79E9A5A22BA6AC49008EEC2A /* MenuView+Extension.swift in Sources */,
+				79E9A5A12BA6AB84008EEC2A /* ArtworkBackground+ViewModifier.swift in Sources */,
+				79E9A5A02BA6AB3F008EEC2A /* View+Extension.swift in Sources */,
+				79E9A59F2BA6AB29008EEC2A /* String+Extension.swift in Sources */,
+				79E9A59E2BA6AB14008EEC2A /* MarqueeTextView.swift in Sources */,
+				79E9A59D2BA6AAE5008EEC2A /* SongArtistView.swift in Sources */,
+				79E9A59C2BA6AADE008EEC2A /* SongTitleView.swift in Sources */,
+				79E9A59B2BA6A9F9008EEC2A /* NSImage+Extension.swift in Sources */,
+				79E9A59A2BA6A947008EEC2A /* SongArtworkView.swift in Sources */,
 				1D0D3A8D2B9970BD00B747DF /* MusicBarWidgetBundle.swift in Sources */,
 				1D0D3A8F2B9970BD00B747DF /* MusicBarWidget.swift in Sources */,
 			);
