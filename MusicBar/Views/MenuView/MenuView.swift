@@ -22,7 +22,12 @@ struct ButtonHovered {
 
 @available(macOS 12.0, *)
 struct MenuView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     @ObservedObject var info: MediaRemote
+    
+    @State var mediaPlaying = true
     
     func getElapsedTime() -> Double? {
         if let timestamp = info.mediaInfo.timestamp {
@@ -47,7 +52,8 @@ struct MenuView: View {
         VStack {
             VStack {
                 TimelineView(.periodic(from: .now, by: 1.0)) { _ in
-                    SongArtworkView(mediaInfo: $info.mediaInfo)
+                    SongArtworkView(artwork: info.mediaInfo.albumArtwork, mediaPlaying: mediaPlaying)
+                        .padding(.vertical, 10)
                     VStack {
                         HStack {
                             VStack(spacing: 2) {
@@ -64,7 +70,6 @@ struct MenuView: View {
                                         .frame(height: 8)
                                     SongDurationView(elapsedTime: elapsedTime, elapsedTimeState: info.mediaInfo.elapsedTimeState, duration: duration)
                                 }
-                                
                             } else {
                                 DurationBar(value: 0)
                                     .frame(height: 8)
@@ -94,7 +99,15 @@ struct MenuView: View {
                 }
             }.padding(.horizontal, 6)
         }.padding(10)
+            .foregroundStyle(colorScheme == .dark ? Color.white : Color.black)
             .artworkBackground(nsImage: NSImage(data: info.mediaInfo.albumArtwork ?? Data()))
             .frame(maxWidth: 300, maxHeight: 550)
+            .onChange(of: info.mediaInfo) { mediaInfo in
+                if let isPlaying = mediaInfo.isPlaying {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        mediaPlaying = isPlaying
+                    }
+                }
+            }
     }
 }
