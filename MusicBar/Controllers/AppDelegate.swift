@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             LaunchAtLogin.isEnabled = true
             UserDefaults.standard.set(false, forKey: "isLaunchedFirstTime")
         }
-        //
+        
         statusBar = StatusBar()
         
         NotificationCenter.default.addObserver(self, selector: #selector(showSettingsWindow), name: Notification.Name("OpenSettings"), object: nil)
