@@ -35,17 +35,12 @@ struct MenuView: View {
             case .useElapsedTime:
                 return info.mediaInfo.elapsedTime
             case .useIntervalAndElapsedTime:
-                if let elapsedTime = info.mediaInfo.elapsedTime {
-                    return Date().timeIntervalSince(timestamp) + elapsedTime
-                } else {
-                    return Date().timeIntervalSince(timestamp)
-                }
-            case nil:
+                return Date().timeIntervalSince(timestamp) + (info.mediaInfo.elapsedTime ?? 0)
+            default:
                 return nil
             }
-        } else {
-            return nil
         }
+        return nil
     }
     
     var body: some View {

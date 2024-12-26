@@ -10,7 +10,7 @@ extension String {
         var joined = self
         
         for i in separator {
-            joined = joined.lowercased().components(separatedBy: i)[0]
+            joined = joined.components(separatedBy: i)[0]
         }
         
         self = joined.trimmingCharacters(in: .whitespaces)

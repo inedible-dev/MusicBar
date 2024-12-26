@@ -9,6 +9,8 @@ import Cocoa
 import Foundation
 import AppKit
 import MusicKit
+import PrivateMediaRemote
+import Combine
 
 struct MediaRemoteInfo: Equatable {
     var songTitle: String?
@@ -21,6 +23,8 @@ struct MediaRemoteInfo: Equatable {
     var duration: TimeInterval?
     var isLive: Bool?
     var isMusicApp: Bool?
+    var clientName: String?
+    var clientIcon: NSImage?
 }
 
 enum ElapsedTimeState {
@@ -33,55 +37,59 @@ class MediaRemote: ObservableObject {
     
     var firstLaunchInitiated = false
     
-    private static let bundle = CFBundleCreate(kCFAllocatorDefault, NSURL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework"))
-    
-    let MRMediaRemoteRegisterForNowPlayingNotificationsPointer = CFBundleGetFunctionPointerForName(
-        bundle, "MRMediaRemoteRegisterForNowPlayingNotifications" as CFString
-    )
-    typealias MRMediaRemoteRegisterForNowPlayingNotificationsFunction = @convention(c) (DispatchQueue) -> Void
-    
-    typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
-    typealias MRNowPlayingClientGetBundleIdentifierFunction = @convention(c) (AnyObject?) -> String
-    
-    func getNowPlaying() -> MRMediaRemoteGetNowPlayingInfoFunction? {
-        guard let MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(MediaRemote.bundle, "MRMediaRemoteGetNowPlayingInfo" as CFString) else { return nil }
-        let MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self)
-        
-        // Get a Swift function for MRNowPlayingClientGetBundleIdentifier
-        guard CFBundleGetFunctionPointerForName(MediaRemote.bundle, "MRNowPlayingClientGetBundleIdentifier" as CFString) != nil else { return nil }
-        
-        return MRMediaRemoteGetNowPlayingInfo
-    }
+    private var infoChangedCancellable: AnyCancellable?
     
     init() {
-        let MRMediaRemoteRegisterForNowPlayingNotifications = unsafeBitCast(MRMediaRemoteRegisterForNowPlayingNotificationsPointer, to: MRMediaRemoteRegisterForNowPlayingNotificationsFunction.self)
+        if !firstLaunchInitiated { self.fetchNowPlaying() }
         
-        let MRMediaRemoteGetNowPlayingInfoPointer = CFBundleGetFunctionPointerForName(
-            MediaRemote.bundle, "MRMediaRemoteGetNowPlayingInfo" as CFString)
-        typealias MRMediaRemoteGetNowPlayingInfoFunction = @convention(c) (DispatchQueue, @escaping ([String: Any]) -> Void) -> Void
-        let MRMediaRemoteGetNowPlayingInfo = unsafeBitCast(
-            MRMediaRemoteGetNowPlayingInfoPointer, to: MRMediaRemoteGetNowPlayingInfoFunction.self
-        )
-        
-        if let getNowPlaying = self.getNowPlaying() {
-            getNowPlaying(DispatchQueue.main, {
-                (information) in
-                self.fetchNowPlaying(information: information)
+        infoChangedCancellable = NotificationCenter.default.publisher(for: NSNotification.Name.mrMediaRemoteNowPlayingInfoDidChange)
+            .throttle(for: .seconds(1), scheduler: DispatchQueue.main, latest: true)
+            .sink(receiveValue: {
+                _ in
+                self.fetchNowPlaying()
             })
+        
+        MRMediaRemoteRegisterForNowPlayingNotifications(.main);
+    }
+    
+    private func fetchNowPlaying() {
+        MRMediaRemoteGetNowPlayingInfo(.main) {
+            information in
+            if let information = information as? [String : Any] {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.formatNowPlaying(information: information)
+                }
+            }
         }
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "kMRMediaRemoteNowPlayingInfoDidChangeNotification"), object: nil, queue: nil) { (notification) in
-            MRMediaRemoteGetNowPlayingInfo(DispatchQueue.main, { (information) in
-                self.fetchNowPlaying(information: information)
-                StatusBar.setMedia()
-            })
+        MRMediaRemoteGetNowPlayingClient(.main) {
+            client in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.mediaInfo.clientName = client?.displayName
+                if let bundleIdentifier = client?.bundleIdentifier {
+                    self.mediaInfo.clientIcon = self.getAppIcon(bundleIdentifier: bundleIdentifier)
+                }
+            }
         }
-        MRMediaRemoteRegisterForNowPlayingNotifications(DispatchQueue.main);
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            StatusBar.setMedia()
+        }
+    }
+    
+    private func getAppIcon(bundleIdentifier: String) -> NSImage? {
+        if let appURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier) {
+            let appIcon = NSWorkspace.shared.icon(forFile: appURL.path)
+            return appIcon
+        }
+        return nil
     }
     
     // MARK: - Analyze Now Playing Algorithm
     
-    @objc func fetchNowPlaying(information: [String : Any]) {
+    @objc func formatNowPlaying(information: [String : Any]) {
+        
+        print(information)
         
         let pastTitle = self.mediaInfo.songTitle
         let pastArtist = self.mediaInfo.songArtist
@@ -109,7 +117,7 @@ class MediaRemote: ObservableObject {
                         if self.mediaInfo.isPlaying == true {
                             self.mediaInfo.isLive = false
                         }
-//                        self.mediaInfo.elapsedTime = interval
+                        //                        self.mediaInfo.elapsedTime = interval
                         self.mediaInfo.elapsedTime = elapsedTime
                         self.mediaInfo.elapsedTimeState = .useIntervalAndElapsedTime
                     } else {
@@ -143,6 +151,11 @@ class MediaRemote: ObservableObject {
                 
                 if let infoImageData = information["kMRMediaRemoteNowPlayingInfoArtworkData"] as? Data {
                     self.mediaInfo.albumArtwork = infoImageData
+                    
+                    let image = NSImage(data: infoImageData)
+                    if let image = image, image.size.width < 250 {
+                        
+                    }
                 } else {
                     if let title = self.mediaInfo.songTitle,
                        let artist = self.mediaInfo.songArtist,
@@ -156,23 +169,7 @@ class MediaRemote: ObservableObject {
     
     // MARK: - Send MediaRemote Commands
     
-    typealias funcType = @convention(c) (Int, NSDictionary?) -> Void
-    
-    private func sendCommand(_ command: Int) {
-        guard let ptr = CFBundleGetFunctionPointerForName(MediaRemote.bundle, "MRMediaRemoteSendCommand" as CFString) else { return }
-        let MRMediaRemoteSendCommand = unsafeBitCast(ptr, to: funcType.self)
+    func controlMedia(command: MRMediaRemoteCommand) {
         MRMediaRemoteSendCommand(command, nil)
-    }
-    
-    // MARK: MediaRemote Commands
-    
-    enum MediaRemoteCommands: Int {
-        case togglePlayPause = 2
-        case forward = 4
-        case rewind = 5
-    }
-    
-    func controlMedia(command: MediaRemoteCommands) {
-        sendCommand(command.rawValue)
     }
 }

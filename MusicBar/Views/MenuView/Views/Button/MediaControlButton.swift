@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PrivateMediaRemote
 
 enum MediaControlsButtons: String {
     case playPause = "play.fill"
@@ -21,14 +22,14 @@ struct MediaControlButton: View {
     
     @State var isHovered = false
     
-    func getAction() -> MediaRemote.MediaRemoteCommands {
+    func getAction() -> MRMediaRemoteCommand {
         switch command {
         case .playPause:
-            return .togglePlayPause
+            return MRMediaRemoteCommandTogglePlayPause
         case .forward:
-            return .forward
+            return MRMediaRemoteCommandNextTrack
         case .rewind:
-            return .rewind
+            return MRMediaRemoteCommandPreviousTrack
         }
     }
     
