@@ -8,7 +8,7 @@
 import Foundation
 
 class ThreadRunner {
-    static let customObserver = CFRunLoopObserverCreateWithHandler(nil, CFRunLoopActivity.allActivities.rawValue , true, 0) { observer, activity in
+    @MainActor static let customObserver = CFRunLoopObserverCreateWithHandler(nil, CFRunLoopActivity.allActivities.rawValue , true, 0) { observer, activity in
         switch (activity) {
         case .entry:
             break

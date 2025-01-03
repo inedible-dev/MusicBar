@@ -24,3 +24,9 @@ struct StatusBarSettingsView: View {
         }.padding()
     }
 }
+
+#Preview {
+    if #available(macOS 13.0, *) {
+        StatusBarSettingsView()
+    }
+}

@@ -7,6 +7,7 @@
 
 import LaunchAtLogin
 
+@MainActor
 class OldStatusBarSupport {
     
     private let space = "     "

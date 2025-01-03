@@ -26,7 +26,7 @@ class SettingsViewController: NSObject, NSWindowDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(setTitle), name: Notification.Name("ChangeSettingsTitle"), object: nil)
     }
     
-    func setup() {
+    @MainActor func setup() {
         
         if #available(macOS 12.0, *) {
             
@@ -65,7 +65,7 @@ class SettingsViewController: NSObject, NSWindowDelegate {
         isAlreadySetup = false
     }
     
-    @objc func setTitle(_ notification: Notification) {
+    @MainActor @objc func setTitle(_ notification: Notification) {
         if let title = notification.userInfo?["title"] as? String {
             window?.title = title
         }

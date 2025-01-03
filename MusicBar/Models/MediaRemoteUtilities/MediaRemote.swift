@@ -9,7 +9,7 @@ import Cocoa
 import Foundation
 import AppKit
 import MusicKit
-import PrivateMediaRemote
+@preconcurrency import PrivateMediaRemote
 import Combine
 
 struct MediaRemoteInfo: Equatable {
@@ -31,7 +31,8 @@ enum ElapsedTimeState {
     case useElapsedTime, useIntervalAndElapsedTime
 }
 
-class MediaRemote: ObservableObject {
+@MainActor
+final class MediaRemote: ObservableObject {
     
     @Published var mediaInfo = MediaRemoteInfo()
     
@@ -40,40 +41,50 @@ class MediaRemote: ObservableObject {
     private var infoChangedCancellable: AnyCancellable?
     
     init() {
-        if !firstLaunchInitiated { self.fetchNowPlaying() }
+        if !firstLaunchInitiated {
+            fetchNowPlaying()
+            firstLaunchInitiated = true
+        }
         
-        infoChangedCancellable = NotificationCenter.default.publisher(for: NSNotification.Name.mrMediaRemoteNowPlayingInfoDidChange)
+        setupNowPlayingNotifications()
+    }
+    
+    private func setupNowPlayingNotifications() {
+        infoChangedCancellable = NotificationCenter.default
+            .publisher(for: NSNotification.Name.mrMediaRemoteNowPlayingInfoDidChange)
             .throttle(for: .seconds(1), scheduler: DispatchQueue.main, latest: true)
-            .sink(receiveValue: {
-                _ in
-                self.fetchNowPlaying()
-            })
+            .sink { [weak self] _ in
+                self?.fetchNowPlaying()
+            }
         
-        MRMediaRemoteRegisterForNowPlayingNotifications(.main);
+        MRMediaRemoteRegisterForNowPlayingNotifications(.main)
     }
     
     private func fetchNowPlaying() {
-        MRMediaRemoteGetNowPlayingInfo(.main) {
-            information in
-            if let information = information as? [String : Any] {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.formatNowPlaying(information: information)
-                }
-            }
-        }
+        fetchNowPlayingInfo()
+        fetchNowPlayingClient()
         
-        MRMediaRemoteGetNowPlayingClient(.main) {
-            client in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            StatusBar.setMedia()
+        }
+    }
+    
+    private func fetchNowPlayingInfo() {
+        MRMediaRemoteGetNowPlayingInfo(.main) { [weak self] info in
+            guard let self = self, let info = info as? [String: Any] else { return }
+            
+            self.formatNowPlaying(information: info)
+        }
+    }
+    
+    private func fetchNowPlayingClient() {
+        MRMediaRemoteGetNowPlayingClient(.main) { [weak self] client in
+            guard let self = self else { return }
+            
                 self.mediaInfo.clientName = client?.displayName
                 if let bundleIdentifier = client?.bundleIdentifier {
                     self.mediaInfo.clientIcon = self.getAppIcon(bundleIdentifier: bundleIdentifier)
                 }
-            }
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            StatusBar.setMedia()
         }
     }
     

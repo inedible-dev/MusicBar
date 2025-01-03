@@ -16,23 +16,31 @@ struct GeneralSettingsView: View {
     @AppStorage("maxStatusBarCharacters") var maxStatusBarCharacters = 40
     
     var body: some View {
-        VStack {
+        List {
             LaunchAtLogin.Toggle {
-                Text("Launch at login")
-            }
+                HStack {
+                    Text("Launch at login")
+                    Spacer()
+                }
+            }.toggleStyle(.switch)
             Toggle(isOn: $songTitleOnly) {
-                Text("Song Title Only")
-            }.onChange(of: songTitleOnly) { _ in
+                HStack {
+                    Text("Song Title Only")
+                    Spacer()
+                }
+            }.toggleStyle(.switch)
+                .onChange(of: songTitleOnly) { _ in
                 StatusBar.setMedia()
             }
             HStack {
-                Text("Max Status Bar Characters")
-                TextField("", value: $maxStatusBarCharacters.max(70), format: .number)
-                    .frame(maxWidth: 40)
-                Stepper("", value: $maxStatusBarCharacters, in: 0...70)
-                    .onChange(of: maxStatusBarCharacters) { _ in
-                        StatusBar.setMedia()
-                    }
+//                Text("Max Status Bar Characters")
+                TextField(value: $maxStatusBarCharacters.max(70), format: .number, prompt: Text("")) {
+                    Text("Max Status Bar Characters")
+                }
+//                Stepper("", value: $maxStatusBarCharacters, in: 0...70)
+//                    .onChange(of: maxStatusBarCharacters) { _ in
+//                        StatusBar.setMedia()
+//                    }
             }
         }.padding()
     }

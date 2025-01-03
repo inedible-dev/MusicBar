@@ -9,32 +9,29 @@ import AppKit
 import SwiftUI
 import MusicKit
 
-class StatusBar {
-    static let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+@MainActor
+final class StatusBar {
+     static let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     static let nowPlaying = MediaRemote()
-    
-    static private var firstLaunchInitiated = false
-    var timer: Timer?
-    
-    var menuDelegate: MenuDelegate?
     
     init() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             StatusBar.setMedia()
         }
+        
         self.setupMenu()
     }
     
     // MARK: - Update View
     
-    static func menuOpenActions() {
+     static func menuOpenActions() {
         if self.nowPlaying.mediaInfo.isPlaying != nil && LocalStorage().getMaxStatusBarCharacters() > 1 {
             statusItem.length = 100
         }
     }
     
-    static func menuCloseActions() {
+     static func menuCloseActions() {
         statusItem.length = NSStatusItem.variableLength
     }
     
@@ -109,7 +106,7 @@ class StatusBar {
     
     // MARK: - Update Now Playing
     
-    static func setMedia() {
+     static func setMedia() {
         guard let songTitle = StatusBar.nowPlaying.mediaInfo.songTitle else {
             self.handleNoSongTitle()
             return
@@ -117,15 +114,14 @@ class StatusBar {
         self.updateStatusItemIfNeeded(songTitle: songTitle, artist: StatusBar.nowPlaying.mediaInfo.songArtist, artwork: NSImage(data: StatusBar.nowPlaying.mediaInfo.albumArtwork ?? Data()))
     }
     
-    private static func handleNoSongTitle() {
+     private static func handleNoSongTitle() {
         if let button = StatusBar.statusItem.button {
             button.image = statusBarImage()
             button.title = ""
         }
-        firstLaunchInitiated = true
     }
     
-    private static func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
+     private static func updateStatusItemIfNeeded(songTitle: String, artist: String?, artwork: NSImage?) {
         
         if let button = StatusBar.statusItem.button {
             var resizedImage: NSImage?
@@ -149,7 +145,7 @@ class StatusBar {
         }
     }
     
-    private static func configureButtonTitle(button: NSStatusBarButton, check: String?) {
+     private static func configureButtonTitle(button: NSStatusBarButton, check: String?) {
         if let check = check {
             
             let addSpacing = " " + check
@@ -191,9 +187,9 @@ class StatusBar {
             
             menu.addItem(menuView)
             
-            self.menuDelegate = MenuDelegate()
+            let menuDelegate = MenuDelegate()
             
-            menu.delegate = self.menuDelegate
+            menu.delegate = menuDelegate
         } else {
             let oldMenu = OldStatusBarSupport()
             

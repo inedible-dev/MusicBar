@@ -41,7 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         showSettingsWindow()
     }
     
-    @objc func showSettingsWindow() {
+    @MainActor @objc func showSettingsWindow() {
         if settingsViewController.isAlreadySetup {
             NSApp.windows[0].makeKeyAndOrderFront(self)
         } else {
