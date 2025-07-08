@@ -1,3 +1,9 @@
+# Project Note, July 2025
+This project is right now on hiatus, but I'm always open for contributions, if you have any efforts on improving the project, please do fork from new-menu-1 branch.
+
+### The Project state currently is on a huge bug 
+Since Sequoia 15.4, Apple has put the MediaPlayer API in an internal library, causing the porting tool to not recognize the library at all, so no music playing would not show.
+
 # <img src="https://user-images.githubusercontent.com/35761701/204182243-6ad37686-e613-4280-ba83-7ec10bd25968.png" width="256" />
 <img align="right" height="200" alt="musicbar-readme" src="https://user-images.githubusercontent.com/35761701/230631038-e80f5cd6-cd85-4fb9-9b96-257fce49651f.png" />
 
